@@ -276,19 +276,11 @@
         "openAtStart": true
       },
       {
-        "name": "Query",
-        "version": "2.17",
-        "uri": "widgets/Query/Widget",
-        "config": "configs/Query/config_widgets_Query_Widget_23.json",
-        "index": 3,
-        "id": "widgets_Query_Widget_23"
-      },
-      {
         "name": "LayerList",
         "version": "2.17",
         "uri": "widgets/LayerList/Widget",
         "config": "configs/LayerList/config_widgets_LayerList_Widget_19.json",
-        "index": 4,
+        "index": 3,
         "id": "widgets_LayerList_Widget_19"
       },
       {
@@ -296,7 +288,7 @@
         "version": "2.17",
         "uri": "widgets/Measurement/Widget",
         "config": "configs/Measurement/config_widgets_Measurement_Widget_21.json",
-        "index": 5,
+        "index": 4,
         "id": "widgets_Measurement_Widget_21"
       },
       {
@@ -306,18 +298,8 @@
         "icon": "configs\\Estadisticas_wgt\\icon_widgets_Estadisticas_wgt_Widget_24.png",
         "uri": "widgets/Estadisticas_wgt/Widget",
         "config": "configs/Estadisticas_wgt/config_widgets_Estadisticas_wgt_Widget_24.json",
-        "index": 6,
+        "index": 5,
         "id": "widgets_Estadisticas_wgt_Widget_24"
-      },
-      {
-        "name": "Localizar_wgt",
-        "version": "0.0.1",
-        "IsController": false,
-        "icon": "configs\\Localizar_wgt\\icon_widgets_Localizar_wgt_Widget_25.png",
-        "uri": "widgets/Localizar_wgt/Widget",
-        "config": "configs/Localizar_wgt/config_widgets_Localizar_wgt_Widget_25.json",
-        "index": 7,
-        "id": "widgets_Localizar_wgt_Widget_25"
       },
       {
         "name": "Reporte_wgt",
@@ -326,7 +308,7 @@
         "icon": "configs\\Reporte_wgt\\icon_widgets_Reporte_wgt_Widget_26.png",
         "uri": "widgets/Reporte_wgt/Widget",
         "config": "configs/Reporte_wgt/config_widgets_Reporte_wgt_Widget_26.json",
-        "index": 8,
+        "index": 6,
         "id": "widgets_Reporte_wgt_Widget_26"
       },
       {
@@ -334,7 +316,7 @@
         "version": "2.17",
         "uri": "widgets/BasemapGallery/Widget",
         "config": "configs/BasemapGallery/config_widgets_BasemapGallery_Widget_20.json",
-        "index": 9,
+        "index": 7,
         "id": "widgets_BasemapGallery_Widget_20"
       },
       {
@@ -342,7 +324,7 @@
         "version": "2.17",
         "uri": "widgets/Legend/Widget",
         "config": "configs/Legend/config_widgets_Legend_Widget_18.json",
-        "index": 10,
+        "index": 8,
         "id": "widgets_Legend_Widget_18"
       }
     ],
@@ -390,284 +372,7 @@
     "rules": []
   },
   "dataSource": {
-    "dataSources": {
-      "widget~widgets_Query_Widget_23~0": {
-        "id": "widget~widgets_Query_Widget_23~0",
-        "type": "Features",
-        "label": "Declaración de Compromiso",
-        "dataSchema": {
-          "geometryType": "esriGeometryPoint",
-          "fields": [
-            {
-              "name": "ID",
-              "type": "esriFieldTypeString",
-              "alias": "ID",
-              "length": 80,
-              "domain": null
-            },
-            {
-              "name": "MINERO_INFORMAL",
-              "type": "esriFieldTypeString",
-              "alias": "MINERO_INFORMAL",
-              "length": 302,
-              "domain": null
-            },
-            {
-              "name": "TIPO_PERSONA",
-              "type": "esriFieldTypeString",
-              "alias": "TIPO_PERSONA",
-              "length": 8,
-              "domain": null
-            },
-            {
-              "name": "M_RUC",
-              "type": "esriFieldTypeString",
-              "alias": "M_RUC",
-              "length": 11,
-              "domain": null
-            },
-            {
-              "name": "ID_MAESTRA_RNC",
-              "type": "esriFieldTypeInteger",
-              "alias": "ID_MAESTRA_RNC",
-              "domain": null
-            },
-            {
-              "name": "CODIGO_RS",
-              "type": "esriFieldTypeString",
-              "alias": "CODIGO_RS",
-              "length": 13,
-              "domain": null
-            },
-            {
-              "name": "ID_REGION",
-              "type": "esriFieldTypeString",
-              "alias": "ID_REGION",
-              "length": 2,
-              "domain": null
-            },
-            {
-              "name": "REGION",
-              "type": "esriFieldTypeString",
-              "alias": "REGION",
-              "length": 60,
-              "domain": null
-            },
-            {
-              "name": "ID_UNIDAD",
-              "type": "esriFieldTypeString",
-              "alias": "ID_UNIDAD",
-              "length": 13,
-              "domain": null
-            },
-            {
-              "name": "DERECHO_MINERO",
-              "type": "esriFieldTypeString",
-              "alias": "DERECHO_MINERO",
-              "length": 100,
-              "domain": null
-            },
-            {
-              "name": "FLG_RS",
-              "type": "esriFieldTypeString",
-              "alias": "FLG_RS",
-              "length": 1,
-              "domain": null
-            },
-            {
-              "name": "ID_ZONA",
-              "type": "esriFieldTypeSmallInteger",
-              "alias": "ID_ZONA",
-              "domain": null
-            },
-            {
-              "name": "NORTE_PSAD56",
-              "type": "esriFieldTypeDouble",
-              "alias": "NORTE_PSAD56",
-              "domain": null
-            },
-            {
-              "name": "ESTE_PSAD56",
-              "type": "esriFieldTypeDouble",
-              "alias": "ESTE_PSAD56",
-              "domain": null
-            },
-            {
-              "name": "NORTE_WGS84_1P",
-              "type": "esriFieldTypeDouble",
-              "alias": "NORTE_WGS84_1P",
-              "domain": null
-            },
-            {
-              "name": "ESTE_WGS84_1P",
-              "type": "esriFieldTypeDouble",
-              "alias": "ESTE_WGS84_1P",
-              "domain": null
-            },
-            {
-              "name": "TIPO_MINERAL",
-              "type": "esriFieldTypeString",
-              "alias": "TIPO_MINERAL",
-              "length": 50,
-              "domain": null
-            },
-            {
-              "name": "METODO_EXPLOTA",
-              "type": "esriFieldTypeString",
-              "alias": "METODO_EXPLOTA",
-              "length": 50,
-              "domain": null
-            },
-            {
-              "name": "A_QUIEN_VENDE",
-              "type": "esriFieldTypeString",
-              "alias": "A_QUIEN_VENDE",
-              "length": 155,
-              "domain": null
-            },
-            {
-              "name": "INSUMOS_UTILIZA",
-              "type": "esriFieldTypeString",
-              "alias": "INSUMOS_UTILIZA",
-              "length": 255,
-              "domain": null
-            },
-            {
-              "name": "GEOMETRY",
-              "type": "esriFieldTypeGeometry",
-              "alias": "GEOMETRY",
-              "domain": null
-            },
-            {
-              "name": "ESRI_OID",
-              "type": "esriFieldTypeOID",
-              "alias": "ESRI_OID",
-              "domain": null
-            },
-            {
-              "name": "FLG_TITULAR",
-              "type": "esriFieldTypeString",
-              "alias": "FLG_TITULAR",
-              "length": 2,
-              "domain": null
-            },
-            {
-              "name": "ID_CLASE_SUSTANCIA",
-              "type": "esriFieldTypeString",
-              "alias": "ID_CLASE_SUSTANCIA",
-              "length": 11,
-              "domain": null
-            },
-            {
-              "name": "ID_UBIGEO_INEI",
-              "type": "esriFieldTypeString",
-              "alias": "ID_UBIGEO_INEI",
-              "length": 6,
-              "domain": null
-            },
-            {
-              "name": "ORIGEN",
-              "type": "esriFieldTypeString",
-              "alias": "ORIGEN",
-              "length": 4,
-              "domain": null
-            },
-            {
-              "name": "FLG_DCA",
-              "type": "esriFieldTypeString",
-              "alias": "FLG_DCA",
-              "length": 15,
-              "domain": null
-            }
-          ],
-          "displayField": "ID",
-          "objectIdField": {
-            "name": "ESRI_OID",
-            "type": "esriFieldTypeOID",
-            "alias": "ESRI_OID",
-            "domain": null
-          },
-          "typeIdField": null
-        }
-      },
-      "widget~widgets_Query_Widget_23~1": {
-        "id": "widget~widgets_Query_Widget_23~1",
-        "type": "Features",
-        "label": "Derecho Minero",
-        "dataSchema": {
-          "geometryType": "esriGeometryPolygon",
-          "fields": [
-            {
-              "name": "ID_UNIDAD",
-              "type": "esriFieldTypeString",
-              "alias": "ID_UNIDAD",
-              "length": 13,
-              "domain": null
-            },
-            {
-              "name": "NOMBRE",
-              "type": "esriFieldTypeString",
-              "alias": "NOMBRE",
-              "length": 100,
-              "domain": null
-            },
-            {
-              "name": "ID_UBIGEO_INEI_PRINCIPAL",
-              "type": "esriFieldTypeString",
-              "alias": "ID_UBIGEO_INEI_PRINCIPAL",
-              "length": 6,
-              "domain": null
-            },
-            {
-              "name": "ID_CLASE_SUSTANCIA",
-              "type": "esriFieldTypeString",
-              "alias": "ID_CLASE_SUSTANCIA",
-              "length": 11,
-              "domain": null
-            },
-            {
-              "name": "TEM_NRO_DC",
-              "type": "esriFieldTypeInteger",
-              "alias": "TEM_NRO_DC",
-              "domain": null
-            },
-            {
-              "name": "GEOMETRY",
-              "type": "esriFieldTypeGeometry",
-              "alias": "GEOMETRY",
-              "domain": null
-            },
-            {
-              "name": "ESRI_OID",
-              "type": "esriFieldTypeOID",
-              "alias": "ESRI_OID",
-              "domain": null
-            },
-            {
-              "name": "ID_SITUACION_EXPEDIENTE",
-              "type": "esriFieldTypeString",
-              "alias": "ID_SITUACION_EXPEDIENTE",
-              "length": 10,
-              "domain": null
-            },
-            {
-              "name": "HECTAREAS_OTORGADAS",
-              "type": "esriFieldTypeDouble",
-              "alias": "HECTAREAS_OTORGADAS",
-              "domain": null
-            }
-          ],
-          "displayField": "ID_UNIDAD",
-          "objectIdField": {
-            "name": "ESRI_OID",
-            "type": "esriFieldTypeOID",
-            "alias": "ESRI_OID",
-            "domain": null
-          },
-          "typeIdField": null
-        }
-      }
-    },
+    "dataSources": {},
     "settings": {}
   },
   "logoAlt": "MINEM",

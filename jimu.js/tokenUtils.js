@@ -850,8 +850,8 @@ define([
                 //signIn event
                 aspect.after(esriNS.id, 'signIn', lang.hitch(this, function(def, signInInputParams) {
                     // var url = signInInputParams[0];
-                    var serverInfo = signInInputParams[1]
-                    console.log(signInInputParams);
+                    var serverInfo = signInInputParams[1];
+                    console.log(serverInfo);
                     aspect.after(def, 'callback', lang.hitch(this, function(returnValue, callbackInputParams) {
                         /*jshint unused:false*/
                         var credential = callbackInputParams[0];
