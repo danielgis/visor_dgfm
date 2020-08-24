@@ -26,7 +26,7 @@
   "authorizedCrossOriginDomains": [],
   "title": "<div class=\"attribute-custom-style\"><b><font size=\"4\">REINFO</font></b></div>",
   "subtitle": "<div class=\"attribute-custom-style\"><br></div>",
-  "keepAppState": true,
+  "keepAppState": false,
   "logo": "images/logo.png",
   "geometryService": "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer",
   "links": [],
@@ -89,9 +89,7 @@
         "id": "_5",
         "version": "2.17",
         "closeable": true,
-        "uri": "widgets/Print/Widget",
-        "name": "Print",
-        "config": "configs/Print/config__5.json"
+        "uri": ""
       },
       {
         "position": {
@@ -99,7 +97,7 @@
           "top": 45,
           "relativeTo": "map"
         },
-        "placeholderIndex": 1,
+        "placeholderIndex": 2,
         "id": "_6",
         "version": "0.0.1",
         "closeable": true,
@@ -112,7 +110,7 @@
           "top": 45,
           "relativeTo": "map"
         },
-        "placeholderIndex": 2,
+        "placeholderIndex": 3,
         "id": "_7",
         "version": "0.0.1",
         "closeable": true,
@@ -125,7 +123,7 @@
           "top": 45,
           "relativeTo": "map"
         },
-        "placeholderIndex": 3,
+        "placeholderIndex": 4,
         "id": "_8"
       },
       {
@@ -134,7 +132,7 @@
           "top": 45,
           "relativeTo": "map"
         },
-        "placeholderIndex": 4,
+        "placeholderIndex": 5,
         "id": "_9"
       },
       {
@@ -265,14 +263,12 @@
     "widgets": [
       {
         "name": "Consulta_wgt",
-        "label": "Consultas",
         "version": "0.0.1",
         "IsController": false,
-        "icon": "configs\\Consulta_wgt\\icon_widgets_Consulta_wgt_Widget_27.gif",
         "uri": "widgets/Consulta_wgt/Widget",
-        "config": "configs/Consulta_wgt/config_widgets_Consulta_wgt_Widget_27.json",
+        "config": "configs/Consulta_wgt/config_widgets_Consulta_wgt_Widget_29.json",
         "index": 2,
-        "id": "widgets_Consulta_wgt_Widget_27",
+        "id": "widgets_Consulta_wgt_Widget_29",
         "openAtStart": true
       },
       {
@@ -302,14 +298,12 @@
         "id": "widgets_Estadisticas_wgt_Widget_24"
       },
       {
-        "name": "Reporte_wgt",
-        "version": "0.0.1",
-        "IsController": false,
-        "icon": "configs\\Reporte_wgt\\icon_widgets_Reporte_wgt_Widget_26.png",
-        "uri": "widgets/Reporte_wgt/Widget",
-        "config": "configs/Reporte_wgt/config_widgets_Reporte_wgt_Widget_26.json",
+        "name": "Print",
+        "version": "2.17",
+        "uri": "widgets/Print/Widget",
+        "config": "configs/Print/config_widgets_Print_Widget_28.json",
         "index": 6,
-        "id": "widgets_Reporte_wgt_Widget_26"
+        "id": "widgets_Print_Widget_28"
       },
       {
         "name": "BasemapGallery",

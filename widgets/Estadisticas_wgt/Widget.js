@@ -147,7 +147,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
                     datasets: [{
                         label: self.label_y_pie,
                         data: y,
-                        backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)', '#00b7c2', '#fff48f'],
+                        backgroundColor: ['#fff48f', '#91d18b', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(255, 99, 132)'],
                         hoverOffset: 4
                     }]
                 },
@@ -207,7 +207,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
                     datasets: [{
                         label: self.label_y_horizontal_bar,
                         data: y,
-                        backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)', '#00b7c2', '#fff48f'],
+                        backgroundColor: ['#fff48f', '#91d18b', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(255, 99, 132)'],
                         borderWidth: 1
                     }]
                 },

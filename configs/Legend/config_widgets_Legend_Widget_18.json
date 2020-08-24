@@ -55,6 +55,12 @@
     },
     "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485": {
       "selected": false
+    },
+    "catastro_minero_7931": {
+      "selected": true
+    },
+    "DGFM_DCASUMIDA_UNION_2283_3572": {
+      "selected": false
     }
   },
   "syncWithWebmap": false,
