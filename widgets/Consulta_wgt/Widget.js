@@ -363,6 +363,11 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 // self_cw.map.infoWindow.show(center, self_cw.map.getInfoWindowAnchor(center));
             });
         },
+        _openPopupAutocamitcally2: function _openPopupAutocamitcally2(featureLayer, center) {
+            self_cw.map.infoWindow.setFeatures(featureLayer.features);
+            self_cw.map.infoWindow.show(center, self_cw.map.getInfoWindowAnchor(center));
+            self_cw.map.centerAt(center);
+        },
         _zoomDmExtentToMap: function _zoomDmExtentToMap(evt) {
 
             // self_cw._applyQueryDM.click()
@@ -371,18 +376,21 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             query.where = self_cw.field_codigou_dm + ' = \'' + id + '\'';
             var id_layer = self_cw.config.layer_id_dm;
             var feature = self_cw.layersMap.getLayerInfoById(id_layer);
+            feature.setFilter(query.where);
+            feature.show();
 
             feature.getLayerObject().then(function (response) {
                 self_cw.map.graphics.clear();
                 response.queryFeatures(query, function (results) {
-                    console.log(results.features);
                     if (results.features.length) {
                         var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 3), new Color([125, 125, 125, 0.35]));
 
                         var ext = results.features[0].geometry.getExtent();
+                        var center = results.features[0].geometry.getCentroid();
 
-                        var graphic = results.features[0].setSymbol(symbol);
-                        self_cw.map.graphics.add(graphic);
+                        // let graphic = results.features[0].setSymbol(symbol)
+                        // self_cw.map.graphics.add(graphic);
+                        self_cw._openPopupAutocamitcally2(results, center);
                         self_cw.map.setExtent(ext, true);
                     } else {
                         self_cw._showMessage(self_cw.nls.none_element + ' ' + id + ', ' + self_cw.nls.none_reference_map);
@@ -418,11 +426,9 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             switch (self_cw.controller_query) {
                 case 'dc':
                     self_cw._applyQueryDC();
-                    // console.log('Ejecutando proces dc');
                     break;
                 case 'dm':
                     self_cw._applyQueryDM();
-                    // console.log('Ejecutando proces dm');
                     break;
                 default:
                     break;
@@ -440,8 +446,9 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
                 var nodeTitle = dojo.query('.title_registros_cw', newRow)[0];
                 newRow.getElementsByClassName('title_registros_cw')[0].innerText = i + 1 + '. ' + r[self_cw.field_minero_informal];
-                newRow.getElementsByClassName('title_registros_cw')[0].id = r[self_cw.field_id];
-                dojo.connect(nodeTitle, 'onclick', self_cw._showPopupRowSelectedClick);
+                // newRow.getElementsByClassName('title_registros_cw')[0].id = r[self_cw.field_id];
+                newRow.getElementsByClassName('container_head_registros_cw')[0].id = r[self_cw.field_id];
+                // dojo.connect(nodeTitle, 'onclick', self_cw._showPopupRowSelectedClick);
 
                 // Lista campos
 
@@ -456,6 +463,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
                 self_cw.ap_registros_encontrados_cw.appendChild(newRow);
             });
+            dojo.query('.container_head_registros_cw').on('click', self_cw._showPopupRowSelectedClick);
             dojo.query('.codigou_cw').on('click', self_cw._zoomDmExtentToMap);
             this.busyIndicator.hide();
         },
@@ -508,6 +516,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                         evt.target.parentElement.appendChild(ulnode);
                         dojo.query('.registro_dc').on('click', self_cw._showPopupRowSelectedClick);
                     } else {
+                        evt.target.innerText = self_cw.nls.show_reinfos + ' (0)';
                         self_cw._showMessage(self_cw.nls.none_element_pl);
                     };
                     self_cw.busyIndicator.hide();
@@ -532,8 +541,9 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
                 var nodeTitle = dojo.query('.title_registros_cw', newRow)[0];
                 newRow.getElementsByClassName('title_registros_cw')[0].innerText = i + 1 + '. ' + self_cw.nls.field_codigou_dm + ': ' + r[self_cw.field_codigou_dm];
-                newRow.getElementsByClassName('title_registros_cw')[0].id = r[self_cw.field_codigou_dm];
-                dojo.connect(nodeTitle, 'onclick', self_cw._showPopupRowSelectedClickDM);
+                // newRow.getElementsByClassName('title_registros_cw')[0].id = r[self_cw.field_codigou_dm];
+                newRow.getElementsByClassName('container_head_registros_cw')[0].id = r[self_cw.field_codigou_dm];
+                // dojo.connect(nodeTitle, 'onclick', self_cw._showPopupRowSelectedClickDM);
 
                 // Lista campos
 
@@ -548,10 +558,16 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
                 self_cw.ap_registros_encontrados_cw.appendChild(newRow);
             });
+            dojo.query('.container_head_registros_cw').on('click', self_cw._showPopupRowSelectedClickDM);
             dojo.query('.reinfos_cw').on('click', self_cw._showReinfos);
             this.busyIndicator.hide();
         },
         _showPopupRowSelectedClick: function _showPopupRowSelectedClick(evt) {
+            // if (evt.currentTarget.getElementsByClassName('container_head_registros_cw').length) {
+            //     var id_row = evt.currentTarget.getElementsByClassName('container_head_registros_cw')[0].id;
+            // } else {
+            //     var id_row = evt.currentTarget.id;
+            // }
             var id_row = evt.currentTarget.id;
 
             var id_layer = self_cw.config.layer_id_dc;
@@ -572,12 +588,8 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 self_cw._openPopupAutocamitcally(feature, center, whereDefinition);
             });
         },
-        _openPopupAutocamitcally2: function _openPopupAutocamitcally2(featureLayer, center) {
-            self_cw.map.infoWindow.setFeatures(featureLayer.features);
-            self_cw.map.infoWindow.show(center, self_cw.map.getInfoWindowAnchor(center));
-            self_cw.map.centerAt(center);
-        },
         _showPopupRowSelectedClickDM: function _showPopupRowSelectedClickDM(evt) {
+            // let id_row = evt.currentTarget.getElementsByClassName('title_registros_cw')[0].id;
             var id_row = evt.currentTarget.id;
 
             var id_layer = self_cw.config.layer_id_dm;
@@ -605,11 +617,6 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             }, function (error) {
                 self_cw._showMessage(self_cw.nls.error_service + ' ' + feature.title + '\n' + error.message, type = 'error');
             });
-
-            // feature_sys.layerObject.queryFeatures(whereDefinition, function(results) {
-            //     var center = results.features[0].geometry;
-            //     self_cw._openPopupAutocamitcally(feature, center, whereDefinition);
-            // })
         },
         _applyQueryDC: function _applyQueryDC() {
             whereDefinitionArray = [];
@@ -637,7 +644,6 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             whereDefinitionArray.push(ubigeo_dc);
 
             var whereDefinition = whereDefinitionArray.join(' and ');
-            console.log(whereDefinition);
 
             // Filtro a capa DC visible en la TOC
             var id = self_cw.config.layer_id_dc;
@@ -688,8 +694,6 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             whereDefinitionArray.push(nombredm_dm);
 
             var whereDefinition = whereDefinitionArray.join(' and ');
-
-            // console.log(whereDefinition);
 
             // Filtro a capa DC visible en la TOC
             var id = self_cw.config.layer_id_dm;

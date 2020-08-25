@@ -345,9 +345,12 @@
     }
   },
   "loadingPage": {
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#333333",
     "backgroundImage": {
-      "visible": true
+      "visible": true,
+      "uri": "configs/loading/images/background.jpeg",
+      "width": 223,
+      "height": 44
     },
     "loadingGif": {
       "visible": true,
