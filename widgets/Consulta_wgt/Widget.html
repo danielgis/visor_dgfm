@@ -1,8 +1,8 @@
 <div style="height: 100%;">
-    <div class="tabs is-fullwidth" style="margin-bottom: 0;">
+    <div class="tabs is-small is-fullwidth" style="margin-bottom: 0;">
         <ul>
-            <li id="tareas" class="opcion_cw is-active"><a><strong>${nls.tareas}</strong></a></li>
-            <li id="resultados" class="opcion_cw" data-dojo-attach-point="ap_resultados_cw"><a><strong>${nls.resultados}</strong></a></li>
+            <li id="tareas" class="opcion_cw is-active"><a><span class="icon is-small"><i class="fas fa-filter" aria-hidden="true"></i></span><span>${nls.tareas}</span></a></li>
+            <li id="resultados" class="opcion_cw" data-dojo-attach-point="ap_resultados_cw"><a><span class="icon is-small"><i class="fas fa-tasks" aria-hidden="true"></i></span><span>${nls.resultados}</span></a></li>
         </ul>
     </div>
     <div class="container_opcion_cw active" data-dojo-attach-point="tareas_opcion_cw">
@@ -112,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            <button class="button is-small is-fullwidth is-primary btn_aplicar_cw " data-dojo-attach-point="btn_aplicar_cw " data-dojo-attach-event="click:_applyQuery ">${nls.apply}</button>
+            <button class="button is-small is-fullwidth is-primary btn_aplicar_cw" data-dojo-attach-point="btn_aplicar_cw " data-dojo-attach-event="click:_applyQuery ">${nls.apply}</button>
         </div>
     </div>
     <div class="container_opcion_cw" data-dojo-attach-point="resultados_opcion_cw">

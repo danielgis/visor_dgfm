@@ -1,8 +1,19 @@
-.localizar-wgt h3 {
-  font-size: 1.2em; }
-
-.localizar-wgt h3, .localizar-wgt p {
-  margin-top: 0; }
+.localizar-wgt {
+  height: 100%; }
+  .localizar-wgt h3 {
+    font-size: 1.2em; }
+  .localizar-wgt h3,
+  .localizar-wgt p {
+    margin-top: 0; }
+  .localizar-wgt .container_option_lw {
+    display: none; }
+  .localizar-wgt .is-active {
+    display: block; }
+  .localizar-wgt .btn_aplicar_lw {
+    position: absolute;
+    bottom: 2px; }
+  .localizar-wgt .container_resultados_lw {
+    display: none; }
 
 /* add additional custom styles */
 

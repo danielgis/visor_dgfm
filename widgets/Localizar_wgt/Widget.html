@@ -1,10 +1,117 @@
 <div>
-    <h3 class="title">${nls.widgetTitle}</h3>
-    <p>${nls.description}</p>
-    <br>
-    <!-- <p>Service URL: ${config.serviceUrl}</p> -->
-    <div class="notification is-primary is-light">
-        <button class="delete"></button> Este widget se encuentra actualmente en desarrollo
+    <div class="tabs is-fullwidth is-small" style="margin-bottom: 1rem;">
+        <ul>
+            <li id="punto" class="opcion_lw is-active"><a><span class="icon is-small"><i class="far fa-dot-circle"></i></span><span>Punto</span></a></li>
+            <li id="poligono" class="opcion_lw"><a><span class="icon is-small"><i class="fas fa-draw-polygon"></i></span><span>Poligono</span></a></li>
+            <li id="resultados" class="opcion_lw"><a><span class="icon is-small"><i class="fas fa-tasks"></i></span><span>Resultados</span></a></li>
+        </ul>
     </div>
-    <button class="button is-warning is-small is-fullwidth">Send</button>
+    <div class="container_option_lw is-active" data-dojo-attach-point="punto_opcion_lw">
+        <div class="field">
+            <div class="control has-icons-left">
+                <div class="select is-small is-fullwidth">
+                    <select>
+                  <option value=4326 selected>WGS84 GCS</option>
+                  <option value=32717>WGS84 UTM 17S</option>
+                  <option value=32718>WGS84 UTM 18S</option>
+                  <option value=32719>WGS84 UTM 19S</option>
+                  <option value=24877>PSAD56 UTM 17S</option>
+                  <option value=24878>PSAD56 UTM 18S</option>
+                  <option value=24879>PSAD56 UTM 19S</option>
+                </select>
+                </div>
+                <span class="icon is-small is-left">
+                <i class="fas fa-globe"></i>
+              </span>
+            </div>
+        </div>
+        <div class="container_option_point_lw">
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input is-small" value=172000 placeholder="Este/Longitud">
+                    <span class="icon is-small is-left">
+                  <i class="fas fa-map-marker-alt"></i>
+                </span>
+                    <span class="icon is-small is-right">
+                  <i class="fas fa-info"></i>
+                </span>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input is-small" value=9492000 placeholder="Norte/Latitud">
+                    <span class="icon is-small is-left">
+                  <i class="fas fa-map-marker-alt"></i>
+                </span>
+                    <span class="icon is-small is-right">
+                  <i class="fas fa-info"></i>
+                </span>
+                </div>
+            </div>
+        </div>
+        <button class="button is-small is-fullwidth is-primary btn_aplicar_lw" data-dojo-attach-point="ap_btn_aplicar_lw">Aplicar</button>
+    </div>
+    <div class="container_option_lw" data-dojo-attach-point="poligono_opcion_lw">
+        <div class="field">
+            <div class="control has-icons-left">
+                <div class="select is-small is-fullwidth">
+                    <select>
+                        <option value=4326 selected>WGS84 GCS</option>
+                        <option value=32717>WGS84 UTM 17S</option>
+                        <option value=32718>WGS84 UTM 18S</option>
+                        <option value=32719>WGS84 UTM 19S</option>
+                        <option value=24877>PSAD56 UTM 17S</option>
+                        <option value=24878>PSAD56 UTM 18S</option>
+                        <option value=24879>PSAD56 UTM 19S</option>
+                </select>
+                </div>
+                <span class="icon is-small is-left">
+                <i class="fas fa-globe"></i>
+              </span>
+            </div>
+        </div>
+        <br>
+        <div class="container_option_polygon_lw">
+            <div class="field">
+                <div class="file has-text-centered is-small is-fullwidth is-boxed has-name">
+                    <label class="file-label">
+                  <input class="file-input" type="file" name="resume">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Seleccione o arrastre el archivo excel
+                    </span>
+                  </span>
+                  <span class="file-name">
+                    Ningun archivo seleccionado...
+                  </span>
+                </label>
+                </div>
+                <br>
+                <p class="help has-text-centered">Puede consultar las instrucciones <a>aqui</a></p>
+            </div>
+            <button class="button is-small is-fullwidth is-primary btn_aplicar_lw" data-dojo-attach-point="ap_btn_aplicar_lw">Aplicar</button>
+        </div>
+    </div>
+    <div class="container_option_lw" data-dojo-attach-point="resultados_opcion_lw">
+        <div data-dojo-attach-point="ap_none_resultados_opcion_lw">
+            <p>No hay ningún resultado</p>
+        </div>
+        <div class="container_resultados_lw">
+            <table class="table is-small is-bordered is-fullwidth is-hoverable has-text-centered is-size-7">
+                <thead class="has-background-light">
+                    <tr>
+                        <td><strong>Geom</strong></td>
+                        <td class="has-text-left"><strong>Nombre</strong></td>
+                        <td><strong>ver</strong></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
