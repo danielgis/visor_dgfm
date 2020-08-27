@@ -10,7 +10,7 @@
         <div class="field">
             <div class="control has-icons-left">
                 <div class="select is-small is-fullwidth">
-                    <select>
+                    <select data-dojo-attach-point="select_punto_opcion_lw">
                   <option value=4326 selected>WGS84 GCS</option>
                   <option value=32717>WGS84 UTM 17S</option>
                   <option value=32718>WGS84 UTM 18S</option>
@@ -28,7 +28,7 @@
         <div class="container_option_point_lw">
             <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input is-small" value=172000 placeholder="Este/Longitud">
+                    <input class="input is-small" value=172000 placeholder="Este/Longitud" data-dojo-attach-point="ap_input_x_lw">
                     <span class="icon is-small is-left">
                   <i class="fas fa-map-marker-alt"></i>
                 </span>
@@ -39,7 +39,7 @@
             </div>
             <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input is-small" value=9492000 placeholder="Norte/Latitud">
+                    <input class="input is-small" value=9492000 placeholder="Norte/Latitud" data-dojo-attach-point="ap_input_y_lw">
                     <span class="icon is-small is-left">
                   <i class="fas fa-map-marker-alt"></i>
                 </span>
