@@ -172,7 +172,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
                     response = x >= -180 & x <= 180 ? true : false;
                     return response;
                 case 'utm':
-                    response = x >= 0 & x <= 500000 ? true : false;
+                    response = x >= 0 & x <= 1000000 ? true : false;
                     return response;
                     break;
                 default:
