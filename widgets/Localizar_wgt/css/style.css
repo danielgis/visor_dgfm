@@ -7,13 +7,19 @@
     margin-top: 0; }
   .localizar-wgt .container_option_lw {
     display: none; }
-  .localizar-wgt .is-active {
-    display: block; }
   .localizar-wgt .btn_aplicar_lw {
     position: absolute;
     bottom: 2px; }
   .localizar-wgt .container_resultados_lw {
-    display: none; }
+    display: none;
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    top: 45px;
+    bottom: 14px; }
+  .localizar-wgt .is-active {
+    display: block; }
 
 /* add additional custom styles */
 

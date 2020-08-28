@@ -1,10 +1,12 @@
-define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/tasks/ProjectParameters", 'esri/tasks/GeometryService', "esri/geometry/Point", 'esri/symbols/SimpleLineSymbol', 'esri/symbols/SimpleMarkerSymbol', 'dojo/_base/Color', 'esri/graphic', "jimu/dijit/Message"], function (declare, BaseWidget, SpatialReference, ProjectParameters, GeometryService, Point, SimpleLineSymbol, SimpleMarkerSymbol, Color, Graphic, Message) {
+define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/tasks/ProjectParameters", 'esri/tasks/GeometryService', "esri/geometry/Point", 'esri/symbols/SimpleLineSymbol', 'esri/symbols/SimpleMarkerSymbol', 'dojo/_base/Color', 'esri/graphic', "jimu/dijit/Message", "esri/InfoTemplate"], function (declare, BaseWidget, SpatialReference, ProjectParameters, GeometryService, Point, SimpleLineSymbol, SimpleMarkerSymbol, Color, Graphic, Message, InfoTemplate) {
     return declare([BaseWidget], {
 
         // Custom widget code goes here
 
         baseClass: 'localizar-wgt',
-        tabSelected: '',
+        tabSelected: 'punto',
+        obj_resultados: {},
+        obj_index: 0,
 
         postCreate: function postCreate() {
             this.inherited(arguments);
@@ -139,11 +141,23 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
                     return;
                 }
                 self_lw.map.graphics.add(graphic);
+                // self_lw.map.centerAndZoom(pointTransform, 10);
+                // self_lw._addResultados(graphic);
+                // self_lw.ap_none_resultados_opcion_lw.hidden = true;
+                // dojo.query('.container_resultados_lw').addClass('is-active')
+                // self_lw.ap_resultados_lw.click();
+
+                graphic.setInfoTemplate(new InfoTemplate("Coordenadas", "<span>Este / Long:</span>" + point.x + "<br />" + "<span>Norte / Lat:</span>" + point.y));
+                self_lw.map.infoWindow.setTitle(graphic.getTitle());
+                self_lw.map.infoWindow.setContent(graphic.getContent());
+                self_lw.map.infoWindow.show(pointTransform);
                 self_lw.map.centerAndZoom(pointTransform, 10);
-                // graphic.setInfoTemplate(new InfoTemplate("Coordenadas", "<span>Este (X):</span>" + point.x + "<br />" +"<span>Norte (Y):</span>" + point.y + "<br />"));
-                // thiss.map.infoWindow.setTitle(graphic.getTitle());
-                // thiss.map.infoWindow.setContent(graphic.getContent());
-                // thiss.map.infoWindow.show(point2);
+
+                self_lw._addResultados(graphic);
+                self_lw.ap_none_resultados_opcion_lw.hidden = true;
+
+                dojo.query('.container_resultados_lw').addClass('is-active');
+                self_lw.ap_resultados_lw.click();
             });
             geometryService.on("error", function (error) {
                 self_lw._showMessage(error.message, type = 'error');
@@ -175,10 +189,30 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
                 case 'utm':
                     response = y >= 0 & y <= 10000000 ? true : false;
                     return response;
-                    break;
                 default:
                     break;
             }
+        },
+        _addResultados: function _addResultados(graph) {
+            this.obj_index = this.obj_index + 1;
+            var name = 'grafico_' + this.obj_index;
+            var id = name + '_lw';
+            var i_class = this.tabSelected == 'punto' ? 'far fa-dot-circle' : 'fas fa-draw-polygon';
+            var icon_elm = '<span class="icon is-small"><i class="' + i_class + '"></i></span>';
+
+            var tr = dojo.create('tr');
+
+            this.obj_resultados[id] = graph._extent;
+            var tds = '<td>' + icon_elm + '</td><td class="has-text-left">' + name + '</td><td><span class="icon is-small"><i class="fas fa-search"></i></span></td>';
+            tr.id = id;
+            tr.innerHTML = tds;
+            tr.style.cursor = "pointer";
+            this.ap_resultados_body_lw.appendChild(tr);
+            dojo.query('#' + id).on('click', this._zoomToExtentByResult);
+        },
+        _zoomToExtentByResult: function _zoomToExtentByResult(evt) {
+            var id = evt.currentTarget.id;
+            self_cw.map.setExtent(self_lw.obj_resultados[id], true);
         },
         startup: function startup() {
             this.inherited(arguments);

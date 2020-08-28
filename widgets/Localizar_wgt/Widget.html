@@ -1,9 +1,9 @@
 <div>
     <div class="tabs is-fullwidth is-small" style="margin-bottom: 1rem;">
         <ul>
-            <li id="punto" class="opcion_lw is-active"><a><span class="icon is-small"><i class="far fa-dot-circle"></i></span><span>Punto</span></a></li>
-            <li id="poligono" class="opcion_lw"><a><span class="icon is-small"><i class="fas fa-draw-polygon"></i></span><span>Poligono</span></a></li>
-            <li id="resultados" class="opcion_lw"><a><span class="icon is-small"><i class="fas fa-tasks"></i></span><span>Resultados</span></a></li>
+            <li id="punto" class="opcion_lw is-active" data-dojo-attach-point="ap_punto_lw"><a><span class="icon is-small"><i class="far fa-dot-circle"></i></span><span>Punto</span></a></li>
+            <li id="poligono" class="opcion_lw" data-dojo-attach-point="ap_poligono_lw"><a><span class="icon is-small"><i class="fas fa-draw-polygon"></i></span><span>Poligono</span></a></li>
+            <li id="resultados" class="opcion_lw" data-dojo-attach-point="ap_resultados_lw"><a><span class="icon is-small"><i class="fas fa-tasks"></i></span><span>Resultados</span></a></li>
         </ul>
     </div>
     <div class="container_option_lw is-active" data-dojo-attach-point="punto_opcion_lw">
@@ -100,16 +100,15 @@
             <p>No hay ningún resultado</p>
         </div>
         <div class="container_resultados_lw">
-            <table class="table is-small is-bordered is-fullwidth is-hoverable has-text-centered is-size-7">
+            <table class="table is-small is-fullwidth is-hoverable has-text-centered is-size-7">
                 <thead class="has-background-light">
                     <tr>
-                        <td><strong>Geom</strong></td>
+                        <td><strong>G</strong></td>
                         <td class="has-text-left"><strong>Nombre</strong></td>
                         <td><strong>ver</strong></td>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr></tr>
+                <tbody data-dojo-attach-point="ap_resultados_body_lw">
                 </tbody>
             </table>
         </div>
