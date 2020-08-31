@@ -380,7 +380,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             feature.show();
 
             feature.getLayerObject().then(function (response) {
-                self_cw.map.graphics.clear();
+                // self_cw.map.graphics.clear();
                 response.queryFeatures(query, function (results) {
                     if (results.features.length) {
                         var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 3), new Color([125, 125, 125, 0.35]));
@@ -760,7 +760,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
         },
         _cleanMap: function _cleanMap() {
             this.busyIndicator.show();
-            this.map.graphics.clear();
+            // this.map.graphics.clear();
             var whereDefinition = '1=1';
             lyr_dc = this.layersMap.getLayerInfoById(this.config.layer_id_dc);
             lyr_dc_sys = this.layersMap.getLayerInfoById(this.config.layer_id_dc_sys);

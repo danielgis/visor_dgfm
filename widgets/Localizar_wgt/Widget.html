@@ -8,16 +8,18 @@
     </div>
     <div class="container_option_lw is-active" data-dojo-attach-point="punto_opcion_lw">
         <div class="field">
+            <label class="label is-small">Sistema Referencial</label>
             <div class="control has-icons-left">
-                <div class="select is-small is-fullwidth">
+                <div class="select is-small is-fullwidth" data-dojo-attach-point="ap_select_punto_lw">
                     <select data-dojo-attach-point="select_punto_opcion_lw">
-                  <option value=4326 selected>WGS84 GCS</option>
-                  <option value=32717>WGS84 UTM 17S</option>
-                  <option value=32718>WGS84 UTM 18S</option>
-                  <option value=32719>WGS84 UTM 19S</option>
-                  <option value=24877>PSAD56 UTM 17S</option>
-                  <option value=24878>PSAD56 UTM 18S</option>
-                  <option value=24879>PSAD56 UTM 19S</option>
+                      <option value="" disabled="disabled" selected>Seleccione un opción</option>
+                      <option value=4326>WGS84 GCS</option>
+                      <option value=32717>WGS84 UTM 17S</option>
+                      <option value=32718>WGS84 UTM 18S</option>
+                      <option value=32719>WGS84 UTM 19S</option>
+                      <option value=24877>PSAD56 UTM 17S</option>
+                      <option value=24878>PSAD56 UTM 18S</option>
+                      <option value=24879>PSAD56 UTM 19S</option>
                 </select>
                 </div>
                 <span class="icon is-small is-left">
@@ -27,8 +29,9 @@
         </div>
         <div class="container_option_point_lw">
             <div class="field">
+                <label class="label is-small">ESTE (X)</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input is-small" value=172000 placeholder="Este/Longitud" data-dojo-attach-point="ap_input_x_lw">
+                    <input class="input is-small" value=172000 placeholder="Este/Longitud" data-dojo-attach-point="ap_input_x_lw" data-dojo-attach-event="oninput:_validateRucNumber_lw">
                     <span class="icon is-small is-left">
                   <i class="fas fa-map-marker-alt"></i>
                 </span>
@@ -38,8 +41,9 @@
                 </div>
             </div>
             <div class="field">
+                <label class="label is-small">NORTE (Y)</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input is-small" value=9492000 placeholder="Norte/Latitud" data-dojo-attach-point="ap_input_y_lw">
+                    <input class="input is-small" value=9492000 placeholder="Norte/Latitud" data-dojo-attach-point="ap_input_y_lw" data-dojo-attach-event="oninput:_validateRucNumber_lw">
                     <span class="icon is-small is-left">
                   <i class="fas fa-map-marker-alt"></i>
                 </span>
@@ -53,10 +57,12 @@
     </div>
     <div class="container_option_lw" data-dojo-attach-point="poligono_opcion_lw">
         <div class="field">
+            <label class="label is-small">Sistema Referencial</label>
             <div class="control has-icons-left">
-                <div class="select is-small is-fullwidth">
-                    <select>
-                        <option value=4326 selected>WGS84 GCS</option>
+                <div class="select is-small is-fullwidth" data-dojo-attach-point="ap_select_poligono_lw">
+                    <select data-dojo-attach-point="select_poligono_opcion_lw">
+                        <option value="" disabled="disabled" selected>Seleccione un opción</option>
+                        <option value=4326>WGS84 GCS</option>
                         <option value=32717>WGS84 UTM 17S</option>
                         <option value=32718>WGS84 UTM 18S</option>
                         <option value=32719>WGS84 UTM 19S</option>
@@ -73,24 +79,52 @@
         <br>
         <div class="container_option_polygon_lw">
             <div class="field">
-                <div class="file has-text-centered is-small is-fullwidth is-boxed has-name">
+                <div class="file has-text-centered is-small is-fullwidth is-boxed has-name" data-dojo-attach-point="ap_container_upload_file_lw">
                     <label class="file-label">
-                  <input class="file-input" type="file" name="resume">
+                  <input class="file-input upload_file_lw" type="file" name="resume" data-dojo-attach-point="ap_upload_file_lw">
                   <span class="file-cta">
                     <span class="file-icon">
                       <i class="fas fa-upload"></i>
                     </span>
                     <span class="file-label">
-                      Seleccione o arrastre el archivo excel
+                      Seleccione un archivo excel (*.xlsx)
                     </span>
                   </span>
-                  <span class="file-name">
+                  <span class="file-name" data-dojo-attach-point="ap_upload_file_name_lw">
                     Ningun archivo seleccionado...
                   </span>
                 </label>
                 </div>
+                <p class="help" data-dojo-attach-point="ap_help_message_lw"></p>
+            </div>
+            <div>
+                <div>
+                    El archivo en formato *xlsx a cargar puede soportar hasta 10k filas y debe contener la estructura de columnas siguiente:
+                </div>
                 <br>
-                <p class="help has-text-centered">Puede consultar las instrucciones <a>aqui</a></p>
+                <table class="table is-small is-fullwidth is-hoverable has-text-centered">
+                    <thead>
+                        <tr class="is-selected">
+                            <th>X</th>
+                            <th>Y</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>x<sub>1</sub></td>
+                            <td>y<sub>1</sub></td>
+                        </tr>
+                        <tr>
+                            <td>x<sub>2</sub></td>
+                            <td>y<sub>2</sub></td>
+                        </tr>
+                        <tr>
+                            <td>x<sub>n</sub></td>
+                            <td>y<sub>n</sub></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Descargue formato excel de prueba <a href="images/sample.xlsx">aqui</a></p>
             </div>
             <button class="button is-small is-fullwidth is-primary btn_aplicar_lw" data-dojo-attach-point="ap_btn_aplicar_lw">Aplicar</button>
         </div>
@@ -106,6 +140,7 @@
                         <td><strong>G</strong></td>
                         <td class="has-text-left"><strong>Nombre</strong></td>
                         <td><strong>ver</strong></td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody data-dojo-attach-point="ap_resultados_body_lw">
