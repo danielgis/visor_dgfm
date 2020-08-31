@@ -18,6 +18,14 @@
     width: 100%;
     top: 45px;
     bottom: 14px; }
+  .localizar-wgt .container_option_point_lw,
+  .localizar-wgt .container_option_polygon_lw {
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    top: 115px;
+    bottom: 50px; }
   .localizar-wgt .is-active {
     display: block; }
 

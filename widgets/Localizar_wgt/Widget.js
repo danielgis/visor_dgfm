@@ -205,9 +205,9 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             self_lw.busyIndicator_lw.show();
 
             if (self_lw.ap_upload_file_lw.value == "") {
-                self_lw._showMessage("Debe cargar un archivo en formato *.xlsx", type = 'error')
-                self_lw.busyIndicator_lw.hide()
-                return
+                self_lw._showMessage("Debe cargar un archivo en formato *.xlsx", type = 'error');
+                self_lw.busyIndicator_lw.hide();
+                return;
             }
 
             var srid = self_lw.select_poligono_opcion_lw.value;
