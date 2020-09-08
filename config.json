@@ -24,7 +24,7 @@
   "portalUrl": "https://danielgis.maps.arcgis.com",
   "appId": "",
   "authorizedCrossOriginDomains": [],
-  "title": "<div class=\"attribute-custom-style\"><b><font size=\"4\">REINFO</font></b></div>",
+  "title": "<div class=\"attribute-custom-style\"><font color=\"#ffffff\" size=\"4\">GEOREINFO</font></div>",
   "subtitle": "<div class=\"attribute-custom-style\"><br></div>",
   "keepAppState": false,
   "logo": "images/logo.png",
@@ -298,21 +298,11 @@
         "id": "widgets_Measurement_Widget_21"
       },
       {
-        "name": "Estadisticas_wgt",
-        "version": "0.0.1",
-        "IsController": false,
-        "icon": "configs\\Estadisticas_wgt\\icon_widgets_Estadisticas_wgt_Widget_24.png",
-        "uri": "widgets/Estadisticas_wgt/Widget",
-        "config": "configs/Estadisticas_wgt/config_widgets_Estadisticas_wgt_Widget_24.json",
-        "index": 6,
-        "id": "widgets_Estadisticas_wgt_Widget_24"
-      },
-      {
         "name": "Print",
         "version": "2.17",
         "uri": "widgets/Print/Widget",
         "config": "configs/Print/config_widgets_Print_Widget_28.json",
-        "index": 7,
+        "index": 6,
         "id": "widgets_Print_Widget_28"
       },
       {
@@ -320,7 +310,7 @@
         "version": "2.17",
         "uri": "widgets/BasemapGallery/Widget",
         "config": "configs/BasemapGallery/config_widgets_BasemapGallery_Widget_20.json",
-        "index": 8,
+        "index": 7,
         "id": "widgets_BasemapGallery_Widget_20"
       },
       {
@@ -328,7 +318,7 @@
         "version": "2.17",
         "uri": "widgets/Legend/Widget",
         "config": "configs/Legend/config_widgets_Legend_Widget_18.json",
-        "index": 9,
+        "index": 8,
         "id": "widgets_Legend_Widget_18"
       }
     ],

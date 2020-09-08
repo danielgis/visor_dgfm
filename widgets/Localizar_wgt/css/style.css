@@ -26,11 +26,10 @@
     width: 100%;
     top: 115px;
     bottom: 50px; }
-  .table_help_lw {
-        width: 50%;
-        margin-right: auto;
-        margin-left: auto;
-    }
+  .localizar-wgt .table_help_lw {
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto; }
   .localizar-wgt .is-active {
     display: block; }
 

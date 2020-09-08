@@ -1,25 +1,19 @@
 <div>
     <div class="tabs is-fullwidth is-small" style="margin-bottom: 1rem;">
         <ul>
-            <li id="punto" class="opcion_lw is-active" data-dojo-attach-point="ap_punto_lw"><a><span class="icon is-small"><i class="far fa-dot-circle"></i></span><span>Punto</span></a></li>
-            <li id="poligono" class="opcion_lw" data-dojo-attach-point="ap_poligono_lw"><a><span class="icon is-small"><i class="fas fa-draw-polygon"></i></span><span>Poligono</span></a></li>
-            <li id="resultados" class="opcion_lw" data-dojo-attach-point="ap_resultados_lw"><a><span class="icon is-small"><i class="fas fa-tasks"></i></span><span>Resultados</span></a></li>
+            <li id="punto" class="opcion_lw is-active" data-dojo-attach-point="ap_punto_lw"><a><span class="icon is-small"><i class="far fa-dot-circle"></i></span><span>${nls.tab_punto}</span></a></li>
+            <li id="poligono" class="opcion_lw" data-dojo-attach-point="ap_poligono_lw"><a><span class="icon is-small"><i class="fas fa-draw-polygon"></i></span><span>${nls.tab_poligono}</span></a></li>
+            <li id="resultados" class="opcion_lw" data-dojo-attach-point="ap_resultados_lw"><a><span class="icon is-small"><i class="fas fa-tasks"></i></span><span>${nls.tab_resultados}</span></a></li>
         </ul>
     </div>
     <div class="container_option_lw is-active" data-dojo-attach-point="punto_opcion_lw">
         <div class="field">
-            <label class="label is-small">Sistema Referencial</label>
+            <label class="label is-small">${nls.title_sistema_referencial}</label>
             <div class="control has-icons-left">
                 <div class="select is-small is-fullwidth" data-dojo-attach-point="ap_select_punto_lw">
                     <select data-dojo-attach-point="select_punto_opcion_lw">
-                      <option value="" disabled="disabled" selected>Seleccione un opción</option>
-                      <option value=4326>WGS84 GCS</option>
-                      <option value=32717>WGS84 UTM 17S</option>
-                      <option value=32718>WGS84 UTM 18S</option>
-                      <option value=32719>WGS84 UTM 19S</option>
-                      <option value=24877>PSAD56 UTM 17S</option>
-                      <option value=24878>PSAD56 UTM 18S</option>
-                      <option value=24879>PSAD56 UTM 19S</option>
+                      <!-- Las opciones se agregan desde el Widget.js utilizando la clave crs de config.json -->
+                      <option value="" disabled="disabled" selected>${nls.opt_sistema_referencial_default}</option>
                 </select>
                 </div>
                 <span class="icon is-small is-left">
@@ -29,9 +23,9 @@
         </div>
         <div class="container_option_point_lw">
             <div class="field">
-                <label class="label is-small">ESTE (X)</label>
+                <label class="label is-small">${nls.title_este}</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input is-small" value=172000 placeholder="Este/Longitud" data-dojo-attach-point="ap_input_x_lw" data-dojo-attach-event="oninput:_validateRucNumber_lw">
+                    <input class="input is-small" value=172000 placeholder="Este/Longitud" data-dojo-attach-point="ap_input_x_lw" data-dojo-attach-event="oninput:_validateCoordinateNumber_lw">
                     <span class="icon is-small is-left">
                   <i class="fas fa-map-marker-alt"></i>
                 </span>
@@ -41,9 +35,9 @@
                 </div>
             </div>
             <div class="field">
-                <label class="label is-small">NORTE (Y)</label>
+                <label class="label is-small">${nls.title_norte}</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input is-small" value=9492000 placeholder="Norte/Latitud" data-dojo-attach-point="ap_input_y_lw" data-dojo-attach-event="oninput:_validateRucNumber_lw">
+                    <input class="input is-small" value=9492000 placeholder="Norte/Latitud" data-dojo-attach-point="ap_input_y_lw" data-dojo-attach-event="oninput:_validateCoordinateNumber_lw">
                     <span class="icon is-small is-left">
                   <i class="fas fa-map-marker-alt"></i>
                 </span>
@@ -53,22 +47,16 @@
                 </div>
             </div>
         </div>
-        <button class="button is-small is-fullwidth is-primary btn_aplicar_lw" data-dojo-attach-point="ap_btn_aplicar_lw">Aplicar</button>
+        <button class="button is-small is-fullwidth is-primary btn_aplicar_lw" data-dojo-attach-point="ap_btn_aplicar_lw">${nls.title_btn_aplicar}</button>
     </div>
     <div class="container_option_lw" data-dojo-attach-point="poligono_opcion_lw">
         <div class="field">
-            <label class="label is-small">Sistema Referencial</label>
+            <label class="label is-small">${nls.title_sistema_referencial}</label>
             <div class="control has-icons-left">
                 <div class="select is-small is-fullwidth" data-dojo-attach-point="ap_select_poligono_lw">
                     <select data-dojo-attach-point="select_poligono_opcion_lw">
-                        <option value="" disabled="disabled" selected>Seleccione un opción</option>
-                        <option value=4326>WGS84 GCS</option>
-                        <option value=32717>WGS84 UTM 17S</option>
-                        <option value=32718>WGS84 UTM 18S</option>
-                        <option value=32719>WGS84 UTM 19S</option>
-                        <option value=24877>PSAD56 UTM 17S</option>
-                        <option value=24878>PSAD56 UTM 18S</option>
-                        <option value=24879>PSAD56 UTM 19S</option>
+                        <!-- Las opciones se agregan desde el Widget.js utilizando la clave crs de config.json -->
+                        <option value="" disabled="disabled" selected>${nls.opt_sistema_referencial_default}</option>
                 </select>
                 </div>
                 <span class="icon is-small is-left">
@@ -87,11 +75,11 @@
                       <i class="fas fa-upload"></i>
                     </span>
                     <span class="file-label">
-                      Seleccione un archivo excel (*.xlsx)
+                      ${nls.title_seleccione_excel}
                     </span>
                   </span>
                   <span class="file-name" data-dojo-attach-point="ap_upload_file_name_lw">
-                    Ningun archivo seleccionado...
+                    ${nls.msg_ningun_archivo_seleccionado}
                   </span>
                 </label>
                 </div>
@@ -99,14 +87,14 @@
             </div>
             <div>
                 <div>
-                    El archivo en formato *xlsx a cargar puede soportar hasta 10k filas y debe contener la estructura de columnas siguiente:
+                    ${nls.msg_ayuda_excel}
                 </div>
                 <br>
                 <table class="table is-small is-hoverable has-text-centered table_help_lw">
                     <thead>
                         <tr class="is-selected">
-                            <th>X</th>
-                            <th>Y</th>
+                            <th>Este</th>
+                            <th>Norte</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -128,23 +116,23 @@
                         </tr>
                     </tbody>
                 </table>
-                <p>Descargue formato excel de prueba <a href="images/sample.xlsx">aqui</a></p>
+                <p>${nls.msg_descargar_excel} <a href="images/sample.xlsx">${nls.msg_descargar_aqui}</a></p>
             </div>
         </div>
-        <button class="button is-small is-fullwidth is-primary btn_aplicar_lw" data-dojo-attach-point="ap_btn_aplicar_lw">Aplicar</button>
+        <button class="button is-small is-fullwidth is-primary btn_aplicar_lw" data-dojo-attach-point="ap_btn_aplicar_lw">${nls.title_btn_aplicar}</button>
 
     </div>
     <div class="container_option_lw" data-dojo-attach-point="resultados_opcion_lw">
         <div data-dojo-attach-point="ap_none_resultados_opcion_lw">
-            <p>No hay ningún resultado</p>
+            <p>${nls.msg_sin_resultados}</p>
         </div>
         <div class="container_resultados_lw">
             <table class="table is-small is-fullwidth is-hoverable has-text-centered is-size-7">
                 <thead class="has-background-light">
                     <tr>
-                        <td><strong>G</strong></td>
-                        <td class="has-text-left"><strong>Nombre</strong></td>
-                        <td><strong>ver</strong></td>
+                        <td><strong>${nls.tb_head_geometria}</strong></td>
+                        <td class="has-text-left"><strong>${nls.tb_head_nombre}</strong></td>
+                        <td><strong>${nls.tb_head_ver}</strong></td>
                         <td></td>
                     </tr>
                 </thead>

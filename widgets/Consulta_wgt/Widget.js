@@ -17,9 +17,15 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
         field_dist_nm_dist: 'NM_DIST',
         field_dist_cd_dist: 'CD_DIST',
 
-        field_codigou_dm: 'CODIGOU',
-        field_concesion_dm: 'CONCESION',
-        field_sustancia_dm: 'SUSTANCIA',
+        // // Campos DM Ingemmet
+        // field_codigou_dm: 'CODIGOU',
+        // field_concesion_dm: 'CONCESION',
+        // field_sustancia_dm: 'SUSTANCIA',
+
+        //  Campos DM Minem
+        field_codigou_dm: 'ID_UNIDAD',
+        field_concesion_dm: 'NOMBRE',
+        field_sustancia_dm: 'ID_CLASE_SUSTANCIA',
 
         // Campos DC
         field_id: 'ID', // Objectid del minero informal

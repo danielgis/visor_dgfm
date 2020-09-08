@@ -1,8 +1,8 @@
 {
   "serviceURL": "https://utility.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
   "defaultTitle": "REINFO GIS",
-  "defaultAuthor": "MINEM - DGFM 2020",
-  "defaultCopyright": "MINEM - Dirección General de Formalización Minera",
+  "defaultAuthor": "MINEM 2020 - Dirección General de Formalización Minera",
+  "defaultCopyright": "Documento con fines referenciales",
   "defaultFormat": "PDF",
   "defaultLayout": "A3 Landscape",
   "copyrightEditable": false

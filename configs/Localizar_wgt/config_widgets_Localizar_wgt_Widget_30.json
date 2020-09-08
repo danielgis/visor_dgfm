@@ -1,3 +1,32 @@
 {
-  "serviceUrl": "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer"
+    "crs": [{
+            "epsg": 4326,
+            "name_epsg": "WGS84 GCS"
+        },
+        {
+            "epsg": 32717,
+            "name_epsg": "WGS84 UTM 17S"
+        },
+        {
+            "epsg": 32718,
+            "name_epsg": "WGS84 UTM 18S"
+        },
+        {
+            "epsg": 32719,
+            "name_epsg": "WGS84 UTM 19S"
+        },
+        {
+            "epsg": 24877,
+            "name_epsg": "PSAD56 UTM 17S"
+        },
+        {
+            "epsg": 24878,
+            "name_epsg": "PSAD56 UTM 18S"
+        },
+        {
+            "epsg": 24879,
+            "name_epsg": "PSAD56 UTM 19S"
+        }
+    ],
+    "url_geometry_Server": "https://geoportal.minem.gob.pe/minem/rest/services/Utilities/Geometry/GeometryServer"
 }

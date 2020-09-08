@@ -63,9 +63,18 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
                 }
             });
         },
-        _validateRucNumber_lw: function _validateRucNumber_lw(evt) {
+        _validateCoordinateNumber_lw: function _validateCoordinateNumber_lw(evt) {
             var val = evt.currentTarget.value;
             evt.currentTarget.value = val.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+        },
+        _populateSelectSistemReference_lw: function _populateSelectSistemReference_lw() {
+            this.config.crs.forEach(function (i) {
+                var opt = document.createElement("option");
+                opt.value = i.epsg;
+                opt.text = i.name_epsg;
+                self_lw.select_punto_opcion_lw.add(opt);
+            });
+            this.select_poligono_opcion_lw.innerHTML = this.select_punto_opcion_lw.innerHTML;
         },
         _applyGraphic: function _applyGraphic(evt) {
             console.log(self_lw.tabSelected);
@@ -86,7 +95,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             var srid = self_lw.select_punto_opcion_lw.value;
 
             if (srid == '') {
-                self_lw._showMessage("Debe seleccionar un Sistema de Referencia Espacial");
+                self_lw._showMessage(self_lw.nls.err_sistema_referencial);
                 self_lw.ap_select_punto_lw.classList.add('is-danger');
                 return;
             }
@@ -129,7 +138,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
 
             self_lw.ap_input_y_lw.classList.remove('is-danger');
 
-            var geometryService = new GeometryService("https://geoportal.minem.gob.pe/minem/rest/services/Utilities/Geometry/GeometryServer");
+            var geometryService = new GeometryService(self_lw.config.url_geometry_Server);
 
             var spatialReference = new SpatialReference({ wkid: parseInt(srid) });
             var point = new Point(parseFloat(x), parseFloat(y), spatialReference);
@@ -151,7 +160,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
                 var graphic = new Graphic(pointTransform, symbol);
                 console.log(graphic);
                 if (graphic.geometry.x == "NaN" || graphic.geometry.y == "NaN") {
-                    self_lw._showMessage("No se puede referenciar la coordenada en el mapa");
+                    self_lw._showMessage(self_lw.nls.err_referenciar_coordenada);
                     // self_lw.obj_index = self_lw.obj_index - 1;
                     // console.log("No se puede referenciar la coordenada en el mapa");
                     return;
@@ -205,7 +214,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             self_lw.busyIndicator_lw.show();
 
             if (self_lw.ap_upload_file_lw.value == "") {
-                self_lw._showMessage("Debe cargar un archivo en formato *.xlsx", type = 'error');
+                self_lw._showMessage(self_lw.nls.err_formato_invalido, type = 'error');
                 self_lw.busyIndicator_lw.hide();
                 return;
             }
@@ -213,7 +222,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             var srid = self_lw.select_poligono_opcion_lw.value;
 
             if (srid == '') {
-                self_lw._showMessage("Debe seleccionar un Sistema de Referencia Espacial");
+                self_lw._showMessage(self_lw.nls.err_sistema_referencial);
                 self_lw.ap_select_poligono_lw.classList.add('is-danger');
                 self_lw.busyIndicator_lw.hide();
                 return;
@@ -224,7 +233,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             var rings = self_lw.obj_resultados_xls.slice(1);
             var polygonJson = { "rings": [rings], "spatialReference": { "wkid": parseInt(srid) } };
 
-            var geometryService = new GeometryService("https://geoportal.minem.gob.pe/minem/rest/services/Utilities/Geometry/GeometryServer");
+            var geometryService = new GeometryService(self_lw.config.url_geometry_Server);
 
             var polygon = new Polygon(polygonJson);
             var polygonTransform = null;
@@ -367,7 +376,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             var name = evt.currentTarget.files[0].name;
 
             if (!name.endsWith('.xlsx')) {
-                self_lw._showMessage('El archivo cargado no es de formato *xlsx', type = 'error');
+                self_lw._showMessage(self_lw.nls.err_formato_invalido, type = 'error');
                 self_lw.busyIndicator_lw.hide();
                 return;
             }
@@ -377,12 +386,12 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
                 self_lw.ap_container_upload_file_lw.classList.add('is-primary');
                 self_lw.obj_resultados_xls = data;
                 self_lw.ap_help_message_lw.classList.add('has-text-primary');
-                self_lw.ap_help_message_lw.innerText = 'El archivo *.xlsx se cargó correctamente';
+                self_lw.ap_help_message_lw.innerText = self_lw.nls.suc_cargar_archivo;
                 self_lw.busyIndicator_lw.hide();
             }).catch(function (error) {
                 self_lw.ap_container_upload_file_lw.classList.add('is-danger');
                 self_lw.ap_help_message_lw.classList.add('has-text-danger');
-                self_lw.ap_help_message_lw.innerText = 'Ocurrio un error al cargar el archivo';
+                self_lw.ap_help_message_lw.innerText = self_lw.nls.err_cargar_archivo;
                 self_lw._showMessage(error.message, type = 'error');
                 self_lw.busyIndicator_lw.hide();
             });
@@ -397,6 +406,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             dojo.query('.opcion_lw').on('click', this._tabToggleForm);
             dojo.query('.btn_aplicar_lw').on('click', this._applyGraphic);
             dojo.query('.upload_file_lw').on('change', this._uploadFile);
+            this._populateSelectSistemReference_lw();
         }
     }
     // onOpen() {
