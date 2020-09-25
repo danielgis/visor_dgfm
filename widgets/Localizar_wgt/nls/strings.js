@@ -9,7 +9,7 @@ define({
         title_sistema_referencial: 'Sistema Referencial',
         opt_sistema_referencial_default: 'Seleccione una opción',
         title_este: 'ESTE (X)',
-        title_norte: 'NORTE (X)',
+        title_norte: 'NORTE (Y)',
         title_btn_aplicar: 'Aplicar',
         title_seleccione_excel: 'Seleccione un archivo excel (*.xlsx)',
         msg_ningun_archivo_seleccionado: 'Ningun archivo seleccionado...',
@@ -20,6 +20,10 @@ define({
         tb_head_geometria: 'G',
         tb_head_nombre: 'Nombre',
         tb_head_ver: 'ver',
+        allowed_este_values: 'Valores permitidos: ESTE < 1000000',
+        allowed_norte_values: 'Valores permitidos: NORTE < 10000000',
+        allowed_lat_values: 'Valores permitidos: -90 < lat < 90',
+        allowed_lon_values: 'Valores permitidos: -180 < lat < 180',
         // mensaje satisfactorios (suc: success)
         suc_cargar_archivo: 'El archivo *.xlsx se cargó correctamente',
         // mensajes de error (err: error)

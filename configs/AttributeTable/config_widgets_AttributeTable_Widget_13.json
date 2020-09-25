@@ -1,5 +1,3526 @@
 {
-  "layerInfos": [],
+  "layerInfos": [
+    {
+      "name": "REINFO",
+      "id": "DGFM_DCASUMIDA_UNION_2283",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/DGFM_DCASUMIDA_UNION/MapServer/0"
+      },
+      "show": true,
+      "showAttachments": false,
+      "sortField": "ID",
+      "isDescending": false
+    },
+    {
+      "name": "DC_sistema_gis",
+      "id": "DGFM_DCASUMIDA_UNION_2283_3572",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/DGFM_DCASUMIDA_UNION/MapServer/0"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "ID",
+      "isDescending": false
+    },
+    {
+      "name": "DM - MINEM",
+      "id": "DGFM_DERECHOMINERO_9921",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/DGFM_DERECHOMINERO/MapServer/0",
+        "fields": [
+          {
+            "name": "ID_UNIDAD",
+            "alias": "ID_UNIDAD",
+            "show": true
+          },
+          {
+            "name": "NOMBRE",
+            "alias": "NOMBRE",
+            "show": true
+          },
+          {
+            "name": "ID_UBIGEO_INEI_PRINCIPAL",
+            "alias": "ID_UBIGEO_INEI_PRINCIPAL",
+            "show": true
+          },
+          {
+            "name": "ID_CLASE_SUSTANCIA",
+            "alias": "ID_CLASE_SUSTANCIA",
+            "show": true
+          },
+          {
+            "name": "TEM_NRO_DC",
+            "alias": "TEM_NRO_DC",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "GEOMETRY",
+            "alias": "GEOMETRY",
+            "show": false
+          },
+          {
+            "name": "ESRI_OID",
+            "alias": "ESRI_OID",
+            "show": false
+          },
+          {
+            "name": "ID_SITUACION_EXPEDIENTE",
+            "alias": "ID_SITUACION_EXPEDIENTE",
+            "show": true
+          },
+          {
+            "name": "HECTAREAS_OTORGADAS",
+            "alias": "HECTAREAS_OTORGADAS",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          }
+        ]
+      },
+      "show": true,
+      "showAttachments": false,
+      "sortField": "ID_UNIDAD",
+      "isDescending": false
+    },
+    {
+      "name": "DM Vigente",
+      "id": "DGFM_DERECHOMINERO_9921_4854",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/DGFM_DERECHOMINERO/MapServer/0",
+        "fields": [
+          {
+            "name": "ID_UNIDAD",
+            "alias": "ID_UNIDAD",
+            "show": true
+          },
+          {
+            "name": "NOMBRE",
+            "alias": "NOMBRE",
+            "show": true
+          },
+          {
+            "name": "ID_UBIGEO_INEI_PRINCIPAL",
+            "alias": "ID_UBIGEO_INEI_PRINCIPAL",
+            "show": true
+          },
+          {
+            "name": "ID_CLASE_SUSTANCIA",
+            "alias": "ID_CLASE_SUSTANCIA",
+            "show": true
+          },
+          {
+            "name": "TEM_NRO_DC",
+            "alias": "TEM_NRO_DC",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "GEOMETRY",
+            "alias": "GEOMETRY",
+            "show": false
+          },
+          {
+            "name": "ESRI_OID",
+            "alias": "ESRI_OID",
+            "show": false
+          },
+          {
+            "name": "ID_SITUACION_EXPEDIENTE",
+            "alias": "ID_SITUACION_EXPEDIENTE",
+            "show": true
+          },
+          {
+            "name": "HECTAREAS_OTORGADAS",
+            "alias": "HECTAREAS_OTORGADAS",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "ID_UNIDAD",
+      "isDescending": false
+    },
+    {
+      "name": "DM Extinguido",
+      "id": "DGFM_DERECHOMINERO_9921_9829",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/DGFM_DERECHOMINERO/MapServer/0",
+        "fields": [
+          {
+            "name": "ID_UNIDAD",
+            "alias": "ID_UNIDAD",
+            "show": true
+          },
+          {
+            "name": "NOMBRE",
+            "alias": "NOMBRE",
+            "show": true
+          },
+          {
+            "name": "ID_UBIGEO_INEI_PRINCIPAL",
+            "alias": "ID_UBIGEO_INEI_PRINCIPAL",
+            "show": true
+          },
+          {
+            "name": "ID_CLASE_SUSTANCIA",
+            "alias": "ID_CLASE_SUSTANCIA",
+            "show": true
+          },
+          {
+            "name": "TEM_NRO_DC",
+            "alias": "TEM_NRO_DC",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "GEOMETRY",
+            "alias": "GEOMETRY",
+            "show": false
+          },
+          {
+            "name": "ESRI_OID",
+            "alias": "ESRI_OID",
+            "show": false
+          },
+          {
+            "name": "ID_SITUACION_EXPEDIENTE",
+            "alias": "ID_SITUACION_EXPEDIENTE",
+            "show": true
+          },
+          {
+            "name": "HECTAREAS_OTORGADAS",
+            "alias": "HECTAREAS_OTORGADAS",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "ID_UNIDAD",
+      "isDescending": false
+    },
+    {
+      "name": "Mapa de calor de REINFO",
+      "id": "DGFM_DCASUMIDA_UNION_2283_1081",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/DGFM_DCASUMIDA_UNION/MapServer/0",
+        "fields": [
+          {
+            "name": "ID",
+            "alias": "ID",
+            "show": true
+          },
+          {
+            "name": "MINERO_INFORMAL",
+            "alias": "MINERO_INFORMAL",
+            "show": true
+          },
+          {
+            "name": "TIPO_PERSONA",
+            "alias": "TIPO_PERSONA",
+            "show": true
+          },
+          {
+            "name": "M_RUC",
+            "alias": "M_RUC",
+            "show": true
+          },
+          {
+            "name": "ID_MAESTRA_RNC",
+            "alias": "ID_MAESTRA_RNC",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CODIGO_RS",
+            "alias": "CODIGO_RS",
+            "show": true
+          },
+          {
+            "name": "ID_REGION",
+            "alias": "ID_REGION",
+            "show": true
+          },
+          {
+            "name": "REGION",
+            "alias": "REGION",
+            "show": true
+          },
+          {
+            "name": "ID_UNIDAD",
+            "alias": "ID_UNIDAD",
+            "show": true
+          },
+          {
+            "name": "DERECHO_MINERO",
+            "alias": "DERECHO_MINERO",
+            "show": true
+          },
+          {
+            "name": "FLG_RS",
+            "alias": "FLG_RS",
+            "show": true
+          },
+          {
+            "name": "ID_ZONA",
+            "alias": "ID_ZONA",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "NORTE_PSAD56",
+            "alias": "NORTE_PSAD56",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ESTE_PSAD56",
+            "alias": "ESTE_PSAD56",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "NORTE_WGS84_1P",
+            "alias": "NORTE_WGS84_1P",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ESTE_WGS84_1P",
+            "alias": "ESTE_WGS84_1P",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "TIPO_MINERAL",
+            "alias": "TIPO_MINERAL",
+            "show": true
+          },
+          {
+            "name": "METODO_EXPLOTA",
+            "alias": "METODO_EXPLOTA",
+            "show": true
+          },
+          {
+            "name": "A_QUIEN_VENDE",
+            "alias": "A_QUIEN_VENDE",
+            "show": true
+          },
+          {
+            "name": "INSUMOS_UTILIZA",
+            "alias": "INSUMOS_UTILIZA",
+            "show": true
+          },
+          {
+            "name": "GEOMETRY",
+            "alias": "GEOMETRY",
+            "show": false
+          },
+          {
+            "name": "ESRI_OID",
+            "alias": "ESRI_OID",
+            "show": false
+          },
+          {
+            "name": "FLG_TITULAR",
+            "alias": "FLG_TITULAR",
+            "show": true
+          },
+          {
+            "name": "ID_CLASE_SUSTANCIA",
+            "alias": "ID_CLASE_SUSTANCIA",
+            "show": true
+          },
+          {
+            "name": "ID_UBIGEO_INEI",
+            "alias": "ID_UBIGEO_INEI",
+            "show": true
+          },
+          {
+            "name": "ORIGEN",
+            "alias": "ORIGEN",
+            "show": true
+          },
+          {
+            "name": "FLG_DCA",
+            "alias": "FLG_DCA",
+            "show": true
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "ID",
+      "isDescending": false
+    },
+    {
+      "name": "Mapa de calor por titulares DM",
+      "id": "DGFM_DCASUMIDA_UNION_2283_6875",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/DGFM_DCASUMIDA_UNION/MapServer/0",
+        "fields": [
+          {
+            "name": "ID",
+            "alias": "ID",
+            "show": true
+          },
+          {
+            "name": "MINERO_INFORMAL",
+            "alias": "MINERO_INFORMAL",
+            "show": true
+          },
+          {
+            "name": "TIPO_PERSONA",
+            "alias": "TIPO_PERSONA",
+            "show": true
+          },
+          {
+            "name": "M_RUC",
+            "alias": "M_RUC",
+            "show": true
+          },
+          {
+            "name": "ID_MAESTRA_RNC",
+            "alias": "ID_MAESTRA_RNC",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CODIGO_RS",
+            "alias": "CODIGO_RS",
+            "show": true
+          },
+          {
+            "name": "ID_REGION",
+            "alias": "ID_REGION",
+            "show": true
+          },
+          {
+            "name": "REGION",
+            "alias": "REGION",
+            "show": true
+          },
+          {
+            "name": "ID_UNIDAD",
+            "alias": "ID_UNIDAD",
+            "show": true
+          },
+          {
+            "name": "DERECHO_MINERO",
+            "alias": "DERECHO_MINERO",
+            "show": true
+          },
+          {
+            "name": "FLG_RS",
+            "alias": "FLG_RS",
+            "show": true
+          },
+          {
+            "name": "ID_ZONA",
+            "alias": "ID_ZONA",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "NORTE_PSAD56",
+            "alias": "NORTE_PSAD56",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ESTE_PSAD56",
+            "alias": "ESTE_PSAD56",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "NORTE_WGS84_1P",
+            "alias": "NORTE_WGS84_1P",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ESTE_WGS84_1P",
+            "alias": "ESTE_WGS84_1P",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "TIPO_MINERAL",
+            "alias": "TIPO_MINERAL",
+            "show": true
+          },
+          {
+            "name": "METODO_EXPLOTA",
+            "alias": "METODO_EXPLOTA",
+            "show": true
+          },
+          {
+            "name": "A_QUIEN_VENDE",
+            "alias": "A_QUIEN_VENDE",
+            "show": true
+          },
+          {
+            "name": "INSUMOS_UTILIZA",
+            "alias": "INSUMOS_UTILIZA",
+            "show": true
+          },
+          {
+            "name": "GEOMETRY",
+            "alias": "GEOMETRY",
+            "show": false
+          },
+          {
+            "name": "ESRI_OID",
+            "alias": "ESRI_OID",
+            "show": false
+          },
+          {
+            "name": "FLG_TITULAR",
+            "alias": "FLG_TITULAR",
+            "show": true
+          },
+          {
+            "name": "ID_CLASE_SUSTANCIA",
+            "alias": "ID_CLASE_SUSTANCIA",
+            "show": true
+          },
+          {
+            "name": "ID_UBIGEO_INEI",
+            "alias": "ID_UBIGEO_INEI",
+            "show": true
+          },
+          {
+            "name": "ORIGEN",
+            "alias": "ORIGEN",
+            "show": true
+          },
+          {
+            "name": "FLG_DCA",
+            "alias": "FLG_DCA",
+            "show": true
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "ID",
+      "isDescending": false
+    },
+    {
+      "name": "Mapa por sustancia",
+      "id": "DGFM_DCASUMIDA_UNION_2283_3493",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/DGFM_DCASUMIDA_UNION/MapServer/0",
+        "fields": [
+          {
+            "name": "ID",
+            "alias": "ID",
+            "show": true
+          },
+          {
+            "name": "MINERO_INFORMAL",
+            "alias": "MINERO_INFORMAL",
+            "show": true
+          },
+          {
+            "name": "TIPO_PERSONA",
+            "alias": "TIPO_PERSONA",
+            "show": true
+          },
+          {
+            "name": "M_RUC",
+            "alias": "M_RUC",
+            "show": true
+          },
+          {
+            "name": "ID_MAESTRA_RNC",
+            "alias": "ID_MAESTRA_RNC",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CODIGO_RS",
+            "alias": "CODIGO_RS",
+            "show": true
+          },
+          {
+            "name": "ID_REGION",
+            "alias": "ID_REGION",
+            "show": true
+          },
+          {
+            "name": "REGION",
+            "alias": "REGION",
+            "show": true
+          },
+          {
+            "name": "ID_UNIDAD",
+            "alias": "ID_UNIDAD",
+            "show": true
+          },
+          {
+            "name": "DERECHO_MINERO",
+            "alias": "DERECHO_MINERO",
+            "show": true
+          },
+          {
+            "name": "FLG_RS",
+            "alias": "FLG_RS",
+            "show": true
+          },
+          {
+            "name": "ID_ZONA",
+            "alias": "ID_ZONA",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "NORTE_PSAD56",
+            "alias": "NORTE_PSAD56",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ESTE_PSAD56",
+            "alias": "ESTE_PSAD56",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "NORTE_WGS84_1P",
+            "alias": "NORTE_WGS84_1P",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ESTE_WGS84_1P",
+            "alias": "ESTE_WGS84_1P",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "TIPO_MINERAL",
+            "alias": "TIPO_MINERAL",
+            "show": true
+          },
+          {
+            "name": "METODO_EXPLOTA",
+            "alias": "METODO_EXPLOTA",
+            "show": true
+          },
+          {
+            "name": "A_QUIEN_VENDE",
+            "alias": "A_QUIEN_VENDE",
+            "show": true
+          },
+          {
+            "name": "INSUMOS_UTILIZA",
+            "alias": "INSUMOS_UTILIZA",
+            "show": true
+          },
+          {
+            "name": "GEOMETRY",
+            "alias": "GEOMETRY",
+            "show": false
+          },
+          {
+            "name": "ESRI_OID",
+            "alias": "ESRI_OID",
+            "show": false
+          },
+          {
+            "name": "FLG_TITULAR",
+            "alias": "FLG_TITULAR",
+            "show": true
+          },
+          {
+            "name": "ID_CLASE_SUSTANCIA",
+            "alias": "ID_CLASE_SUSTANCIA",
+            "show": true
+          },
+          {
+            "name": "ID_UBIGEO_INEI",
+            "alias": "ID_UBIGEO_INEI",
+            "show": true
+          },
+          {
+            "name": "ORIGEN",
+            "alias": "ORIGEN",
+            "show": true
+          },
+          {
+            "name": "FLG_DCA",
+            "alias": "FLG_DCA",
+            "show": true
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "ID",
+      "isDescending": false
+    },
+    {
+      "name": "Mapa de densidad DC por DM - Revisar",
+      "id": "DGFM_DERECHOMINERO_9921_3746",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/DGFM_DERECHOMINERO/MapServer/0",
+        "fields": [
+          {
+            "name": "ID_UNIDAD",
+            "alias": "ID_UNIDAD",
+            "show": true
+          },
+          {
+            "name": "NOMBRE",
+            "alias": "NOMBRE",
+            "show": true
+          },
+          {
+            "name": "ID_UBIGEO_INEI_PRINCIPAL",
+            "alias": "ID_UBIGEO_INEI_PRINCIPAL",
+            "show": true
+          },
+          {
+            "name": "ID_CLASE_SUSTANCIA",
+            "alias": "ID_CLASE_SUSTANCIA",
+            "show": true
+          },
+          {
+            "name": "TEM_NRO_DC",
+            "alias": "TEM_NRO_DC",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "GEOMETRY",
+            "alias": "GEOMETRY",
+            "show": false
+          },
+          {
+            "name": "ESRI_OID",
+            "alias": "ESRI_OID",
+            "show": false
+          },
+          {
+            "name": "ID_SITUACION_EXPEDIENTE",
+            "alias": "ID_SITUACION_EXPEDIENTE",
+            "show": true
+          },
+          {
+            "name": "HECTAREAS_OTORGADAS",
+            "alias": "HECTAREAS_OTORGADAS",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "ID_UNIDAD",
+      "isDescending": false
+    },
+    {
+      "name": "Mapa de calor por no titulares DM",
+      "id": "DGFM_DCASUMIDA_UNION_2283_442",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/DGFM_DCASUMIDA_UNION/MapServer/0",
+        "fields": [
+          {
+            "name": "ID",
+            "alias": "ID",
+            "show": true
+          },
+          {
+            "name": "MINERO_INFORMAL",
+            "alias": "MINERO_INFORMAL",
+            "show": true
+          },
+          {
+            "name": "TIPO_PERSONA",
+            "alias": "TIPO_PERSONA",
+            "show": true
+          },
+          {
+            "name": "M_RUC",
+            "alias": "M_RUC",
+            "show": true
+          },
+          {
+            "name": "ID_MAESTRA_RNC",
+            "alias": "ID_MAESTRA_RNC",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CODIGO_RS",
+            "alias": "CODIGO_RS",
+            "show": true
+          },
+          {
+            "name": "ID_REGION",
+            "alias": "ID_REGION",
+            "show": true
+          },
+          {
+            "name": "REGION",
+            "alias": "REGION",
+            "show": true
+          },
+          {
+            "name": "ID_UNIDAD",
+            "alias": "ID_UNIDAD",
+            "show": true
+          },
+          {
+            "name": "DERECHO_MINERO",
+            "alias": "DERECHO_MINERO",
+            "show": true
+          },
+          {
+            "name": "FLG_RS",
+            "alias": "FLG_RS",
+            "show": true
+          },
+          {
+            "name": "ID_ZONA",
+            "alias": "ID_ZONA",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "NORTE_PSAD56",
+            "alias": "NORTE_PSAD56",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ESTE_PSAD56",
+            "alias": "ESTE_PSAD56",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "NORTE_WGS84_1P",
+            "alias": "NORTE_WGS84_1P",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ESTE_WGS84_1P",
+            "alias": "ESTE_WGS84_1P",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "TIPO_MINERAL",
+            "alias": "TIPO_MINERAL",
+            "show": true
+          },
+          {
+            "name": "METODO_EXPLOTA",
+            "alias": "METODO_EXPLOTA",
+            "show": true
+          },
+          {
+            "name": "A_QUIEN_VENDE",
+            "alias": "A_QUIEN_VENDE",
+            "show": true
+          },
+          {
+            "name": "INSUMOS_UTILIZA",
+            "alias": "INSUMOS_UTILIZA",
+            "show": true
+          },
+          {
+            "name": "GEOMETRY",
+            "alias": "GEOMETRY",
+            "show": false
+          },
+          {
+            "name": "ESRI_OID",
+            "alias": "ESRI_OID",
+            "show": false
+          },
+          {
+            "name": "FLG_TITULAR",
+            "alias": "FLG_TITULAR",
+            "show": true
+          },
+          {
+            "name": "ID_CLASE_SUSTANCIA",
+            "alias": "ID_CLASE_SUSTANCIA",
+            "show": true
+          },
+          {
+            "name": "ID_UBIGEO_INEI",
+            "alias": "ID_UBIGEO_INEI",
+            "show": true
+          },
+          {
+            "name": "ORIGEN",
+            "alias": "ORIGEN",
+            "show": true
+          },
+          {
+            "name": "FLG_DCA",
+            "alias": "FLG_DCA",
+            "show": true
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "ID",
+      "isDescending": false
+    },
+    {
+      "name": "Centros Poblados",
+      "id": "T_GENS_CCPP_9721",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/INTRANET/T_GENS_CCPP/MapServer/0",
+        "fields": [
+          {
+            "name": "OID",
+            "alias": "OID",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "UBIGEO",
+            "alias": "UBIGEO",
+            "show": true
+          },
+          {
+            "name": "FUENTEM",
+            "alias": "FUENTEM",
+            "show": true
+          },
+          {
+            "name": "FUENTED",
+            "alias": "FUENTED",
+            "show": true
+          },
+          {
+            "name": "ARNOMBRE",
+            "alias": "ARNOMBRE",
+            "show": true
+          },
+          {
+            "name": "IDARM_09",
+            "alias": "IDARM_09",
+            "show": true
+          },
+          {
+            "name": "IDARM_12",
+            "alias": "IDARM_12",
+            "show": true
+          },
+          {
+            "name": "UBIGEO_1",
+            "alias": "UBIGEO_1",
+            "show": true
+          },
+          {
+            "name": "CCDD",
+            "alias": "CCDD",
+            "show": true
+          },
+          {
+            "name": "NOMB_DEP",
+            "alias": "NOMB_DEP",
+            "show": true
+          },
+          {
+            "name": "CCPP",
+            "alias": "CCPP",
+            "show": true
+          },
+          {
+            "name": "NOMB_PRO",
+            "alias": "NOMB_PRO",
+            "show": true
+          },
+          {
+            "name": "CCDI",
+            "alias": "CCDI",
+            "show": true
+          },
+          {
+            "name": "NOMB_DIST",
+            "alias": "NOMB_DIST",
+            "show": true
+          },
+          {
+            "name": "AREA",
+            "alias": "AREA",
+            "show": true
+          },
+          {
+            "name": "CODCCPP",
+            "alias": "CODCCPP",
+            "show": true
+          },
+          {
+            "name": "NOMCCPP",
+            "alias": "NOMCCPP",
+            "show": true
+          },
+          {
+            "name": "VIV_TOTAL",
+            "alias": "VIV_TOTAL",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_1",
+            "alias": "V_TIPO_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_2",
+            "alias": "V_TIPO_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_3",
+            "alias": "V_TIPO_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_4",
+            "alias": "V_TIPO_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_5",
+            "alias": "V_TIPO_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_6",
+            "alias": "V_TIPO_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_7",
+            "alias": "V_TIPO_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_8",
+            "alias": "V_TIPO_8",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_9",
+            "alias": "V_TIPO_9",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_10",
+            "alias": "V_TIPO_10",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_11",
+            "alias": "V_TIPO_11",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_12",
+            "alias": "V_TIPO_12",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_13",
+            "alias": "V_TIPO_13",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_14",
+            "alias": "V_TIPO_14",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_15",
+            "alias": "V_TIPO_15",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TIPO_16",
+            "alias": "V_TIPO_16",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_OCUP_1",
+            "alias": "V_OCUP_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_OCUP_2",
+            "alias": "V_OCUP_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_OCUP_3",
+            "alias": "V_OCUP_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_OCUP_4",
+            "alias": "V_OCUP_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_OCUP_5",
+            "alias": "V_OCUP_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_OCUP_6",
+            "alias": "V_OCUP_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_OCUP_7",
+            "alias": "V_OCUP_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PARED_1",
+            "alias": "V_PARED_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PARED_2",
+            "alias": "V_PARED_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PARED_3",
+            "alias": "V_PARED_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PARED_4",
+            "alias": "V_PARED_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PARED_5",
+            "alias": "V_PARED_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PARED_6",
+            "alias": "V_PARED_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PARED_7",
+            "alias": "V_PARED_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PARED_8",
+            "alias": "V_PARED_8",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PISO_1",
+            "alias": "V_PISO_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PISO_2",
+            "alias": "V_PISO_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PISO_3",
+            "alias": "V_PISO_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PISO_4",
+            "alias": "V_PISO_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PISO_5",
+            "alias": "V_PISO_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PISO_6",
+            "alias": "V_PISO_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PISO_7",
+            "alias": "V_PISO_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_AGUA_1",
+            "alias": "V_AGUA_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_AGUA_2",
+            "alias": "V_AGUA_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_AGUA_3",
+            "alias": "V_AGUA_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_AGUA_4",
+            "alias": "V_AGUA_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_AGUA_5",
+            "alias": "V_AGUA_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_AGUA_6",
+            "alias": "V_AGUA_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_AGUA_7",
+            "alias": "V_AGUA_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_AGUA_8",
+            "alias": "V_AGUA_8",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DESAG_1",
+            "alias": "V_DESAG_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DESAG_2",
+            "alias": "V_DESAG_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DESAG_3",
+            "alias": "V_DESAG_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DESAG_4",
+            "alias": "V_DESAG_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DESAG_5",
+            "alias": "V_DESAG_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DESAG_6",
+            "alias": "V_DESAG_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_ALUMB_1",
+            "alias": "V_ALUMB_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_ALUMB_2",
+            "alias": "V_ALUMB_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PIEZA_1",
+            "alias": "V_PIEZA_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PIEZA_2",
+            "alias": "V_PIEZA_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PIEZA_3",
+            "alias": "V_PIEZA_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PIEZA_4",
+            "alias": "V_PIEZA_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PIEZA_5",
+            "alias": "V_PIEZA_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PIEZA_6",
+            "alias": "V_PIEZA_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PIEZA_7",
+            "alias": "V_PIEZA_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_PIEZA_8",
+            "alias": "V_PIEZA_8",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TEN_1",
+            "alias": "V_TEN_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TEN_2",
+            "alias": "V_TEN_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TEN_3",
+            "alias": "V_TEN_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TEN_4",
+            "alias": "V_TEN_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TEN_5",
+            "alias": "V_TEN_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_TEN_6",
+            "alias": "V_TEN_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_EQUIP_1",
+            "alias": "V_EQUIP_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_EQUIP_2",
+            "alias": "V_EQUIP_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_EQUIP_3",
+            "alias": "V_EQUIP_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_EQUIP_4",
+            "alias": "V_EQUIP_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_EQUIP_5",
+            "alias": "V_EQUIP_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_EQUIP_6",
+            "alias": "V_EQUIP_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_EQUIP_7",
+            "alias": "V_EQUIP_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_SERV_1",
+            "alias": "V_SERV_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_SERV_2",
+            "alias": "V_SERV_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_SERV_3",
+            "alias": "V_SERV_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_SERV_4",
+            "alias": "V_SERV_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_SERV_5",
+            "alias": "V_SERV_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_ENERG_1",
+            "alias": "V_ENERG_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_ENERG_2",
+            "alias": "V_ENERG_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_ENERG_3",
+            "alias": "V_ENERG_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_ENERG_4",
+            "alias": "V_ENERG_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_ENERG_5",
+            "alias": "V_ENERG_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_ENERG_6",
+            "alias": "V_ENERG_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_ENERG_7",
+            "alias": "V_ENERG_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_ENERG_8",
+            "alias": "V_ENERG_8",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_CHEMI_1",
+            "alias": "V_CHEMI_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_CHEMI_2",
+            "alias": "V_CHEMI_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_CHEMI_3",
+            "alias": "V_CHEMI_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DISCA_1",
+            "alias": "V_DISCA_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DISCA_2",
+            "alias": "V_DISCA_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DISCA_3",
+            "alias": "V_DISCA_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DISCA_4",
+            "alias": "V_DISCA_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DISCA_5",
+            "alias": "V_DISCA_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "V_DISCA_6",
+            "alias": "V_DISCA_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PR_JEFE",
+            "alias": "PR_JEFE",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PR_ESPOSA",
+            "alias": "PR_ESPOSA",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PR_HIJO",
+            "alias": "PR_HIJO",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PR_YERNO",
+            "alias": "PR_YERNO",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PR_PADRE",
+            "alias": "PR_PADRE",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PR_OTRO",
+            "alias": "PR_OTRO",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PR_PAR",
+            "alias": "PR_PAR",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PR_TRAB",
+            "alias": "PR_TRAB",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PR_PENS",
+            "alias": "PR_PENS",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PRE_NOP",
+            "alias": "PRE_NOP",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PS_HOMBRE",
+            "alias": "PS_HOMBRE",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PS_MUJER",
+            "alias": "PS_MUJER",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PG_1",
+            "alias": "PG_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PG_14",
+            "alias": "PG_14",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PG_29",
+            "alias": "PG_29",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PG_44",
+            "alias": "PG_44",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PG_64",
+            "alias": "PG_64",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PG_MAS",
+            "alias": "PG_MAS",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PN_PARNA",
+            "alias": "PN_PARNA",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PN_NOPARNA",
+            "alias": "PN_NOPARNA",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "PN_NOESP",
+            "alias": "PN_NOESP",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LR_PERM",
+            "alias": "LR_PERM",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LR_NOPERM",
+            "alias": "LR_NOPERM",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LR5_NONAC",
+            "alias": "LR5_NONAC",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LR5_PERM",
+            "alias": "LR5_PERM",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LR5_NOPERM",
+            "alias": "LR5_NOPERM",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LRM_PERM",
+            "alias": "LRM_PERM",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LRM_NOPERM",
+            "alias": "LRM_NOPERM",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "AF_SIS_SUM",
+            "alias": "AF_SIS_SUM",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "AF_ESSALUD",
+            "alias": "AF_ESSALUD",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "AF_OTRO",
+            "alias": "AF_OTRO",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "AF_NINGUN",
+            "alias": "AF_NINGUN",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "IDI_QUECH",
+            "alias": "IDI_QUECH",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "IDI_AYMAR",
+            "alias": "IDI_AYMAR",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "IDI_ASHAN",
+            "alias": "IDI_ASHAN",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "IDI_ATRAN",
+            "alias": "IDI_ATRAN",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "IDI_CASTEL",
+            "alias": "IDI_CASTEL",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "IDI_EXTRAN",
+            "alias": "IDI_EXTRAN",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "IDI_SMUDO",
+            "alias": "IDI_SMUDO",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ALFA_LE",
+            "alias": "ALFA_LE",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ALFA_NOLE",
+            "alias": "ALFA_NOLE",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EDU_SIN",
+            "alias": "EDU_SIN",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EDU_INIC",
+            "alias": "EDU_INIC",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EDU_PRIN",
+            "alias": "EDU_PRIN",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EDU_SECUN",
+            "alias": "EDU_SECUN",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EDU_NU_I",
+            "alias": "EDU_NU_I",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EDU_NU_C",
+            "alias": "EDU_NU_C",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EDU_N_I",
+            "alias": "EDU_N_I",
+            "show": false,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EDU_N_C",
+            "alias": "EDU_N_C",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ACE_SI",
+            "alias": "ACE_SI",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "ACE_NO",
+            "alias": "ACE_NO",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SPT1H_SI",
+            "alias": "SPT1H_SI",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SPT1H_NO",
+            "alias": "SPT1H_NO",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LSP_1",
+            "alias": "LSP_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LSP_2",
+            "alias": "LSP_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LSP_3",
+            "alias": "LSP_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LSP_4",
+            "alias": "LSP_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "LSP_5",
+            "alias": "LSP_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SLPE_1",
+            "alias": "SLPE_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SLPE_2",
+            "alias": "SLPE_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SLPE_3",
+            "alias": "SLPE_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SLPE_4",
+            "alias": "SLPE_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SLPE_5",
+            "alias": "SLPE_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SLPE_6",
+            "alias": "SLPE_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "SLPE_7",
+            "alias": "SLPE_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_1",
+            "alias": "OCP_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_2",
+            "alias": "OCP_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_3",
+            "alias": "OCP_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_4",
+            "alias": "OCP_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_5",
+            "alias": "OCP_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_6",
+            "alias": "OCP_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_7",
+            "alias": "OCP_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_8",
+            "alias": "OCP_8",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_9",
+            "alias": "OCP_9",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_10",
+            "alias": "OCP_10",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "OCP_11",
+            "alias": "OCP_11",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_1",
+            "alias": "RAE_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_2",
+            "alias": "RAE_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_3",
+            "alias": "RAE_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_4",
+            "alias": "RAE_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_5",
+            "alias": "RAE_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_6",
+            "alias": "RAE_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_7",
+            "alias": "RAE_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_8",
+            "alias": "RAE_8",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_9",
+            "alias": "RAE_9",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_10",
+            "alias": "RAE_10",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_11",
+            "alias": "RAE_11",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_12",
+            "alias": "RAE_12",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_13",
+            "alias": "RAE_13",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_14",
+            "alias": "RAE_14",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_15",
+            "alias": "RAE_15",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_16",
+            "alias": "RAE_16",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_17",
+            "alias": "RAE_17",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_18",
+            "alias": "RAE_18",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_19",
+            "alias": "RAE_19",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "RAE_20",
+            "alias": "RAE_20",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CDO_1",
+            "alias": "CDO_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CDO_2",
+            "alias": "CDO_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CDO_3",
+            "alias": "CDO_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CDO_4",
+            "alias": "CDO_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CDO_5",
+            "alias": "CDO_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CDO_6",
+            "alias": "CDO_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CTL_5",
+            "alias": "CTL_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CTL_10",
+            "alias": "CTL_10",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CTL_50",
+            "alias": "CTL_50",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "CTL_MAS",
+            "alias": "CTL_MAS",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "REL_CATO",
+            "alias": "REL_CATO",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "REL_CRIS",
+            "alias": "REL_CRIS",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "REL_OTRO",
+            "alias": "REL_OTRO",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "REL_NING",
+            "alias": "REL_NING",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EST_CON",
+            "alias": "EST_CON",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EST_SEP",
+            "alias": "EST_SEP",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EST_CAS",
+            "alias": "EST_CAS",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EST_VIU",
+            "alias": "EST_VIU",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EST_DIV",
+            "alias": "EST_DIV",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "EST_SOL",
+            "alias": "EST_SOL",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HNV_1",
+            "alias": "HNV_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HNV_2",
+            "alias": "HNV_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HNV_3",
+            "alias": "HNV_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HNV_4",
+            "alias": "HNV_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HNV_5",
+            "alias": "HNV_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HNV_6",
+            "alias": "HNV_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HNV_7",
+            "alias": "HNV_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HNV_8",
+            "alias": "HNV_8",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HNV_9",
+            "alias": "HNV_9",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HAV_1",
+            "alias": "HAV_1",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HAV_2",
+            "alias": "HAV_2",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HAV_3",
+            "alias": "HAV_3",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HAV_4",
+            "alias": "HAV_4",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HAV_5",
+            "alias": "HAV_5",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HAV_6",
+            "alias": "HAV_6",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HAV_7",
+            "alias": "HAV_7",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HAV_8",
+            "alias": "HAV_8",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "HAV_9",
+            "alias": "HAV_9",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "DNI_TIENE",
+            "alias": "DNI_TIENE",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "DNI_NOTIEN",
+            "alias": "DNI_NOTIEN",
+            "show": true,
+            "format": {
+              "places": 2,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "VERSION",
+            "alias": "VERSION",
+            "show": true,
+            "format": {
+              "places": 0,
+              "digitSeparator": true
+            }
+          },
+          {
+            "name": "GEOMETRY",
+            "alias": "GEOMETRY",
+            "show": false
+          },
+          {
+            "name": "ESRI_OID",
+            "alias": "ESRI_OID",
+            "show": false
+          }
+        ]
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OID",
+      "isDescending": false
+    },
+    {
+      "name": "Puntos geodésicos",
+      "id": "Topografia_447_0",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/ATLASEOL/Topografia/MapServer/0"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Cotas",
+      "id": "Topografia_447_1",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/ATLASEOL/Topografia/MapServer/1"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Curvas nivel cada 50 m. Escala 1:100.000",
+      "id": "Topografia_447_2",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/ATLASEOL/Topografia/MapServer/2"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID_1",
+      "isDescending": false
+    },
+    {
+      "name": "Curvas de nivel, en metros. Escala 1:500.000",
+      "id": "Topografia_447_3",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/ATLASEOL/Topografia/MapServer/3"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Unidades Hidrográficas",
+      "id": "Topografia_447_4",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/ATLASEOL/Topografia/MapServer/4"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID_1",
+      "isDescending": false
+    },
+    {
+      "name": "Lagos",
+      "id": "Topografia_447_5",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/ATLASEOL/Topografia/MapServer/5"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Canales",
+      "id": "Topografia_447_6",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/ATLASEOL/Topografia/MapServer/6"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID_1",
+      "isDescending": false
+    },
+    {
+      "name": "Quebradas",
+      "id": "Topografia_447_7",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/ATLASEOL/Topografia/MapServer/7"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Ríos",
+      "id": "Topografia_447_8",
+      "layer": {
+        "url": "https://geoportal.minem.gob.pe/minem/rest/services/ATLASEOL/Topografia/MapServer/8"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Area Defensa Nacional",
+      "id": "SERV_AREA_RESERVADA_4184_0",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/0"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Zonas Arqueologicas",
+      "id": "SERV_AREA_RESERVADA_4184_1",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/1"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Area de No Adminsion de Petitorios",
+      "id": "SERV_AREA_RESERVADA_4184_3",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/3"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "ANAP INGEMMET",
+      "id": "SERV_AREA_RESERVADA_4184_4",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/4"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Puertos y Aeropuertos",
+      "id": "SERV_AREA_RESERVADA_4184_5",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/5"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Zonas Urbanas",
+      "id": "SERV_AREA_RESERVADA_4184_6",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/6"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Propuesta de Area Natural",
+      "id": "SERV_AREA_RESERVADA_4184_7",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/7"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Otras Areas Restringidas",
+      "id": "SERV_AREA_RESERVADA_4184_8",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/8"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Proyectos Especiales",
+      "id": "SERV_AREA_RESERVADA_4184_9",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/9"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Area Natural Amortiguamiento",
+      "id": "SERV_AREA_RESERVADA_4184_10",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/10"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Area Natural",
+      "id": "SERV_AREA_RESERVADA_4184_11",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/11"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Zona de Riesgo No Mitigable ",
+      "id": "SERV_AREA_RESERVADA_4184_12",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/12"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Siito Historico de Batalla",
+      "id": "SERV_AREA_RESERVADA_4184_13",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/13"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Sitio Ramsar",
+      "id": "SERV_AREA_RESERVADA_4184_14",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/14"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Concesion de Transporte Minero",
+      "id": "SERV_AREA_RESERVADA_4184_15",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/15"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Infraestructura del Estado",
+      "id": "SERV_AREA_RESERVADA_4184_16",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/16"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Ecosistemas Frágiles",
+      "id": "SERV_AREA_RESERVADA_4184_17",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_AREA_RESERVADA/MapServer/17"
+      },
+      "show": false,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Departamentos",
+      "id": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_0",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_CARTOGRAFIA_DEMARCACION_WGS84/MapServer/0"
+      },
+      "show": true,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Provincias",
+      "id": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_1",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_CARTOGRAFIA_DEMARCACION_WGS84/MapServer/1"
+      },
+      "show": true,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    },
+    {
+      "name": "Distritos",
+      "id": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_2",
+      "layer": {
+        "url": "https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_CARTOGRAFIA_DEMARCACION_WGS84/MapServer/2"
+      },
+      "show": true,
+      "showAttachments": false,
+      "sortField": "OBJECTID",
+      "isDescending": false
+    }
+  ],
   "table": {
     "pageSizeOptions": [
       25,
@@ -8,7 +3529,7 @@
       1000
     ]
   },
-  "hideExportButton": true,
+  "hideExportButton": false,
   "initiallyExpand": false,
   "filterByMapExtent": true,
   "allowTextSelection": true,

@@ -112,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            <button class="button is-small is-fullwidth is-primary btn_aplicar_cw" data-dojo-attach-point="btn_aplicar_cw " data-dojo-attach-event="click:_applyQuery ">${nls.apply}</button>
+            <button class="button is-small is-fullwidth is-primary btn_aplicar_cw" data-dojo-attach-point="btn_aplicar_cw " data-dojo-attach-event="click:_applyQuery">${nls.apply}</button>
         </div>
     </div>
     <div class="container_opcion_cw" data-dojo-attach-point="resultados_opcion_cw">
@@ -123,8 +123,8 @@
             <div class="indicador_resultados_cw" data-dojo-attach-point="ap_indicador_resultados_cw">
                 <p><strong></strong></p>
             </div>
-            <div class="titulo_resultados_cw" data-dojo-attach-point="ap_titulo_resultados_cw">
-            </div>
+            <div class="titulo_resultados_cw" data-dojo-attach-point="ap_titulo_resultados_cw"></div>
+            <div class="titulo_registros_resultados_cw" data-dojo-attach-point="ap_titulo_registros_resultados_cw"></div>
             <div class="registros_resultados_cw">
                 <aside class="menu is-small">
                     <ul class="menu-list" data-dojo-attach-point="ap_registros_encontrados_cw">
@@ -141,6 +141,17 @@
                     </ul>
                 </aside>
             </div>
+            <!-- Paginacion de resultados -->
+            <nav class="pagination is-small is-rounded is-centered pagination_response_cw" role="navigation" aria-label="pagination" data-dojo-attach-point="ap_pagination_cw">
+                <a class="pagination-previous" disabled=true data-dojo-attach-point="ap_anterior_page_cw" data-dojo-attach-event="click:_backPage">
+                    <span class="icon is-small is-left"><i class="fas fa-chevron-left"></i></span>
+                </a>
+                <a class="pagination-next" data-dojo-attach-point="ap_siguiente_page_cw" data-dojo-attach-event="click:_nextPage">
+                    <span class="icon is-small is-left"><i class="fas fa-chevron-right"></i></span>
+                </a>
+                <ul class="pagination-list pagination_container_cw" data-dojo-attach-point="ap_pagination_list_cw">
+                </ul>
+            </nav>
         </div>
 
     </div>

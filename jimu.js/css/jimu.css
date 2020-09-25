@@ -370,13 +370,9 @@ input[type="text"]::-ms-clear {
     display: none !important;
 }
 
-.serverLink {
-    visibility: hidden;
-}
-
 .serverLink:before {
-    content: "REINFO MINEM ";
-    visibility: visible;
+    content: "GEOREINFO ";
+    /* visibility: visible; */
 }
 
 

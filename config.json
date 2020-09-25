@@ -177,8 +177,7 @@
         "version": "2.17",
         "id": "widgets_AttributeTable_Widget_13",
         "name": "AttributeTable",
-        "config": "configs/AttributeTable/config_widgets_AttributeTable_Widget_13.json",
-        "visible": false
+        "config": "configs/AttributeTable/config_widgets_AttributeTable_Widget_13.json"
       },
       {
         "uri": "widgets/Splash/Widget",

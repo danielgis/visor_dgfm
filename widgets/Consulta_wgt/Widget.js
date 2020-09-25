@@ -1,4 +1,4 @@
-define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerInfos/LayerInfos', "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/StatisticDefinition", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol", "esri/Color", "jimu/dijit/Message", 'esri/dijit/util/busyIndicator'], function (declare, _WidgetsInTemplateMixin, BaseWidget, lang, LayerInfos, Query, QueryTask, StatisticDefinition, SimpleFillSymbol, SimpleLineSymbol, Color, Message, BusyIndicator) {
+define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerInfos/LayerInfos', "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/StatisticDefinition", "esri/layers/FeatureLayer", "esri/layers/GraphicsLayer", 'esri/graphic', "esri/symbols/SimpleFillSymbol", 'esri/symbols/SimpleLineSymbol', 'esri/symbols/SimpleMarkerSymbol', 'dojo/_base/Color', "jimu/dijit/Message", 'esri/dijit/util/busyIndicator'], function (declare, _WidgetsInTemplateMixin, BaseWidget, lang, LayerInfos, Query, QueryTask, StatisticDefinition, FeatureLayer, GraphicsLayer, Graphic, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Color, Message, BusyIndicator) {
     return declare([BaseWidget, _WidgetsInTemplateMixin, Query, QueryTask, StatisticDefinition], {
 
         // Custom widget code goes here
@@ -43,11 +43,28 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
         temporal_class_results: '',
 
+        feature_dc: null,
+        feature_dm: null,
+
+        numero_registros: 0,
+        numero_paginas: 0,
+        registros_pagina: 1000,
+        pagina_actual: 1,
+        grupo_actual: 0,
+        grupos_paginas: [],
+        factor: 4,
+        whereDefinition: '',
+
         postCreate: function postCreate() {
             self_cw = this;
             this.inherited(arguments);
             // console.log('Consulta_wgt::postCreate');;
             this._getAllLayers();
+            this.feature_dc = self_cw.layersMap.getLayerInfoById(this.config.layer_id_dc);
+            this.feature_dm = self_cw.layersMap.getLayerInfoById(this.config.layer_id_dm);
+            this.feature_dep = this.layersMap.getLayerInfoById(this.config.layer_id_dep);
+            this.feature_prov = this.layersMap.getLayerInfoById(this.config.layer_id_prov);
+            this.feature_dist = this.layersMap.getLayerInfoById(this.config.layer_id_dist);
         },
         _getAllLayers: function _getAllLayers() {
             LayerInfos.getInstance(this.map, this.map.itemInfo).then(lang.hitch(this, function (layerInfosObj) {
@@ -89,14 +106,14 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
         },
         _getDataByTipoPersona: function _getDataByTipoPersona() {
             var id = this.config.layer_id_dc;
-            var feature_dc = this.layersMap.getLayerInfoById(id);
+            // let feature_dc = this.layersMap.getLayerInfoById(id);
             var query = new Query();
             query.where = this.field_tipo_persona + ' IS NOT NULL';
             query.returnGeometry = false;
             query.returnDistinctValues = true;
             query.outFields = [this.field_tipo_persona];
 
-            feature_dc.layerObject.queryFeatures(query, function (results) {
+            self_cw.feature_dc.layerObject.queryFeatures(query, function (results) {
                 var features = results.features;
                 if (features.length) {
                     features.forEach(function (i) {
@@ -188,14 +205,17 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             // Definiendo el objeto Query para obtener las provincias del departamento
             var query = new Query();
             query.where = this.field_dep_cd_depa + ' = \'' + cd_depa + '\'';
+
             query.returnGeometry = false;
             query.outFields = [this.field_prov_nm_prov, this.field_prov_cd_prov];
             query.orderByFields = [this.field_prov_nm_prov];
 
+            self_cw._zoomExtendSelected(self_cw.feature_dep, query.where);
+
             // Ejecucion de consulta para obtener las opciones de provincias
             queryTask.execute(query, function (results) {
+                var fragment = document.createDocumentFragment();
                 // Zoom al departamento seleccionado
-                self_cw._zoomExtendSelected(self_cw.config.layer_id_dep, query.where);
                 var features = results.features;
                 // Si se encontraron resultados
                 if (features.length) {
@@ -204,13 +224,16 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                         var opt = document.createElement("option");
                         opt.value = i.attributes[self_cw.field_prov_cd_prov];
                         opt.text = i.attributes[self_cw.field_prov_nm_prov];
-                        self_cw.provincia_cw.add(opt);
+                        // self_cw.provincia_cw.add(opt);
+                        fragment.appendChild(opt);
                     });
                     var opt = document.createElement("option");
                     opt.value = '';
                     opt.text = 'Todos';
                     opt.selected = true;
-                    self_cw.provincia_cw.add(opt);
+                    fragment.appendChild(opt);
+                    // self_cw.provincia_cw.add(opt);
+                    self_cw.provincia_cw.appendChild(fragment);
                 } else {
                     // Notificar si no se encontraron elementos
                     self_cw._showMessage('' + self_cw.nls.error_provincia_count);
@@ -266,10 +289,13 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             query.outFields = [this.field_dist_nm_dist, this.field_dist_cd_dist];
             query.orderByFields = [this.field_dist_nm_dist];
 
+            self_cw._zoomExtendSelected(self_cw.feature_prov, query.where);
+
             // Ejecucion de consulta para obtener las opciones de distritos
             queryTask.execute(query, function (results) {
+                var fragment = document.createDocumentFragment();
                 // Zoom a la provincia seleccionada
-                self_cw._zoomExtendSelected(self_cw.config.layer_id_prov, query.where);
+                // self_cw._zoomExtendSelected(self_cw.config.layer_id_prov, query.where);
                 self_cw.distrito_cw.innerHTML = "";
                 var features = results.features;
                 // Si se encontraron resultados
@@ -278,13 +304,16 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                         var opt = document.createElement("option");
                         opt.value = i.attributes[self_cw.field_dist_cd_dist];
                         opt.text = i.attributes[self_cw.field_dist_nm_dist];
-                        self_cw.distrito_cw.add(opt);
+                        // self_cw.distrito_cw.add(opt);
+                        fragment.appendChild(opt);
                     });
                     var opt = document.createElement("option");
                     opt.value = '';
                     opt.text = 'Todos';
                     opt.selected = true;
-                    self_cw.distrito_cw.add(opt);
+                    // self_cw.distrito_cw.add(opt);
+                    fragment.appendChild(opt);
+                    self_cw.distrito_cw.appendChild(fragment);
                 } else {
                     // Notificar si no se encontraron elementos
                     self_cw._showMessage('' + self_cw.nls.error_distrito_count);
@@ -308,7 +337,8 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 return;
             }
             this.controller_ubigeo = cd_dist;
-            this._zoomExtendSelected(this.config.layer_id_dist, whereDefinition);
+            this._zoomExtendSelected(this.feature_dist, whereDefinition);
+            // this._zoomExtendSelected(this.config.layer_id_dist, whereDefinition);
         },
         _addEventToLayerQuery: function _addEventToLayerQuery() {
             dojo.query(".capa_consulta_cw").on('click', this._setFormContainer);
@@ -378,7 +408,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
             // self_cw._applyQueryDM.click()
             var id = evt.currentTarget.innerText;
-            query = new Query();
+            var query = new Query();
             query.where = self_cw.field_codigou_dm + ' = \'' + id + '\'';
             var id_layer = self_cw.config.layer_id_dm;
             var feature = self_cw.layersMap.getLayerInfoById(id_layer);
@@ -408,10 +438,10 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 self_cw._showMessage(self_cw.nls.error_service + ' ' + feature.title + '\n' + error.message, type = 'error');
             });
         },
-        _zoomExtendSelected: function _zoomExtendSelected(idService, whereDefinition) {
+        _zoomExtendSelected: function _zoomExtendSelected(feature, whereDefinition) {
             var query = new Query();
             query.where = whereDefinition;
-            var feature = this.layersMap.getLayerInfoById(idService);
+            // let feature = this.layersMap.getLayerInfoById(idService);
             feature.getLayerObject().then(function (results) {
                 results.queryExtent(query, function (res) {
                     if (res.count) {
@@ -431,16 +461,21 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             self_cw.ap_registros_encontrados_cw.innerHTML = '';
             switch (self_cw.controller_query) {
                 case 'dc':
-                    self_cw._applyQueryDC();
+                    // self_cw._applyQueryDC()
+                    self_cw._applyQueryDC2();
                     break;
                 case 'dm':
-                    self_cw._applyQueryDM();
+                    // self_cw._applyQueryDM();
+                    self_cw._applyQueryDM2();
                     break;
                 default:
                     break;
             }
         },
         _populateResultsDC: function _populateResultsDC(arrayResults) {
+            var enumerate_ini = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+
+            var fragment = document.createDocumentFragment();
             arrayResults.forEach(function (r, i) {
                 if (self_cw.temporal_class_results) {
                     var newRow = self_cw.temporal_class_results;
@@ -451,7 +486,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 newRow.style.display = 'block';
 
                 var nodeTitle = dojo.query('.title_registros_cw', newRow)[0];
-                newRow.getElementsByClassName('title_registros_cw')[0].innerText = i + 1 + '. ' + r[self_cw.field_minero_informal];
+                newRow.getElementsByClassName('title_registros_cw')[0].innerText = enumerate_ini + '. ' + r[self_cw.field_minero_informal];
                 // newRow.getElementsByClassName('title_registros_cw')[0].id = r[self_cw.field_id];
                 newRow.getElementsByClassName('container_head_registros_cw')[0].id = r[self_cw.field_id];
                 // dojo.connect(nodeTitle, 'onclick', self_cw._showPopupRowSelectedClick);
@@ -467,8 +502,11 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
                 newRow.getElementsByClassName('detalle_registros_resultados_cw')[0].innerHTML = fieldsListNode;
 
-                self_cw.ap_registros_encontrados_cw.appendChild(newRow);
+                fragment.appendChild(newRow);
+                // self_cw.ap_registros_encontrados_cw.appendChild(newRow);
+                enumerate_ini = enumerate_ini + 1;
             });
+            self_cw.ap_registros_encontrados_cw.appendChild(fragment);
             dojo.query('.container_head_registros_cw').on('click', self_cw._showPopupRowSelectedClick);
             dojo.query('.codigou_cw').on('click', self_cw._zoomDmExtentToMap);
             this.busyIndicator.hide();
@@ -490,16 +528,16 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             // let id = evt.currentTarget.parentElement.getAttribute('value');
             var feature = self_cw.layersMap.getLayerInfoById(self_cw.config.layer_id_dc);
 
-            var feature_sys = self_cw.layersMap.getLayerInfoById(self_cw.config.layer_id_dc_sys);
+            // let feature_sys = self_cw.layersMap.getLayerInfoById(self_cw.config.layer_id_dc_sys)
 
             var query = new Query();
-            query.where = self_cw.field_id_unidad + ' = \'' + id + '\'';
+            query.where = '(' + self_cw.field_id_unidad + ' = \'' + id + '\') and (' + self_cw.field_m_ruc + ' is not null)';
 
             feature.setFilter(query.where);
             feature.show();
 
-            feature_sys.setFilter(query.where);
-            feature_sys.show();
+            // feature_sys.setFilter(query.where);
+            // feature_sys.show();
 
             // evt.currentTarget.parentElement.classList.toggle('active')
 
@@ -536,6 +574,9 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             });
         },
         _populateResultsDM: function _populateResultsDM(arrayResults) {
+            var enumerate_ini = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+
+            var fragment = document.createDocumentFragment();
             arrayResults.forEach(function (r, i) {
                 if (self_cw.temporal_class_results) {
                     var newRow = self_cw.temporal_class_results;
@@ -545,8 +586,8 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
                 newRow.style.display = 'block';
 
-                var nodeTitle = dojo.query('.title_registros_cw', newRow)[0];
-                newRow.getElementsByClassName('title_registros_cw')[0].innerText = i + 1 + '. ' + self_cw.nls.field_codigou_dm + ': ' + r[self_cw.field_codigou_dm];
+                // var nodeTitle = dojo.query('.title_registros_cw', newRow)[0]
+                newRow.getElementsByClassName('title_registros_cw')[0].innerText = enumerate_ini + '. ' + self_cw.nls.field_codigou_dm + ': ' + r[self_cw.field_codigou_dm];
                 // newRow.getElementsByClassName('title_registros_cw')[0].id = r[self_cw.field_codigou_dm];
                 newRow.getElementsByClassName('container_head_registros_cw')[0].id = r[self_cw.field_codigou_dm];
                 // dojo.connect(nodeTitle, 'onclick', self_cw._showPopupRowSelectedClickDM);
@@ -562,8 +603,10 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
                 newRow.getElementsByClassName('detalle_registros_resultados_cw')[0].innerHTML = fieldsListNode;
 
-                self_cw.ap_registros_encontrados_cw.appendChild(newRow);
+                fragment.appendChild(newRow);
+                enumerate_ini = enumerate_ini + 1;
             });
+            self_cw.ap_registros_encontrados_cw.appendChild(fragment);
             dojo.query('.container_head_registros_cw').on('click', self_cw._showPopupRowSelectedClickDM);
             dojo.query('.reinfos_cw').on('click', self_cw._showReinfos);
             this.busyIndicator.hide();
@@ -576,120 +619,59 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             // }
             var id_row = evt.currentTarget.id;
 
-            var id_layer = self_cw.config.layer_id_dc;
-            var id_layer_sys = self_cw.config.layer_id_dc_sys;
+            // var id_layer = self_cw.config.layer_id_dc;
+            // var id_layer_sys = self_cw.config.layer_id_dc_sys;
 
-            var feature = self_cw.layersMap.getLayerInfoById(id_layer);
-            var feature_sys = self_cw.layersMap.getLayerInfoById(id_layer_sys);
+            // var feature = self_cw.layersMap.getLayerInfoById(id_layer);
+            // var feature_sys = self_cw.layersMap.getLayerInfoById(id_layer_sys);
 
-            var whereDefinition = self_cw.field_id + ' = ' + id_row;
+            // let whereDefinition = `${self_cw.field_id} = ${id_row}`
+            var query = new Query();
+            query.where = self_cw.field_id + ' = ' + id_row;
 
-            feature_sys.setFilter(whereDefinition);
+            // self_cw.feature_dc_sys.hide();
+            // self_cw.feature_dc_sys.setFilter('');
+            // self_cw.feature_dc_sys.setFilter(query.where);
+            // self_cw.feature_dc_sys.show();
 
-            feature_sys.layerObject.queryFeatures(whereDefinition, function (results) {
+            // feature_sys.layerObject.queryFeatures(whereDefinition, function(results) {
+            self_cw.feature_dc.layerObject.queryFeatures(query, function (results) {
                 var center = results.features[0].geometry;
                 if (!center) {
                     self_cw._showMessage(self_cw.nls.error_none_geometry);
+                    return;
                 }
-                self_cw._openPopupAutocamitcally(feature, center, whereDefinition);
+                self_cw.map.infoWindow.setFeatures(results.features);
+                self_cw.map.infoWindow.show(center, self_cw.map.getInfoWindowAnchor(center));
+                self_cw.map.centerAt(center);
             });
         },
         _showPopupRowSelectedClickDM: function _showPopupRowSelectedClickDM(evt) {
-            // let id_row = evt.currentTarget.getElementsByClassName('title_registros_cw')[0].id;
             var id_row = evt.currentTarget.id;
 
-            var id_layer = self_cw.config.layer_id_dm;
+            var query = new Query();
+            query.where = self_cw.field_codigou_dm + ' = \'' + id_row + '\'';
+            query.returnGeometry = true;
+            query.outFields = ['*'];
 
-            var feature = self_cw.layersMap.getLayerInfoById(id_layer);
+            var queryTask = new QueryTask(self_cw.feature_dm.getUrl());
+            queryTask.execute(query, function (results) {
+                var center = results.features[0].geometry.getCentroid();
+                if (!center) {
+                    self_cw._showMessage(self_cw.nls.error_none_geometry);
+                    return;
+                };
 
-            var whereDefinition = self_cw.field_codigou_dm + ' = \'' + id_row + '\'';
-
-            query = new Query();
-            query.where = whereDefinition;
-
-            // feature_sys.setFilter(whereDefinition);
-
-            feature.getLayerObject().then(function (response) {
-                response.queryFeatures(query, function (results) {
-                    if (results.features.length) {
-                        var center = results.features[0].geometry.getCentroid();
-                        var ext = results.features[0].geometry.getExtent();
-                        self_cw._openPopupAutocamitcally2(results, center, query);
-                        self_cw.map.setExtent(ext, true);
-                    }
+                self_cw.feature_dm.layerObject.selectFeatures(query, FeatureLayer.SELECTION_NEW).then(function (response) {
+                    self_cw.map.infoWindow.setFeatures(response);
+                    self_cw.map.infoWindow.show(center);
+                    var ext = results.features[0].geometry.getExtent();
+                    self_cw.map.setExtent(ext.expand(1.6), true);
                 }, function (error) {
-                    self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + feature.title + ' (' + query.where + ')\n' + error.message);
+                    console.log(error);
                 });
             }, function (error) {
-                self_cw._showMessage(self_cw.nls.error_service + ' ' + feature.title + '\n' + error.message, type = 'error');
-            });
-        },
-        _applyQueryDC: function _applyQueryDC() {
-            whereDefinitionArray = [];
-
-            if (self_cw.input_ruc_dc_cw.value != '') {
-                var ruc_dc = '(' + self_cw.field_m_ruc + ' like \'%' + self_cw.input_ruc_dc_cw.value + '%\')';
-                whereDefinitionArray.push(ruc_dc);
-            }
-
-            var nombre_dc = '(lower(' + self_cw.field_minero_informal + ') like lower(\'%' + self_cw.input_nombre_dc_cw.value + '%\'))';
-            whereDefinitionArray.push(nombre_dc);
-
-            if (self_cw.select_tipo_persona_cw.value != '') {
-                var tipo_persona_dc = '(' + self_cw.field_tipo_persona + ' like \'%' + self_cw.select_tipo_persona_cw.value + '%\')';
-                whereDefinitionArray.push(tipo_persona_dc);
-            };
-
-            var codigou_dc = '(upper(' + self_cw.field_id_unidad + ') like upper(\'%' + self_cw.input_codigou_dc_cw.value + '%\'))';
-            whereDefinitionArray.push(codigou_dc);
-
-            var nombredm_dc = '(lower(' + self_cw.field_derecho_minero + ') like lower(\'%' + self_cw.input_nombre_dm_dc_cw.value + '%\'))';
-            whereDefinitionArray.push(nombredm_dc);
-
-            var ubigeo_dc = '(' + self_cw.field_id_ubigeo_inei + ' like \'' + self_cw.controller_ubigeo + '%\')';
-            whereDefinitionArray.push(ubigeo_dc);
-
-            var whereDefinition = whereDefinitionArray.join(' and ');
-
-            // Filtro a capa DC visible en la TOC
-            var id = self_cw.config.layer_id_dc;
-            var feature = self_cw.layersMap.getLayerInfoById(id);
-            feature.setFilter(whereDefinition);
-            feature.show();
-
-            // Filtro a capa DC sistema no visible en la TOC
-            var id_sys = self_cw.config.layer_id_dc_sys;
-            var feature_sys = self_cw.layersMap.getLayerInfoById(id_sys);
-            feature_sys.setFilter(whereDefinition);
-            feature_sys.show();
-
-            // Realizando el query a la capa
-            feature.layerObject.queryFeatures(whereDefinition, function (result) {
-                var rowcount = result.features.length;
-                if (rowcount) {
-                    self_cw.controller_layer_query = true;
-                }
-                self_cw.ap_indicador_resultados_cw.innerText = rowcount;
-                self_cw.ap_titulo_resultados_cw.innerText = self_cw.titulo_consulta.innerText + ' encontrados';
-
-                var data = result.features.map(function (i) {
-                    return i.attributes;
-                });
-
-                self_cw._populateResultsDC(data);
-
-                self_cw.ap_none_resultados_opcion_cw.hidden = true;
-                var class_list_container_resultados = self_cw.container_resultados_opcion_cw.classList;
-                if (!class_list_container_resultados.contains('active')) {
-                    self_cw.container_resultados_opcion_cw.classList.toggle('active');
-                }
-                self_cw.ap_resultados_cw.click();
-            });
-
-            feature_sys.layerObject.queryExtent(whereDefinition, function (results) {
-                if (results.count) {
-                    self_cw.map.setExtent(results.extent, true);
-                }
+                self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dm.title + ' (' + query.where + ')\n' + error.message);
             });
         },
         _applyQueryDM: function _applyQueryDM() {
@@ -737,7 +719,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                     if (results.count) {
                         self_cw.map.setExtent(results.extent, true);
                     } else {
-                        self_cw._showMessage(self_cw.nls.none_element_pl);
+                        // self_cw._showMessage(self_cw.nls.none_element_pl);
                     }
                 }, function (error) {
                     self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + feature.title + ' (' + query.where + ')\n' + error.message);
@@ -755,6 +737,14 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 backgroundOpacity: 0
             });
             this.busyIndicator.show();
+
+            // var panel = this.getPanel();
+            // var pos = panel.position;
+            // pos.width = 450;
+            // panel.setPosition(pos);
+            // panel.panelManager.normalizePanel(panel);
+
+
             self_cw._addEventToTabsOptions();
             self_cw._addEventToLayerQuery();
             self_cw._getDataByTipoPersona();
@@ -769,13 +759,13 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             // this.map.graphics.clear();
             var whereDefinition = '1=1';
             lyr_dc = this.layersMap.getLayerInfoById(this.config.layer_id_dc);
-            lyr_dc_sys = this.layersMap.getLayerInfoById(this.config.layer_id_dc_sys);
+            // lyr_dc_sys = this.layersMap.getLayerInfoById(this.config.layer_id_dc_sys);
             lyr_dm = this.layersMap.getLayerInfoById(this.config.layer_id_dm);
             lyr_dc.hide();
-            lyr_dc_sys.hide();
+            // lyr_dc_sys.hide();
             lyr_dm.hide();
             lyr_dc.setFilter(whereDefinition);
-            lyr_dc_sys.setFilter(whereDefinition);
+            // lyr_dc_sys.setFilter(whereDefinition);
             lyr_dm.setFilter(whereDefinition);
             this.busyIndicator.hide();
             this.container_resultados_opcion_cw.classList.remove('active');
@@ -787,26 +777,367 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             if (this.controller_layer_query) {
                 this._showMessage(this.nls.clean_map_question, type = 'question');
             }
+        },
+        _queryDcGeneral: function _queryDcGeneral() {
+            var query = new Query();
+            query.where = self_cw.whereDefinition;
+            // var feature_dc = self_cw.layersMap.getLayerInfoById(self_cw.config.layer_id_dc);
+            self_cw.feature_dc.hide();
+            self_cw.feature_dc.setFilter('');
+            self_cw.feature_dc.getLayerObject().then(function (response) {
+                response.queryCount(query, function (results) {
+                    self_cw.numero_registros = results;
+                    self_cw.ap_indicador_resultados_cw.innerText = results;
+                    self_cw.ap_titulo_resultados_cw.innerText = self_cw.titulo_consulta.innerText + ' encontrados';
+
+                    self_cw._generatePages();
+                    self_cw._queryDcByPage();
+                }, function (error) {
+                    self_cw._showMessage(error.message, type = 'error');
+                });
+            }).catch(function (error) {
+                self_cw._showMessage(error.message, type = 'error');
+                self_cw.busyIndicator_lw.hide();
+            });
+        },
+        queryDmGeneral: function queryDmGeneral() {
+            var query = new Query();
+            query.where = self_cw.whereDefinition;
+            query.obe;
+            self_cw.feature_dm.hide();
+            self_cw.feature_dm.setFilter('');
+            self_cw.feature_dm.getLayerObject().then(function (response) {
+                response.queryIds(query, function (results) {
+                    // console.log(results);
+                    self_cw.numero_registros = results.length;
+                    self_cw.ap_indicador_resultados_cw.innerText = results.length;
+                    self_cw.ap_titulo_resultados_cw.innerText = self_cw.titulo_consulta.innerText + ' encontrados';
+
+                    self_cw._generatePages();
+                    self_cw._queryDmByPage();
+                    // self_cw.busyIndicator.hide();
+                }, function (error) {
+                    self_cw._showMessage(error.message, type = 'error');
+                });
+            }).catch(function (error) {
+                self_cw._showMessage(error.message, type = 'error');
+                self_cw.busyIndicator_lw.hide();
+            });
+        },
+        _queryDcByPage: function _queryDcByPage() {
+            var n = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+            // self_cw.feature_dc_sys.hide();
+            self_cw.busyIndicator.show();
+
+            if (self_cw.numero_registros == 0) {
+                self_cw.busyIndicator.hide();
+                self_cw.ap_titulo_registros_resultados_cw.innerText = '';
+                self_cw.ap_resultados_cw.click();
+                return;
+            };
+
+            var query = new Query();
+            query.returnGeometry = false;
+            query.where = self_cw.whereDefinition;
+            query.num = self_cw.registros_pagina;
+            query.start = n == 1 ? 0 : (n - 1) * self_cw.registros_pagina;
+            query.orderByFields = [self_cw.field_id];
+
+            var start = query.start + 1;
+            var fin = query.start + query.num > self_cw.numero_registros ? self_cw.numero_registros : self_cw.pagina_actual * query.num;
+            self_cw.ap_titulo_registros_resultados_cw.innerText = String(start) + ' - ' + String(fin);
+
+            self_cw.feature_dc.hide();
+            self_cw.feature_dc.setFilter('');
+
+            // Realizando el query a la capa
+            self_cw.feature_dc.layerObject.queryFeatures(query, function (result) {
+                var rowcount = result.features.length;
+                if (rowcount) {
+                    self_cw.controller_layer_query = true;
+                }
+                // self_cw.ap_indicador_resultados_cw.innerText = rowcount;
+                // self_cw.ap_titulo_resultados_cw.innerText = self_cw.titulo_consulta.innerText + ' encontrados';
+
+                var data = result.features.map(function (i) {
+                    return i.attributes;
+                });
+
+                var ids = data.map(function (i) {
+                    return i[self_cw.field_id];
+                });
+                var ids_join = ids.join(', ');
+                var query_ids = self_cw.field_id + ' IN (' + ids_join + ')';
+
+                self_cw.feature_dc.setFilter(query_ids);
+                self_cw.feature_dc.show();
+
+                // self_cw.feature_dc_sys.setFilter(query_ids);
+                // self_cw.feature_dc_sys.show();
+
+                self_cw._populateResultsDC(data, start);
+
+                self_cw.ap_none_resultados_opcion_cw.hidden = true;
+                var class_list_container_resultados = self_cw.container_resultados_opcion_cw.classList;
+                if (!class_list_container_resultados.contains('active')) {
+                    self_cw.container_resultados_opcion_cw.classList.toggle('active');
+                }
+                self_cw.ap_resultados_cw.click();
+                self_cw.busyIndicator.hide();
+            });
+
+            self_cw.feature_dc.layerObject.queryExtent(query, function (results) {
+                if (results.count) {
+                    self_cw.map.setExtent(results.extent, true);
+                }
+            });
+
+            if (self_cw.numero_paginas <= 1) {
+                self_cw.ap_anterior_page_cw.setAttribute('disabled', true);
+                self_cw.ap_siguiente_page_cw.setAttribute('disabled', true);
+                return;
+            }
+
+            if (n == 1) {
+                self_cw.ap_anterior_page_cw.setAttribute('disabled', true);
+                self_cw.ap_siguiente_page_cw.removeAttribute('disabled');
+            } else if (n == self_cw.numero_paginas) {
+                self_cw.ap_anterior_page_cw.removeAttribute('disabled');
+                self_cw.ap_siguiente_page_cw.setAttribute('disabled', true);
+            } else {
+                self_cw.ap_anterior_page_cw.removeAttribute('disabled');
+                self_cw.ap_siguiente_page_cw.removeAttribute('disabled');
+            }
+        },
+        _queryDmByPage: function _queryDmByPage() {
+            var n = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+            // self_cw.feature_dc_sys.hide();
+            self_cw.busyIndicator.show();
+
+            if (self_cw.numero_registros == 0) {
+                self_cw.busyIndicator.hide();
+                self_cw.ap_titulo_registros_resultados_cw.innerText = '';
+                self_cw.ap_resultados_cw.click();
+                return;
+            };
+
+            var query = new Query();
+            query.where = self_cw.whereDefinition;
+            query.returnGeometry = false;
+            query.num = self_cw.registros_pagina;
+            query.start = n == 1 ? 0 : (n - 1) * self_cw.registros_pagina;
+            query.orderByFields = [self_cw.field_id_unidad];
+
+            var start = query.start + 1;
+            var fin = query.start + query.num > self_cw.numero_registros ? self_cw.numero_registros : self_cw.pagina_actual * query.num;
+            self_cw.ap_titulo_registros_resultados_cw.innerText = String(start) + ' - ' + String(fin);
+
+            self_cw.feature_dm.hide();
+            self_cw.feature_dm.setFilter('');
+
+            // Realizando el query a la capa
+            self_cw.feature_dm.layerObject.queryFeatures(query, function (result) {
+                var rowcount = result.features.length;
+                if (rowcount) {
+                    self_cw.controller_layer_query = true;
+                }
+
+                var data = result.features.map(function (i) {
+                    return i.attributes;
+                });
+
+                var ids = data.map(function (i) {
+                    return i[self_cw.field_id_unidad];
+                });
+                var ids_join = ids.join("', '");
+                var query_ids = self_cw.field_id_unidad + " IN ('" + ids_join + "')";
+
+                self_cw.feature_dm.setFilter(query_ids);
+                self_cw.feature_dm.show();
+
+                self_cw._populateResultsDM(data, start);
+
+                self_cw.ap_none_resultados_opcion_cw.hidden = true;
+                var class_list_container_resultados = self_cw.container_resultados_opcion_cw.classList;
+                if (!class_list_container_resultados.contains('active')) {
+                    self_cw.container_resultados_opcion_cw.classList.toggle('active');
+                }
+                self_cw.ap_resultados_cw.click();
+                self_cw.busyIndicator.hide();
+            });
+
+            self_cw.feature_dm.layerObject.queryExtent(query, function (results) {
+                if (results.count) {
+                    self_cw.map.setExtent(results.extent, true);
+                }
+            });
+
+            if (self_cw.numero_paginas <= 1) {
+                self_cw.ap_anterior_page_cw.setAttribute('disabled', true);
+                self_cw.ap_siguiente_page_cw.setAttribute('disabled', true);
+                return;
+            }
+
+            if (n == 1) {
+                self_cw.ap_anterior_page_cw.setAttribute('disabled', true);
+                self_cw.ap_siguiente_page_cw.removeAttribute('disabled');
+            } else if (n == self_cw.numero_paginas) {
+                self_cw.ap_anterior_page_cw.removeAttribute('disabled');
+                self_cw.ap_siguiente_page_cw.setAttribute('disabled', true);
+            } else {
+                self_cw.ap_anterior_page_cw.removeAttribute('disabled');
+                self_cw.ap_siguiente_page_cw.removeAttribute('disabled');
+            }
+        },
+        _queryDcByPageEvent: function _queryDcByPageEvent(evt) {
+            // Obtiene el numero de la pagina
+            var page = evt.target.innerText;
+
+            self_cw.pagina_actual = parseInt(page);
+            self_cw.ap_registros_encontrados_cw.innerHTML = '';
+
+            // Filtro de elementos
+            self_cw._queryDcByPage(self_cw.pagina_actual);
+
+            // Remover la pagina anterior seleccionada
+            dojo.query('.is-current').toggleClass('is-current');
+
+            // Activar la pagina actual seleccionada
+            evt.target.classList.toggle('is-current');
+        },
+        _queryDmByPageEvent: function _queryDmByPageEvent(evt) {
+            // Obtiene el numero de la pagina
+            var page = evt.target.innerText;
+
+            self_cw.pagina_actual = parseInt(page);
+            self_cw.ap_registros_encontrados_cw.innerHTML = '';
+
+            // Filtro de elementos
+            self_cw._queryDmByPage(self_cw.pagina_actual);
+
+            // Remover la pagina anterior seleccionada
+            dojo.query('.is-current').toggleClass('is-current');
+
+            // Activar la pagina actual seleccionada
+            evt.target.classList.toggle('is-current');
+        },
+        _nextPage: function _nextPage(evt) {
+            self_cw.pagina_actual = self_cw.pagina_actual == self_cw.numero_paginas ? self_cw.pagina_actual : self_cw.pagina_actual + 1;
+
+            if (!self_cw.grupos_paginas[self_cw.grupo_actual].includes(self_cw.pagina_actual)) {
+                self_cw.grupo_actual = self_cw.grupo_actual == self_cw.grupos_paginas.length - 1 ? self_cw.grupo_actual : self_cw.grupo_actual + 1;
+                self_cw._generatePagesFromArray(self_cw.grupos_paginas[self_cw.grupo_actual], self_cw.pagina_actual);
+            }
+            dojo.query('#page_' + self_cw.pagina_actual + '_cw')[0].click();
+        },
+        _backPage: function _backPage(evt) {
+            self_cw.pagina_actual = self_cw.pagina_actual == 1 ? self_cw.pagina_actual : self_cw.pagina_actual - 1;
+            if (!self_cw.grupos_paginas[self_cw.grupo_actual].includes(self_cw.pagina_actual)) {
+                self_cw.grupo_actual = self_cw.grupo_actual == 0 ? self_cw.grupo_actual : self_cw.grupo_actual - 1;
+                self_cw._generatePagesFromArray(self_cw.grupos_paginas[self_cw.grupo_actual], self_cw.pagina_actual);
+            }
+            dojo.query('#page_' + self_cw.pagina_actual + '_cw')[0].click();
+        },
+        _generatePages: function _generatePages() {
+            if (self_cw.numero_registros == 0) {
+                self_cw.ap_pagination_cw.classList.remove('paginationActive');
+                self_cw.ap_pagination_list_cw.innerHTML = '';
+                self_cw.busyIndicator.hide();
+                return;
+            }
+            if (!self_cw.ap_pagination_cw.classList.contains('paginationActive')) {
+                self_cw.ap_pagination_cw.classList.add('paginationActive');
+            }
+            self_cw.numero_paginas = Math.ceil(self_cw.numero_registros / self_cw.registros_pagina);
+            self_cw.grupos_paginas = self_cw._generateGroupsPages(self_cw.numero_paginas, self_cw.factor);
+            self_cw.grupo_actual = 0; // Es el primer grupo
+            self_cw.pagina_actual = 1; // Segundo parametro es 1 porque es la primera pagina
+
+            self_cw._generatePagesFromArray(self_cw.grupos_paginas[self_cw.grupo_actual], self_cw.pagina_actual);
+        },
+        _generateGroupsPages: function _generateGroupsPages(numero_paginas, factor) {
+            var paginas = Array.from(Array(numero_paginas + 1).keys()).slice(1);
+            var grupos = Math.ceil(numero_paginas / factor);
+            var grupos_array = Array.from(Array(grupos).keys());
+            var grupos_paginas = grupos_array.map(function (i) {
+                return paginas.slice(i * factor, (i + 1) * factor);
+            });
+            return grupos_paginas;
+        },
+        _generatePagesFromArray: function _generatePagesFromArray(pages, val) {
+            var pages_html_array = [];
+            pages.forEach(function (n) {
+                var class_element = n == val ? 'pagination-link is-current pages_result_cw' : 'pagination-link pages_result_cw';
+                pages_html_array.push('<li><a id="page_' + n + '_cw" class="' + class_element + '" aria-label="Pagina ' + n + '">' + n + '</a></li>');
+            });
+
+            if (self_cw.grupo_actual == 0 && self_cw.grupos_paginas.length == 1) {
+                // No hace nada
+            } else if (self_cw.grupo_actual == 0 && self_cw.grupos_paginas.length > 1) {
+                pages_html_array.push('<li><span class="pagination-ellipsis">&hellip;</span></li>');
+            } else if (self_cw.grupo_actual == self_cw.grupos_paginas.length - 1) {
+                pages_html_array.splice(0, 0, '<li><span class="pagination-ellipsis">&hellip;</span></li>');
+            } else {
+                pages_html_array.push('<li><span class="pagination-ellipsis">&hellip;</span></li>');
+                pages_html_array.splice(0, 0, '<li><span class="pagination-ellipsis">&hellip;</span></li>');
+            }
+
+            pages_html = pages_html_array.join('');
+            self_cw.ap_pagination_list_cw.innerHTML = pages_html;
+
+            if (self_cw.controller_query == 'dc') {
+                dojo.query('.pages_result_cw').on('click', self_cw._queryDcByPageEvent);
+            } else if (self_cw.controller_query == 'dm') {
+                dojo.query('.pages_result_cw').on('click', self_cw._queryDmByPageEvent);
+            }
+        },
+        _applyQueryDC2: function _applyQueryDC2() {
+            whereDefinitionArray = [];
+
+            var ruc_dc = '(' + self_cw.field_m_ruc + ' is not null)';
+
+            if (self_cw.input_ruc_dc_cw.value != '') {
+                ruc_dc = '(' + self_cw.field_m_ruc + ' like \'%' + self_cw.input_ruc_dc_cw.value + '%\' and ' + ruc_dc + ')';
+            }
+
+            whereDefinitionArray.push(ruc_dc);
+
+            var nombre_dc = '(lower(' + self_cw.field_minero_informal + ') like lower(\'%' + self_cw.input_nombre_dc_cw.value + '%\'))';
+            whereDefinitionArray.push(nombre_dc);
+
+            if (self_cw.select_tipo_persona_cw.value != '') {
+                var tipo_persona_dc = '(' + self_cw.field_tipo_persona + ' like \'%' + self_cw.select_tipo_persona_cw.value + '%\')';
+                whereDefinitionArray.push(tipo_persona_dc);
+            };
+
+            var codigou_dc = '(upper(' + self_cw.field_id_unidad + ') like upper(\'%' + self_cw.input_codigou_dc_cw.value + '%\'))';
+            whereDefinitionArray.push(codigou_dc);
+
+            var nombredm_dc = '(lower(' + self_cw.field_derecho_minero + ') like lower(\'%' + self_cw.input_nombre_dm_dc_cw.value + '%\'))';
+            whereDefinitionArray.push(nombredm_dc);
+
+            var ubigeo_dc = '(' + self_cw.field_id_ubigeo_inei + ' like \'' + self_cw.controller_ubigeo + '%\')';
+            whereDefinitionArray.push(ubigeo_dc);
+
+            self_cw.whereDefinition = whereDefinitionArray.join(' and ');
+            self_cw._queryDcGeneral();
+        },
+        _applyQueryDM2: function _applyQueryDM2() {
+            self_cw.feature_dc.hide();
+            whereDefinitionArray = [];
+
+            var codigou_dm = '(upper(' + self_cw.field_codigou_dm + ') like upper(\'%' + self_cw.input_codigou_dm_cw.value + '%\'))';
+            whereDefinitionArray.push(codigou_dm);
+
+            var nombredm_dm = '(lower(' + self_cw.field_concesion_dm + ') like lower(\'%' + self_cw.input_nombre_dm_cw.value + '%\'))';
+            whereDefinitionArray.push(nombredm_dm);
+
+            self_cw.whereDefinition = whereDefinitionArray.join(' and ');
+
+            self_cw.queryDmGeneral();
         }
-    }
-    // onMinimize(){
-    //   console.log('Consulta_wgt::onMinimize');
-    // },
-    // onMaximize(){
-    //   console.log('Consulta_wgt::onMaximize');
-    // },
-    // onSignIn(credential){
-    //   console.log('Consulta_wgt::onSignIn', credential);
-    // },
-    // onSignOut(){
-    //   console.log('Consulta_wgt::onSignOut');
-    // }
-    // onPositionChange(){
-    //   console.log('Consulta_wgt::onPositionChange');
-    // },
-    // resize(){
-    //   console.log('Consulta_wgt::resize');
-    // }
-    );
+    });
 });
 //# sourceMappingURL=Widget.js.map

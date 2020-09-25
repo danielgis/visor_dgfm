@@ -20,6 +20,12 @@
   position: absolute;
   bottom: 2px; }
 
+.consulta-wgt .pagination_response_cw {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: none; }
+
 .consulta-wgt .container_opcion_cw {
   display: none; }
 
@@ -34,12 +40,13 @@
   text-align: center; }
 
 .consulta-wgt .registros_resultados_cw {
+  background-color: #f4f4f429;
   position: absolute;
   overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
-  top: 155px;
-  bottom: 14px; }
+  top: 140px;
+  bottom: 50px; }
 
 .consulta-wgt .success_resultados_opcion_cw {
   display: none; }
@@ -59,6 +66,26 @@
 .consulta-wgt .active {
   display: block;
   width: 100%; }
+
+.consulta-wgt .paginationActive {
+  display: flex; }
+
+.consulta-wgt .pagination.is-small {
+  font-size: .65rem; }
+
+.consulta-wgt .pagination-link.is-current {
+  background-color: #00d1b2;
+  border-color: #00d1b2; }
+
+.consulta-wgt .titulo_registros_resultados_cw {
+  text-align: center;
+  font-size: 11px;
+  color: #427edf; }
+
+.consulta-wgt #msymbol_selected {
+  width: 50px;
+  height: 50px;
+  background-color: red; }
 
 /* add additional custom styles */
 

@@ -1,4 +1,4 @@
-define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/tasks/ProjectParameters", 'esri/tasks/GeometryService', "esri/geometry/Point", 'esri/geometry/Polygon', 'esri/symbols/SimpleFillSymbol', 'esri/symbols/SimpleLineSymbol', 'esri/symbols/SimpleMarkerSymbol', 'dojo/_base/Color', "esri/layers/GraphicsLayer", 'esri/graphic', "jimu/dijit/Message", "esri/InfoTemplate", "esri/symbols/TextSymbol", "esri/symbols/Font", 'esri/dijit/util/busyIndicator', 'https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js'], function (declare, BaseWidget, SpatialReference, ProjectParameters, GeometryService, Point, Polygon, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Color, GraphicsLayer, Graphic, Message, InfoTemplate, TextSymbol, Font, BusyIndicator) {
+define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/tasks/ProjectParameters", 'esri/tasks/GeometryService', "esri/geometry/Point", 'esri/geometry/Polygon', 'esri/symbols/SimpleFillSymbol', 'esri/symbols/SimpleLineSymbol', 'esri/symbols/SimpleMarkerSymbol', 'dojo/_base/Color', "esri/layers/GraphicsLayer", 'esri/graphic', "jimu/dijit/Message", "esri/InfoTemplate", "esri/symbols/TextSymbol", "esri/symbols/Font", 'esri/dijit/util/busyIndicator', "esri/tasks/AreasAndLengthsParameters", 'https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js'], function (declare, BaseWidget, SpatialReference, ProjectParameters, GeometryService, Point, Polygon, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Color, GraphicsLayer, Graphic, Message, InfoTemplate, TextSymbol, Font, BusyIndicator, AreasAndLengthsParameters) {
     return declare([BaseWidget], {
 
         // Custom widget code goes here
@@ -116,10 +116,13 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
 
             if (!self_lw._validateCoordX(x, src)) {
                 self_lw.ap_input_x_lw.classList.add('is-danger');
+                self_lw.ap_help_x_lw.classList.add('is-active');
+                self_lw.ap_help_x_lw.innerText = src == 'gcs' ? self_lw.nls.allowed_lon_values : self_lw.nls.allowed_este_values;
                 return;
             };
 
             self_lw.ap_input_x_lw.classList.remove('is-danger');
+            self_lw.ap_help_x_lw.classList.remove('is-active');
 
             // Validacion de cordenada Y ingresada
             var y = self_lw.ap_input_y_lw.value;
@@ -133,10 +136,14 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
 
             if (!self_lw._validateCoordY(y, src)) {
                 self_lw.ap_input_y_lw.classList.add('is-danger');
+                self_lw.ap_help_y_lw.classList.add('is-active');
+                self_lw.ap_help_y_lw.innerText = src == 'gcs' ? self_lw.nls.allowed_lat_values : self_lw.nls.allowed_norte_values;
+                // self.ap_help_y_message_lw.classList.add('active')
                 return;
             };
 
             self_lw.ap_input_y_lw.classList.remove('is-danger');
+            self_lw.ap_help_y_lw.classList.remove('is-active');
 
             var geometryService = new GeometryService(self_lw.config.url_geometry_Server);
 
@@ -260,7 +267,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
 
                 var font = new Font("15px", Font.STYLE_NORMAL, Font.VARIANT_NORMAL, Font.WEIGHT_BOLD, "Arial");
                 var txtSym = new TextSymbol(name, font, new Color([250, 0, 0, 0.9]));
-                txtSym.setOffset(-15, -5).setAlign(TextSymbol.ALIGN_END);
+                // txtSym.setOffset(-15, -5).setAlign(TextSymbol.ALIGN_END)
                 txtSym.setHaloColor(new Color([255, 255, 255]));
                 txtSym.setHaloSize(1.5);
 
@@ -273,7 +280,24 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
 
                 self_lw.map.addLayer(graphicLayer);
                 // self_lw.map.infoWindow.show(center);
-                self_lw.map.centerAndZoom(center, 10);
+
+                var areasAndLengthParams = new AreasAndLengthsParameters();
+                areasAndLengthParams.lengthUnit = GeometryService.UNIT_METERS;
+                areasAndLengthParams.areaUnit = GeometryService.UNIT_HECTARES;
+                areasAndLengthParams.calculationType = "geodesic";
+                areasAndLengthParams.polygons = [graphic.geometry];
+
+                geometryService.areasAndLengths(areasAndLengthParams).then(function (results) {
+                    var area = results.areas[0].toFixed(4);
+                    var perimetro = results.lengths[0].toFixed(4);
+                    graphic.setInfoTemplate(new InfoTemplate("Polígono", "<span>Área (ha): </span>" + area + "<br />" + "<span>Perímetro (m): </span>" + perimetro));
+                    self_lw.map.infoWindow.setTitle(graphic.getTitle());
+                    self_lw.map.infoWindow.setContent(graphic.getContent());
+                    self_lw.map.infoWindow.show(center);
+                });
+
+                // self_lw.map.centerAndZoom(center, 10);
+                self_cw.map.setExtent(graphic._extent, true);
 
                 self_lw._addResultados(graphicLayer, name);
                 self_lw.ap_none_resultados_opcion_lw.hidden = true;
@@ -293,7 +317,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             x = parseFloat(x);
             switch (src) {
                 case 'gcs':
-                    response = x >= -180 & x <= 180 ? true : false;
+                    response = x > -180 & x < 180 ? true : false;
                     return response;
                 case 'utm':
                     response = x >= 0 & x <= 1000000 ? true : false;
@@ -307,7 +331,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             y = parseFloat(y);
             switch (src) {
                 case 'gcs':
-                    response = y >= -90 & y <= 90 ? true : false;
+                    response = y > -90 & y < 90 ? true : false;
                     return response;
                 case 'utm':
                     response = y >= 0 & y <= 10000000 ? true : false;
@@ -383,12 +407,20 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
 
             readXlsxFile(evt.currentTarget.files[0]).then(function (data) {
                 self_lw.ap_upload_file_name_lw.innerText = name;
+
+                self_lw.ap_container_upload_file_lw.classList.remove('is-danger');
+                self_lw.ap_help_message_lw.classList.remove('has-text-danger');
+
                 self_lw.ap_container_upload_file_lw.classList.add('is-primary');
                 self_lw.obj_resultados_xls = data;
+
                 self_lw.ap_help_message_lw.classList.add('has-text-primary');
                 self_lw.ap_help_message_lw.innerText = self_lw.nls.suc_cargar_archivo;
                 self_lw.busyIndicator_lw.hide();
             }).catch(function (error) {
+                self_lw.ap_container_upload_file_lw.classList.remove('is-primary');
+                self_lw.ap_help_message_lw.classList.remove('has-text-primary');
+
                 self_lw.ap_container_upload_file_lw.classList.add('is-danger');
                 self_lw.ap_help_message_lw.classList.add('has-text-danger');
                 self_lw.ap_help_message_lw.innerText = self_lw.nls.err_cargar_archivo;

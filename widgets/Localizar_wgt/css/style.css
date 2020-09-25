@@ -30,6 +30,10 @@
     width: 50%;
     margin-right: auto;
     margin-left: auto; }
+  .localizar-wgt .help_x_lw {
+    display: none; }
+  .localizar-wgt .help_y_lw {
+    display: none; }
   .localizar-wgt .is-active {
     display: block; }
 
