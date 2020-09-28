@@ -60,9 +60,6 @@
 .consulta-wgt .reinfos_cw {
   cursor: pointer; }
 
-.consulta-wgt .registro_dc {
-  border-bottom: #ddd solid 1px; }
-
 .consulta-wgt .active {
   display: block;
   width: 100%; }

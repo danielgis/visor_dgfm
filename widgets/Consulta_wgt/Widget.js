@@ -60,8 +60,8 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             this.inherited(arguments);
             // console.log('Consulta_wgt::postCreate');;
             this._getAllLayers();
-            this.feature_dc = self_cw.layersMap.getLayerInfoById(this.config.layer_id_dc);
-            this.feature_dm = self_cw.layersMap.getLayerInfoById(this.config.layer_id_dm);
+            this.feature_dc = this.layersMap.getLayerInfoById(this.config.layer_id_dc);
+            this.feature_dm = this.layersMap.getLayerInfoById(this.config.layer_id_dm);
             this.feature_dep = this.layersMap.getLayerInfoById(this.config.layer_id_dep);
             this.feature_prov = this.layersMap.getLayerInfoById(this.config.layer_id_prov);
             this.feature_dist = this.layersMap.getLayerInfoById(this.config.layer_id_dist);
@@ -472,24 +472,33 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                     break;
             }
         },
+        _cloneNode: function _cloneNode(node) {
+            var clone = node.nodeType == 3 ? document.createTextNode(node.nodeValue) : node.cloneNode(false);
+            var child = node.firstChild;
+            while (child) {
+                clone.appendChild(self_cw._cloneNode(child));
+                child = child.nextSibling;
+            }
+            return clone;
+        },
+        _rowNode: function _rowNode() {
+            var node = '<li style="display: none;" data-dojo-attach-point="ap_template_registros_resultados_cw">\n                        <a class="container_head_registros_cw">\n                            <div class="columns is-mobile">\n                                <div class="column is-four-fifths title_registros_cw"></div>\n                                <div class="column has-text-right"><span class="icon has-text-info"><i class="fas fa-search"></i></span></div>\n                            </div>\n                        </a>\n                        <ul class="detalle_registros_resultados_cw">\n                        </ul>\n                    </li>';
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(node, 'text/html');
+            return doc.body.childNodes[0];
+        },
         _populateResultsDC: function _populateResultsDC(arrayResults) {
             var enumerate_ini = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
             var fragment = document.createDocumentFragment();
             arrayResults.forEach(function (r, i) {
-                if (self_cw.temporal_class_results) {
-                    var newRow = self_cw.temporal_class_results;
-                } else {
-                    var newRow = dojo.clone(self_cw.ap_template_registros_resultados_cw);
-                }
+                var newRow = self_cw._rowNode();
 
                 newRow.style.display = 'block';
 
-                var nodeTitle = dojo.query('.title_registros_cw', newRow)[0];
+                // var nodeTitle = dojo.query('.title_registros_cw', newRow)[0]
                 newRow.getElementsByClassName('title_registros_cw')[0].innerText = enumerate_ini + '. ' + r[self_cw.field_minero_informal];
-                // newRow.getElementsByClassName('title_registros_cw')[0].id = r[self_cw.field_id];
                 newRow.getElementsByClassName('container_head_registros_cw')[0].id = r[self_cw.field_id];
-                // dojo.connect(nodeTitle, 'onclick', self_cw._showPopupRowSelectedClick);
 
                 // Lista campos
 
@@ -503,7 +512,6 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 newRow.getElementsByClassName('detalle_registros_resultados_cw')[0].innerHTML = fieldsListNode;
 
                 fragment.appendChild(newRow);
-                // self_cw.ap_registros_encontrados_cw.appendChild(newRow);
                 enumerate_ini = enumerate_ini + 1;
             });
             self_cw.ap_registros_encontrados_cw.appendChild(fragment);
@@ -526,22 +534,22 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             }
 
             // let id = evt.currentTarget.parentElement.getAttribute('value');
-            var feature = self_cw.layersMap.getLayerInfoById(self_cw.config.layer_id_dc);
+            // let feature = self_cw.layersMap.getLayerInfoById(self_cw.config.layer_id_dc)
 
             // let feature_sys = self_cw.layersMap.getLayerInfoById(self_cw.config.layer_id_dc_sys)
 
             var query = new Query();
             query.where = '(' + self_cw.field_id_unidad + ' = \'' + id + '\') and (' + self_cw.field_m_ruc + ' is not null)';
 
-            feature.setFilter(query.where);
-            feature.show();
+            self_cw.feature_dc.setFilter(query.where);
+            self_cw.feature_dc.show();
 
             // feature_sys.setFilter(query.where);
             // feature_sys.show();
 
             // evt.currentTarget.parentElement.classList.toggle('active')
 
-            feature.getLayerObject().then(function (response) {
+            self_cw.feature_dc.getLayerObject().then(function (response) {
                 response.queryFeatures(query, function (results) {
                     if (results.features.length) {
                         evt.target.parentElement.classList.toggle('active');
@@ -578,11 +586,12 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
             var fragment = document.createDocumentFragment();
             arrayResults.forEach(function (r, i) {
-                if (self_cw.temporal_class_results) {
-                    var newRow = self_cw.temporal_class_results;
-                } else {
-                    var newRow = dojo.clone(self_cw.ap_template_registros_resultados_cw);
-                }
+                // if (self_cw.temporal_class_results) {
+                //     var newRow = self_cw.temporal_class_results;
+                // } else {
+                //     var newRow = dojo.clone(self_cw.ap_template_registros_resultados_cw);
+                // }
+                var newRow = self_cw._rowNode();
 
                 newRow.style.display = 'block';
 
@@ -612,38 +621,25 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             this.busyIndicator.hide();
         },
         _showPopupRowSelectedClick: function _showPopupRowSelectedClick(evt) {
-            // if (evt.currentTarget.getElementsByClassName('container_head_registros_cw').length) {
-            //     var id_row = evt.currentTarget.getElementsByClassName('container_head_registros_cw')[0].id;
-            // } else {
-            //     var id_row = evt.currentTarget.id;
-            // }
             var id_row = evt.currentTarget.id;
 
-            // var id_layer = self_cw.config.layer_id_dc;
-            // var id_layer_sys = self_cw.config.layer_id_dc_sys;
-
-            // var feature = self_cw.layersMap.getLayerInfoById(id_layer);
-            // var feature_sys = self_cw.layersMap.getLayerInfoById(id_layer_sys);
-
-            // let whereDefinition = `${self_cw.field_id} = ${id_row}`
             var query = new Query();
             query.where = self_cw.field_id + ' = ' + id_row;
 
-            // self_cw.feature_dc_sys.hide();
-            // self_cw.feature_dc_sys.setFilter('');
-            // self_cw.feature_dc_sys.setFilter(query.where);
-            // self_cw.feature_dc_sys.show();
-
-            // feature_sys.layerObject.queryFeatures(whereDefinition, function(results) {
-            self_cw.feature_dc.layerObject.queryFeatures(query, function (results) {
-                var center = results.features[0].geometry;
+            self_cw.feature_dc.layerObject.selectFeatures(query, FeatureLayer.SELECTION_NEW).then(function (response) {
+                var center = response[0].geometry;
                 if (!center) {
                     self_cw._showMessage(self_cw.nls.error_none_geometry);
                     return;
                 }
-                self_cw.map.infoWindow.setFeatures(results.features);
-                self_cw.map.infoWindow.show(center, self_cw.map.getInfoWindowAnchor(center));
+
+                self_cw.map.infoWindow.setFeatures(response);
+                self_cw.map.infoWindow.show(center);
                 self_cw.map.centerAt(center);
+            }, function (error) {
+                self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dc.title + ' (' + query.where + ')\n' + error.message);
+            }).catch(function (error) {
+                self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dc.title + '\n' + error.message);
             });
         },
         _showPopupRowSelectedClickDM: function _showPopupRowSelectedClickDM(evt) {
@@ -668,65 +664,10 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                     var ext = results.features[0].geometry.getExtent();
                     self_cw.map.setExtent(ext.expand(1.6), true);
                 }, function (error) {
-                    console.log(error);
+                    self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dm.title + ' (' + query.where + ')\n' + error.message);
                 });
             }, function (error) {
                 self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dm.title + ' (' + query.where + ')\n' + error.message);
-            });
-        },
-        _applyQueryDM: function _applyQueryDM() {
-            whereDefinitionArray = [];
-            var codigou_dm = '(upper(' + self_cw.field_codigou_dm + ') like upper(\'%' + self_cw.input_codigou_dm_cw.value + '%\'))';
-            var nombredm_dm = '(lower(' + self_cw.field_concesion_dm + ') like lower(\'%' + self_cw.input_nombre_dm_cw.value + '%\'))';
-            whereDefinitionArray.push(codigou_dm);
-            whereDefinitionArray.push(nombredm_dm);
-
-            var whereDefinition = whereDefinitionArray.join(' and ');
-
-            // Filtro a capa DC visible en la TOC
-            var id = self_cw.config.layer_id_dm;
-            var feature = self_cw.layersMap.getLayerInfoById(id);
-            feature.setFilter(whereDefinition);
-            feature.show();
-
-            var query = new Query();
-            query.where = whereDefinition;
-
-            feature.getLayerObject().then(function (response) {
-                response.queryFeatures(query, function (results) {
-                    var rowcount = results.features.length;
-                    self_cw.ap_indicador_resultados_cw.innerText = rowcount;
-                    self_cw.ap_titulo_resultados_cw.innerText = self_cw.titulo_consulta.innerText + ' encontrados';
-                    if (rowcount) {
-                        self_cw.controller_layer_query = true;
-                    };
-                    var data = results.features.map(function (i) {
-                        return i.attributes;
-                    });
-                    self_cw._populateResultsDM(data);
-
-                    self_cw.ap_none_resultados_opcion_cw.hidden = true;
-                    var class_list_container_resultados = self_cw.container_resultados_opcion_cw.classList;
-                    if (!class_list_container_resultados.contains('active')) {
-                        self_cw.container_resultados_opcion_cw.classList.toggle('active');
-                    }
-                    self_cw.ap_resultados_cw.click();
-                }, function (error) {
-                    self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + feature.title + ' (' + query.where + ')\n' + error.message);
-                    self_cw.busyIndicator.hide();
-                });
-                response.queryExtent(query, function (results) {
-                    if (results.count) {
-                        self_cw.map.setExtent(results.extent, true);
-                    } else {
-                        // self_cw._showMessage(self_cw.nls.none_element_pl);
-                    }
-                }, function (error) {
-                    self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + feature.title + ' (' + query.where + ')\n' + error.message);
-                });
-            }, function (error) {
-                self_cw._showMessage(self_cw.nls.error_service + ' ' + feature.title + '\n' + error.message, type = 'error');
-                self_cw.busyIndicator.hide();
             });
         },
         startup: function startup() {
@@ -803,7 +744,6 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
         queryDmGeneral: function queryDmGeneral() {
             var query = new Query();
             query.where = self_cw.whereDefinition;
-            query.obe;
             self_cw.feature_dm.hide();
             self_cw.feature_dm.setFilter('');
             self_cw.feature_dm.getLayerObject().then(function (response) {
@@ -1094,7 +1034,9 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             }
         },
         _applyQueryDC2: function _applyQueryDC2() {
-            whereDefinitionArray = [];
+            self_cw.feature_dm.hide();
+            var whereDefinitionArray = [];
+            self_cw.whereDefinition = '';
 
             var ruc_dc = '(' + self_cw.field_m_ruc + ' is not null)';
 
@@ -1126,7 +1068,8 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
         },
         _applyQueryDM2: function _applyQueryDM2() {
             self_cw.feature_dc.hide();
-            whereDefinitionArray = [];
+            var whereDefinitionArray = [];
+            self_cw.whereDefinition = '';
 
             var codigou_dm = '(upper(' + self_cw.field_codigou_dm + ') like upper(\'%' + self_cw.input_codigou_dm_cw.value + '%\'))';
             whereDefinitionArray.push(codigou_dm);
