@@ -290,6 +290,13 @@
 }
 
 
+/* @daniel */
+
+.jimu-widget-layerList .layer-sub-node>tr>td {
+    vertical-align: middle !important;
+}
+
+
 /*****************about legend begin*****************************/
 
 .jimu-widget-layerList .legend-node-td {}

@@ -1,0 +1,127 @@
+.consulta-wgt {
+    h3 {
+        font-size: 1.2em;
+    }
+    h3,
+    p {
+        margin-top: 0;
+    }
+    .container_cw {
+        display: none;
+    }
+    .formulario_cw {
+        position: absolute;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        top: 90px;
+        bottom: 50px;
+    }
+    .btn_aplicar_cw {
+        position: absolute;
+        bottom: 2px;
+    }
+    .pagination_response_cw {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        display: none;
+    }
+    .container_opcion_cw {
+        display: none;
+    }
+    .limite_select_cw {
+        display: none;
+    }
+    .indicador_resultados_cw {
+        text-align: center;
+        font-size: 50px;
+    }
+    .titulo_resultados_cw {
+        text-align: center;
+    }
+    .registros_resultados_cw {
+        // display: hidden;
+        background-color: #f4f4f429;
+        position: absolute;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        top: 140px;
+        // bottom: 14px;
+        bottom: 50px;
+    }
+    .success_resultados_opcion_cw {
+        display: none;
+    }
+    .alerta_resultados_cw {
+        display: none;
+        position: absolute;
+        bottom: 2px;
+    }
+    .codigou_cw,
+    .reinfos_cw {
+        cursor: pointer;
+    }
+    // .lista_capas_consulta_cw.is-active {
+    //     display: block;
+    //     width: 100%;
+    // }
+    // .lista_capas_consulta_cw {
+    //     display: none;
+    // }
+    // .registro_dc {
+    //     border-bottom: #ddd solid 1px;
+    // }
+    .active {
+        display: block;
+        width: 100%;
+    }
+    .paginationActive {
+        display: flex;
+    }
+    .pagination.is-small {
+        font-size: .65rem;
+    }
+    .pagination-link.is-current {
+        background-color: #00d1b2;
+        border-color: #00d1b2;
+    }
+    .titulo_registros_resultados_cw {
+        text-align: center;
+        font-size: 11px;
+        color: #427edf;
+    }
+    #msymbol_selected {
+        width: 50px;
+        height: 50px;
+        background-color: red;
+    }
+    // .registros_resultados_cw>aside>ul>li>ul>li::before {
+    //     content: '\f138';
+    //     color: #ddd0;
+    //     position: absolute;
+    //     left: 0;
+    //     margin-left: 6.5px;
+    //     margin-top: 6.5px;
+    //     background: #e8e8e8;
+    //     width: 6px;
+    //     height: 6px;
+    //     border-radius: 50%;
+    // }
+    // .registros_resultados_cw>aside>ul>li>ul>li>ul>li::before {
+    //     content: '\f138';
+    //     color: #ddd0;
+    //     position: absolute;
+    //     left: 0;
+    //     margin-left: 6.5px;
+    //     margin-top: 6.5px;
+    //     background: #e8e8e8;
+    //     width: 6px;
+    //     height: 6px;
+    //     border-radius: 50%;
+    // }
+}
+
+
+/* add additional custom styles */

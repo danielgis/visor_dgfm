@@ -1,8 +1,15 @@
 <div>
+
+
     <div class="container_ew">
+        <div class="header_ew">
+            <div class="odometer" data-dojo-attach-point="odometer_ew"></div>
+            <div class="title_indicador_ew" data-dojo-attach-point="ap_title_indicador_ew">${nls.title_indicador}<br/>${nls.title_indicador_nacional}</div>
+            <div class="peru_mapa_ew"></div>
+        </div>
         <button class="accordion_ew active" data-dojo-attach-event="onclick:_acordeonFunction"><strong>${nls.title_vertical_bar}</strong></button>
         <div class="panel_ew active">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut delectus, cumque saepe velit laborum voluptas omnis reprehenderit. Aperiam veniam possimus doloremque excepturi! Cumque, incidunt. Voluptate rem maxime magni officiis sunt.</p>
+            <p>${nls.description_reinfo_region}</p>
             <br>
             <canvas id="VerticalBarId" data-dojo-attach-point="VerticalBarAp"></canvas>
             <br>
@@ -10,7 +17,7 @@
 
         <button class="accordion_ew active" data-dojo-attach-event="onclick:_acordeonFunction"><strong>${nls.title_pie}</strong></button>
         <div class="panel_ew active">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto ad nostrum ullam eum facilis rem molestiae, sequi temporibus fugiat. Ipsum facilis temporibus voluptatibus ab iure magnam harum assumenda voluptates magni.</p>
+            <p>${nls.description_reinfo_tipo_persona}</p>
             <br>
             <canvas id="PieId" data-dojo-attach-point="PieAp"></canvas>
             <br>
@@ -18,10 +25,40 @@
 
         <button class="accordion_ew active" data-dojo-attach-event="onclick:_acordeonFunction"><strong>${nls.title_horizontal_bar}</strong></button>
         <div class="panel_ew active">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti voluptas perferendis nesciunt ipsum dolorum praesentium distinctio iste necessitatibus, earum ratione modi officiis possimus ad libero quaerat unde nam alias atque.</p>
+            <p>${nls.descripcion_reinfo_origen}</p>
             <br>
             <canvas id="HorizontalBarId" data-dojo-attach-point="HorizontalBarAp"></canvas>
             <br>
         </div>
     </div>
+
+    <!-- <div class="container_ew">
+        <div class="container_child_ew">
+            <div class="header_ew">
+                <div class="odometer" data-dojo-attach-point="odometer_ew"></div>
+                <div class="title_indicador_ew">REINFO<br/>Nacional</div>
+                <div class="peru_mapa_ew"></div>
+            </div>
+            <div id="chart_reinfo_departamentos_ew">
+                <h3>${nls.title_vertical_bar}</h3>
+                <p>${nls.description_reinfo_region}</p>
+                <br>
+                <canvas id="VerticalBarId" data-dojo-attach-point="VerticalBarAp"></canvas>
+            </div>
+        </div>
+        <div class="container_child_ew">
+            <div id="chart_reinfo_tipopersona_ew">
+                <h3>${nls.title_pie}</h3>
+                <p>${nls.description_reinfo_tipo_persona}</p>
+                <br>
+                <canvas id="PieId" data-dojo-attach-point="PieAp"></canvas>
+            </div>
+            <div id="chart_reinfo_origen_ew">
+                <h3>${nls.title_horizontal_bar}</h3>
+                <p>${nls.descripcion_reinfo_origen}</p>
+                <br>
+                <canvas id="HorizontalBarId" data-dojo-attach-point="HorizontalBarAp"></canvas>
+            </div>
+        </div>
+    </div> -->
 </div>

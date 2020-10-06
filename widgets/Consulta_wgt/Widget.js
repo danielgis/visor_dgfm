@@ -28,13 +28,24 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
         field_sustancia_dm: 'ID_CLASE_SUSTANCIA',
 
         // Campos DC
-        field_id: 'ID', // Objectid del minero informal
-        field_minero_informal: 'MINERO_INFORMAL', // Nombre del minero informal
+        field_id: 'ESRI_OID', // Objectid del minero informal
+        field_minero_informal: 'NOMBRE_MIN', // Nombre del minero informal
+        field_minero_informal_rep: 'NOMBRE_REP', // Nombre del representante
         field_m_ruc: 'M_RUC', // RUC del minero informal
-        field_derecho_minero: 'DERECHO_MINERO', // Nombre del derecho mineroo
-        field_id_unidad: 'ID_UNIDAD', // Identificador del derecho minero (CODIGOU)
-        field_tipo_persona: 'TIPO_PERSONA', // Tipo de persona (natural, juridica)
-        field_id_ubigeo_inei: 'ID_UBIGEO_INEI', // Ubigeo
+        field_derecho_minero: 'NOMBRE_DM', // Nombre del derecho mineroo
+        field_id_unidad: 'CODIGOU', // Identificador del derecho minero (CODIGOU)
+        field_tipo_persona: 'M_TIPO_PERSONA', // Tipo de persona (natural, juridica)
+        field_id_ubigeo_inei: 'CD_DIST', // Ubigeo
+
+        // Campos Tabla DC
+        field_id_tb: 'ESRI_OID', // Objectid del minero informal
+        field_minero_informal_tb: 'NOMBRE_MIN', // Nombre del minero informal
+        // field_minero_informal_rep_tb: 'NOMBRE_REP', // Nombre del representante
+        field_m_ruc_tb: 'M_RUC', // RUC del minero informal
+        field_derecho_minero_tb: 'NOMBRE_DM', // Nombre del derecho mineroo
+        field_id_unidad_tb: 'CODIGOU', // Identificador del derecho minero (CODIGOU)
+        field_tipo_persona_tb: 'M_TIPO_PERSONA', // Tipo de persona (natural, juridica)
+        field_id_ubigeo_inei_tb: 'CD_DIST', // Ubigeo
 
         controller_query: '', // Permite identificar la opcion de consulta seleccionada
         controller_layer_query: false,
@@ -61,6 +72,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             // console.log('Consulta_wgt::postCreate');;
             this._getAllLayers();
             this.feature_dc = this.layersMap.getLayerInfoById(this.config.layer_id_dc);
+            this.feature_dc_table = this.layersMap.getTableInfoById(this.config.table_id_dc);
             this.feature_dm = this.layersMap.getLayerInfoById(this.config.layer_id_dm);
             this.feature_dep = this.layersMap.getLayerInfoById(this.config.layer_id_dep);
             this.feature_prov = this.layersMap.getLayerInfoById(this.config.layer_id_prov);
@@ -410,23 +422,32 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             var id = evt.currentTarget.innerText;
             var query = new Query();
             query.where = self_cw.field_codigou_dm + ' = \'' + id + '\'';
-            var id_layer = self_cw.config.layer_id_dm;
-            var feature = self_cw.layersMap.getLayerInfoById(id_layer);
-            feature.setFilter(query.where);
-            feature.show();
+            // let id_layer = self_cw.config.layer_id_dm;
+            // let feature = self_cw.layersMap.getLayerInfoById(id_layer);
+            self_cw.feature_dm.setFilter(query.where);
+            self_cw.feature_dm.show();
 
-            feature.getLayerObject().then(function (response) {
+            self_cw.feature_dm.getLayerObject().then(function (response) {
                 // self_cw.map.graphics.clear();
                 response.queryFeatures(query, function (results) {
                     if (results.features.length) {
-                        var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 3), new Color([125, 125, 125, 0.35]));
+                        // let symbol = new SimpleFillSymbol(
+                        //     SimpleFillSymbol.STYLE_NULL,
+                        //     new SimpleLineSymbol(
+                        //         SimpleLineSymbol.STYLE_SOLID,
+                        //         new Color([255, 0, 0]), 3
+                        //     ),
+                        //     new Color([125, 125, 125, 0.35]));
 
                         var ext = results.features[0].geometry.getExtent();
                         var center = results.features[0].geometry.getCentroid();
 
                         // let graphic = results.features[0].setSymbol(symbol)
                         // self_cw.map.graphics.add(graphic);
-                        self_cw._openPopupAutocamitcally2(results, center);
+                        self_cw.map.infoWindow.setFeatures(results.features);
+                        self_cw.map.infoWindow.show(center);
+                        // self_cw.map.centerAt(center);
+                        // self_cw._openPopupAutocamitcally2(results, center);
                         self_cw.map.setExtent(ext, true);
                     } else {
                         self_cw._showMessage(self_cw.nls.none_element + ' ' + id + ', ' + self_cw.nls.none_reference_map);
@@ -536,8 +557,6 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             // let id = evt.currentTarget.parentElement.getAttribute('value');
             // let feature = self_cw.layersMap.getLayerInfoById(self_cw.config.layer_id_dc)
 
-            // let feature_sys = self_cw.layersMap.getLayerInfoById(self_cw.config.layer_id_dc_sys)
-
             var query = new Query();
             query.where = '(' + self_cw.field_id_unidad + ' = \'' + id + '\') and (' + self_cw.field_m_ruc + ' is not null)';
 
@@ -559,7 +578,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                             return i.attributes;
                         });
                         var lidata = data.map(function (i, index) {
-                            return '<li class="registro_dc" id="' + i[self_cw.field_id] + '"><a>' + (index + 1) + '. ' + i[self_cw.field_m_ruc] + ' - ' + i[self_cw.field_minero_informal] + '</a></li>';
+                            return '<li class="registro_dc" id="' + i[self_cw.field_id] + '"><a>' + (index + 1) + '. ' + i[self_cw.field_m_ruc] + ' - ' + (i[self_cw.field_tipo_persona].toLowerCase() == 'juridica' ? i[self_cw.field_minero_informal_rep] : i[self_cw.field_minero_informal]) + '</a></li>';
                         });
                         var lidataString = lidata.join('');
                         var ulnode = dojo.create('ul');
@@ -643,10 +662,10 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             });
         },
         _showPopupRowSelectedClickDM: function _showPopupRowSelectedClickDM(evt) {
-            var id_row = evt.currentTarget.id;
+            var id = evt.currentTarget.id;
 
             var query = new Query();
-            query.where = self_cw.field_codigou_dm + ' = \'' + id_row + '\'';
+            query.where = self_cw.field_codigou_dm + ' = \'' + id + '\'';
             query.returnGeometry = true;
             query.outFields = ['*'];
 
@@ -657,11 +676,10 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                     self_cw._showMessage(self_cw.nls.error_none_geometry);
                     return;
                 };
-
+                var ext = results.features[0].geometry.getExtent();
                 self_cw.feature_dm.layerObject.selectFeatures(query, FeatureLayer.SELECTION_NEW).then(function (response) {
                     self_cw.map.infoWindow.setFeatures(response);
                     self_cw.map.infoWindow.show(center);
-                    var ext = results.features[0].geometry.getExtent();
                     self_cw.map.setExtent(ext.expand(1.6), true);
                 }, function (error) {
                     self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dm.title + ' (' + query.where + ')\n' + error.message);
@@ -700,13 +718,10 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             // this.map.graphics.clear();
             var whereDefinition = '1=1';
             lyr_dc = this.layersMap.getLayerInfoById(this.config.layer_id_dc);
-            // lyr_dc_sys = this.layersMap.getLayerInfoById(this.config.layer_id_dc_sys);
             lyr_dm = this.layersMap.getLayerInfoById(this.config.layer_id_dm);
             lyr_dc.hide();
-            // lyr_dc_sys.hide();
             lyr_dm.hide();
             lyr_dc.setFilter(whereDefinition);
-            // lyr_dc_sys.setFilter(whereDefinition);
             lyr_dm.setFilter(whereDefinition);
             this.busyIndicator.hide();
             this.container_resultados_opcion_cw.classList.remove('active');
@@ -725,7 +740,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             // var feature_dc = self_cw.layersMap.getLayerInfoById(self_cw.config.layer_id_dc);
             self_cw.feature_dc.hide();
             self_cw.feature_dc.setFilter('');
-            self_cw.feature_dc.getLayerObject().then(function (response) {
+            self_cw.feature_dc_table.getLayerObject().then(function (response) {
                 response.queryCount(query, function (results) {
                     self_cw.numero_registros = results;
                     self_cw.ap_indicador_resultados_cw.innerText = results;
@@ -792,7 +807,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             self_cw.feature_dc.setFilter('');
 
             // Realizando el query a la capa
-            self_cw.feature_dc.layerObject.queryFeatures(query, function (result) {
+            self_cw.feature_dc_table.layerObject.queryFeatures(query, function (result) {
                 var rowcount = result.features.length;
                 if (rowcount) {
                     self_cw.controller_layer_query = true;
@@ -868,7 +883,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             query.returnGeometry = false;
             query.num = self_cw.registros_pagina;
             query.start = n == 1 ? 0 : (n - 1) * self_cw.registros_pagina;
-            query.orderByFields = [self_cw.field_id_unidad];
+            query.orderByFields = [self_cw.field_codigou_dm];
 
             var start = query.start + 1;
             var fin = query.start + query.num > self_cw.numero_registros ? self_cw.numero_registros : self_cw.pagina_actual * query.num;
@@ -889,10 +904,10 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 });
 
                 var ids = data.map(function (i) {
-                    return i[self_cw.field_id_unidad];
+                    return i[self_cw.field_codigou_dm];
                 });
                 var ids_join = ids.join("', '");
-                var query_ids = self_cw.field_id_unidad + " IN ('" + ids_join + "')";
+                var query_ids = self_cw.field_codigou_dm + " IN ('" + ids_join + "')";
 
                 self_cw.feature_dm.setFilter(query_ids);
                 self_cw.feature_dm.show();

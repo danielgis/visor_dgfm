@@ -1,7 +1,7 @@
 {
-    "layer_id_dc": "DGFM_DCASUMIDA_UNION_2283",
-    "layer_id_dc_sys": "DGFM_DCASUMIDA_UNION_2283_3572",
-    "layer_id_dm": "DGFM_DERECHOMINERO_9921",
+    "layer_id_dc": "DGFM_FGIS_REINFO_7651",
+    "table_id_dc": "DGFM_FGIS_REINFO_1745",
+    "layer_id_dm": "DGFM_FGIS_CATASTRO_MINERO_1714",
     "layer_id_dep": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_0",
     "layer_id_prov": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_1",
     "layer_id_dist": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_2"

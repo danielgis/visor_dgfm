@@ -1,0 +1,130 @@
+.estadisticas-wgt {
+    margin: -14px; // Quita el padding del elemento padre
+    background-color: #333;
+    h3 {
+        font-size: 1.2em;
+        padding: 0;
+    }
+    h3,
+    p {
+        margin-top: 0;
+    }
+    .container_ew {
+        color: #eeeeee;
+        padding: 14px;
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: space-between;
+    }
+    // .container_child_ew {
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: space-between;
+    //     width: 49%;
+    // }
+    // #chart_reinfo_departamentos_ew {
+    //     height: 88%;
+    // }
+    // #chart_reinfo_tipopersona_ew {
+    //     height: 50%;
+    // }
+    // #chart_reinfo_origen_ew {
+    //     height: 50%;
+    // }
+    .accordion_ew>strong {
+        color: #eeeeee;
+    }
+    .accordion_ew {
+        background-color: #333;
+        // color: #eeeeee;
+        cursor: pointer;
+        padding: 5px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+        border-bottom: solid 0.1px #eeeeee;
+    }
+    .active {
+        background-color: #333;
+    }
+    .accordion_ew {
+        &:hover {
+            border-bottom: solid 0.1px #2196f3;
+            // background-color: #333;
+            // color: #eeeeee;
+        }
+        &:after {
+            content: '\002B';
+            color: #eeeeee;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+    }
+    .accordion_ew.active:after {
+        content: "\2212";
+    }
+    .panel_ew {
+        padding: 0 5px;
+        color: #eeeeee;
+        // background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+    .panel_ew.active {
+        background-color: #333333;
+        max-height: 100%;
+    }
+    .header_ew {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        // height: 10%;
+    }
+    .odometer {
+        text-align: center;
+        width: 50%;
+        font-size: 40px;
+        // display: inline;
+        font-family: "Wallpoet", monospace !important;
+    }
+    div.title_indicador_ew {
+        margin: auto;
+    }
+    .peru_mapa_ew {
+        width: 25%;
+        background: url('img/peru.png') no-repeat 50% 50%;
+        // background-color: #ddd;
+        background-size: contain;
+    }
+    // @media only screen and (max-width: 1270px) {
+    //     .container_ew {
+    //         flex-direction: column;
+    //     }
+    //     .container_child_ew {
+    //         width: 100%;
+    //     }
+    //     #chart_reinfo_departamentos_ew {
+    //         width: 100%;
+    //         height: 100%;
+    //     }
+    //     #chart_reinfo_tipopersona_ew {
+    //         width: 100%;
+    //         height: 100%;
+    //     }
+    //     #chart_reinfo_origen_ew {
+    //         width: 100%;
+    //         height: 100%;
+    //     }
+    // }
+}
+
+
+/* add additional custom styles */

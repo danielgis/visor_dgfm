@@ -1,5 +1,6 @@
 .estadisticas-wgt {
-  margin: -14px; }
+  margin: -14px;
+  background-color: #333; }
   .estadisticas-wgt h3 {
     font-size: 1.2em;
     padding: 0; }
@@ -7,10 +8,12 @@
   .estadisticas-wgt p {
     margin-top: 0; }
   .estadisticas-wgt .container_ew {
+    color: #eeeeee;
     padding: 14px; }
+  .estadisticas-wgt .accordion_ew > strong {
+    color: #eeeeee; }
   .estadisticas-wgt .accordion_ew {
-    background-color: #ffffff;
-    color: #444;
+    background-color: #333;
     cursor: pointer;
     padding: 5px;
     width: 100%;
@@ -18,14 +21,15 @@
     text-align: left;
     outline: none;
     font-size: 15px;
-    transition: 0.4s; }
+    transition: 0.4s;
+    border-bottom: solid 0.1px #eeeeee; }
   .estadisticas-wgt .active {
-    background-color: #fff; }
+    background-color: #333; }
   .estadisticas-wgt .accordion_ew:hover {
-    background-color: #fff; }
+    border-bottom: solid 0.1px #2196f3; }
   .estadisticas-wgt .accordion_ew:after {
     content: '\002B';
-    color: #777;
+    color: #eeeeee;
     font-weight: bold;
     float: right;
     margin-left: 5px; }
@@ -33,12 +37,31 @@
     content: "\2212"; }
   .estadisticas-wgt .panel_ew {
     padding: 0 5px;
-    background-color: white;
+    color: #eeeeee;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.2s ease-out; }
+    transition: max-height 0.2s ease-out;
+    text-align: justify;
+    text-justify: inter-word; }
   .estadisticas-wgt .panel_ew.active {
+    background-color: #333333;
     max-height: 100%; }
+  .estadisticas-wgt .header_ew {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%; }
+  .estadisticas-wgt .odometer {
+    text-align: center;
+    width: 50%;
+    font-size: 40px;
+    font-family: "Wallpoet", monospace !important; }
+  .estadisticas-wgt div.title_indicador_ew {
+    margin: auto; }
+  .estadisticas-wgt .peru_mapa_ew {
+    width: 25%;
+    background: url("img/peru.png") no-repeat 50% 50%;
+    background-size: contain; }
 
 /* add additional custom styles */
 

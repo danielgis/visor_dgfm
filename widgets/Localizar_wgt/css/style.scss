@@ -1,0 +1,53 @@
+.localizar-wgt {
+    height: 100%;
+    h3 {
+        font-size: 1.2em;
+    }
+    h3,
+    p {
+        margin-top: 0;
+    }
+    .container_option_lw {
+        display: none;
+    }
+    .btn_aplicar_lw {
+        position: absolute;
+        bottom: 2px;
+    }
+    .container_resultados_lw {
+        display: none;
+        position: absolute;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        top: 45px;
+        bottom: 14px;
+    }
+    .container_option_point_lw,
+    .container_option_polygon_lw {
+        // display: none;
+        position: absolute;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        top: 115px;
+        bottom: 50px;
+    }
+    .table_help_lw {
+        width: 50%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .help_x_lw {
+        display: none;
+    }
+    .help_y_lw {
+        display: none;
+    }
+    .is-active {
+        display: block;
+    }
+}
+
+
+/* add additional custom styles */
