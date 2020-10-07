@@ -526,7 +526,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 var fieldsList = [];
                 fieldsList.push('<li>' + self_cw.nls.field_dc_ruc + ': ' + r[self_cw.field_m_ruc] + '</li>');
                 fieldsList.push('<li>' + self_cw.nls.field_nombre_dm + ': ' + r[self_cw.field_derecho_minero] + '</li>');
-                fieldsList.push('<li>' + self_cw.nls.field_codigou_dm + ': <span class="tag is-primary codigou_cw">' + r[self_cw.field_id_unidad] + '<span></li>');
+                fieldsList.push('<li>' + self_cw.nls.field_codigou_dm + ': <span class="tag is-link codigou_cw">' + r[self_cw.field_id_unidad] + '<span></li>');
 
                 fieldsListNode = fieldsList.join('');
 
@@ -625,7 +625,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 var fieldsList = [];
                 fieldsList.push('<li>' + self_cw.nls.field_nombre_dm + ': ' + r[self_cw.field_concesion_dm] + '</li>');
                 fieldsList.push('<li>' + self_cw.nls.field_sustancia_dm + ': ' + r[self_cw.field_sustancia_dm] + '</li>');
-                fieldsList.push('<li value="' + r[self_cw.field_codigou_dm] + '"><span class="tag is-primary reinfos_cw">' + self_cw.nls.show_reinfos + '<span></li>');
+                fieldsList.push('<li value="' + r[self_cw.field_codigou_dm] + '"><span class="tag is-link reinfos_cw">' + self_cw.nls.show_reinfos + '<span></li>');
 
                 fieldsListNode = fieldsList.join('');
 

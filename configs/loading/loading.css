@@ -5,22 +5,64 @@
 
 #main-loading #app-loading {
     position: absolute;
-    /* background-image: url('images/background.jpeg'); */
+    background-image: url('images/logo.png');
     background-repeat: no-repeat;
-    width: 223px;
-    height: 44px;
+    background-size: cover;
+    width: 250px;
+    height: 38px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-#main-loading #loading-gif {
+
+/* #main-loading #loading-gif {
     position: absolute;
     background-image: url('images/index.svg');
     background-repeat: no-repeat;
     width: 80px;
     height: 80px;
-    top: 50%;
+    bottom: 1%;
+    right: 1%;
+    transform: translate(-50%, -50%);
+} */
+
+#main-loading #loading-gif {
+    position: absolute;
+    /* background-image: url('images/index.svg'); */
+    /* background-repeat: no-repeat; */
+    width: 250px;
+    /* height: 80px; */
+    top: calc(50% + 30px);
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+:root {
+    --main-color: #111;
+    --loader-color: #74ee15;
+    --back-color: #eee;
+    --time: 1s;
+    --size: 3px;
+}
+
+#main-loading #loading-gif .loader__element {
+    height: var(--size);
+    width: 100%;
+    background: var(--back-color);
+}
+
+.loader__element:before {
+    content: '';
+    display: block;
+    background-color: var(--loader-color);
+    height: var(--size);
+    width: 0;
+    animation: getWidth var(--time) ease-in infinite;
+}
+
+@keyframes getWidth {
+    100% {
+        width: 100%;
+    }
 }

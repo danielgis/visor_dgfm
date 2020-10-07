@@ -297,7 +297,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
                 });
 
                 // self_lw.map.centerAndZoom(center, 10);
-                self_cw.map.setExtent(graphic._extent, true);
+                self_lw.map.setExtent(graphic._extent, true);
 
                 self_lw._addResultados(graphicLayer, name);
                 self_lw.ap_none_resultados_opcion_lw.hidden = true;
