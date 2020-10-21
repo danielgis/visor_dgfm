@@ -1,7 +1,7 @@
 define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerInfos/LayerInfos', "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/StatisticDefinition", 'dojo/on', "esri/geometry/Point", '../../libs/chartjs/chartjs-plugin-labels'], function (declare, BaseWidget, lang, LayerInfos, Query, QueryTask, StatisticDefinition, on, Point) {
     return declare([BaseWidget, Query, QueryTask, StatisticDefinition], {
 
-        // Desarrollador: Ing. Geógrafo Daniel Aguado H.
+        // Developer: Ing. Geógrafo Daniel Aguado H.
         // linkedin: https://www.linkedin.com/in/danielgis
         // WebSite: https://danielgis.github.io/
 
@@ -161,7 +161,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
             var queryTask = new QueryTask(url);
             var query = new Query();
 
-            query.where = this.iniClause;
+            // query.where = this.iniClause;
             query.groupByFieldsForStatistics = [self_ew.field_x_vertical_bar];
 
             var countStatDef = new StatisticDefinition();
@@ -169,18 +169,28 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
             countStatDef.onStatisticField = self_ew.field_x_vertical_bar;
             countStatDef.outStatisticFieldName = self_ew.field_y_vertical_bar;
 
-            query.orderByFields = ['COUNT(' + self_ew.field_x_vertical_bar + ') DESC'];
-
+            // query.orderByFields = [`COUNT(${self_ew.field_x_vertical_bar}) DESC`]
             query.outStatistics = [countStatDef];
 
             queryTask.execute(query, function (results) {
-                x = results.features.map(function (i) {
-                    return i.attributes[self_ew.field_x_vertical_bar];
+                var dataresults = results.features.map(function (i) {
+                    return [i.attributes[self_ew.field_x_vertical_bar], i.attributes[self_ew.field_y_vertical_bar]];
                 });
-                y = results.features.map(function (i) {
-                    return i.attributes[self_ew.field_y_vertical_bar];
+                var dataresults_sort = dataresults.sort(function (a, b) {
+                    return b[1] - a[1];
                 });
+                // x = results.features.map((i) => i.attributes[self_ew.field_x_vertical_bar]);
+                // y = results.features.map((i) => i.attributes[self_ew.field_y_vertical_bar]);
+                x = dataresults_sort.map(function (i) {
+                    return i[0];
+                });
+                y = dataresults_sort.map(function (i) {
+                    return i[1];
+                });
+
                 self_ew._VerticalBarChart(x, y);
+            }, function (error) {
+                console.log(error);
             });
         },
         _VerticalBarChart: function _VerticalBarChart(x, y) {

@@ -1,6 +1,10 @@
 define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/tasks/ProjectParameters", 'esri/tasks/GeometryService', "esri/geometry/Point", 'esri/geometry/Polygon', 'esri/symbols/SimpleFillSymbol', 'esri/symbols/SimpleLineSymbol', 'esri/symbols/SimpleMarkerSymbol', 'dojo/_base/Color', "esri/layers/GraphicsLayer", 'esri/graphic', "jimu/dijit/Message", "esri/InfoTemplate", "esri/symbols/TextSymbol", "esri/symbols/Font", 'esri/dijit/util/busyIndicator', "esri/tasks/AreasAndLengthsParameters", 'https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js'], function (declare, BaseWidget, SpatialReference, ProjectParameters, GeometryService, Point, Polygon, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Color, GraphicsLayer, Graphic, Message, InfoTemplate, TextSymbol, Font, BusyIndicator, AreasAndLengthsParameters) {
     return declare([BaseWidget], {
 
+        // Developer: Ing. Geógrafo Daniel Aguado H.
+        // linkedin: https://www.linkedin.com/in/danielgis
+        // WebSite: https://danielgis.github.io/
+
         // Custom widget code goes here
 
         baseClass: 'localizar-wgt',

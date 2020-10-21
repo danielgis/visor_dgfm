@@ -46,7 +46,7 @@
   overflow-y: auto;
   width: 100%;
   top: 140px;
-  bottom: 50px; }
+  bottom: 70px; }
 
 .consulta-wgt .success_resultados_opcion_cw {
   display: none; }
@@ -55,6 +55,13 @@
   display: none;
   position: absolute;
   bottom: 2px; }
+
+.consulta-wgt #message_redirect_sic_cw {
+  position: absolute;
+  bottom: 48px;
+  font-size: 11px;
+  width: 100%;
+  text-align: center; }
 
 .consulta-wgt .codigou_cw,
 .consulta-wgt .reinfos_cw {

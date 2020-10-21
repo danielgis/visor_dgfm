@@ -1,5 +1,9 @@
-define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerInfos/LayerInfos', "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/StatisticDefinition", "esri/layers/FeatureLayer", "esri/layers/GraphicsLayer", 'esri/graphic', "esri/symbols/SimpleFillSymbol", 'esri/symbols/SimpleLineSymbol', 'esri/symbols/SimpleMarkerSymbol', 'dojo/_base/Color', "jimu/dijit/Message", 'esri/dijit/util/busyIndicator'], function (declare, _WidgetsInTemplateMixin, BaseWidget, lang, LayerInfos, Query, QueryTask, StatisticDefinition, FeatureLayer, GraphicsLayer, Graphic, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Color, Message, BusyIndicator) {
+define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerInfos/LayerInfos', "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/StatisticDefinition", "esri/layers/FeatureLayer", "jimu/dijit/Message", 'esri/dijit/util/busyIndicator'], function (declare, _WidgetsInTemplateMixin, BaseWidget, lang, LayerInfos, Query, QueryTask, StatisticDefinition, FeatureLayer, Message, BusyIndicator) {
     return declare([BaseWidget, _WidgetsInTemplateMixin, Query, QueryTask, StatisticDefinition], {
+
+        // Developer: Ing. Geógrafo Daniel Aguado H.
+        // linkedin: https://www.linkedin.com/in/danielgis
+        // WebSite: https://danielgis.github.io/
 
         // Custom widget code goes here
 
@@ -24,28 +28,28 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
         //  Campos DM Minem
         field_codigou_dm: 'ID_UNIDAD',
-        field_concesion_dm: 'NOMBRE',
+        field_concesion_dm: 'NOMBRE_DM',
         field_sustancia_dm: 'ID_CLASE_SUSTANCIA',
 
         // Campos DC
-        field_id: 'ESRI_OID', // Objectid del minero informal
+        field_id: 'ID', // Objectid del minero informal
         field_minero_informal: 'NOMBRE_MIN', // Nombre del minero informal
         field_minero_informal_rep: 'NOMBRE_REP', // Nombre del representante
         field_m_ruc: 'M_RUC', // RUC del minero informal
         field_derecho_minero: 'NOMBRE_DM', // Nombre del derecho mineroo
-        field_id_unidad: 'CODIGOU', // Identificador del derecho minero (CODIGOU)
+        field_id_unidad: 'ID_UNIDAD', // Identificador del derecho minero (CODIGOU)
         field_tipo_persona: 'M_TIPO_PERSONA', // Tipo de persona (natural, juridica)
-        field_id_ubigeo_inei: 'CD_DIST', // Ubigeo
+        field_id_ubigeo_inei: 'ID_DIST', // Ubigeo
 
         // Campos Tabla DC
-        field_id_tb: 'ESRI_OID', // Objectid del minero informal
+        field_id_tb: 'ID', // Objectid del minero informal
         field_minero_informal_tb: 'NOMBRE_MIN', // Nombre del minero informal
         // field_minero_informal_rep_tb: 'NOMBRE_REP', // Nombre del representante
         field_m_ruc_tb: 'M_RUC', // RUC del minero informal
         field_derecho_minero_tb: 'NOMBRE_DM', // Nombre del derecho mineroo
-        field_id_unidad_tb: 'CODIGOU', // Identificador del derecho minero (CODIGOU)
+        field_id_unidad_tb: 'ID_UNIDAD', // Identificador del derecho minero (CODIGOU)
         field_tipo_persona_tb: 'M_TIPO_PERSONA', // Tipo de persona (natural, juridica)
-        field_id_ubigeo_inei_tb: 'CD_DIST', // Ubigeo
+        field_id_ubigeo_inei_tb: 'ID_DIST', // Ubigeo
 
         controller_query: '', // Permite identificar la opcion de consulta seleccionada
         controller_layer_query: false,
@@ -65,6 +69,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
         grupos_paginas: [],
         factor: 4,
         whereDefinition: '',
+        stateCoord: ['Fuera del territorio nacional (*)', 'Fuera del DM declarado', 'Ubicación correcta', 'Fuera del DM declarado'],
 
         postCreate: function postCreate() {
             self_cw = this;
@@ -503,7 +508,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             return clone;
         },
         _rowNode: function _rowNode() {
-            var node = '<li style="display: none;" data-dojo-attach-point="ap_template_registros_resultados_cw">\n                        <a class="container_head_registros_cw">\n                            <div class="columns is-mobile">\n                                <div class="column is-four-fifths title_registros_cw"></div>\n                                <div class="column has-text-right"><span class="icon has-text-info"><i class="fas fa-search"></i></span></div>\n                            </div>\n                        </a>\n                        <ul class="detalle_registros_resultados_cw">\n                        </ul>\n                    </li>';
+            var node = '<li style="display: none;" data-dojo-attach-point="ap_template_registros_resultados_cw">\n                        <a class="container_head_registros_cw">\n                            <div class="columns is-mobile">\n                                <div class="column is-four-fifths title_registros_cw"></div>\n                                <div class="column has-text-right" title="Localizar en el mapa"><span class="icon has-text-info"><i class="fas fa-map-marker-alt"></i></span></div>\n                            </div>\n                        </a>\n                        <ul class="detalle_registros_resultados_cw">\n                        </ul>\n                    </li>';
             var parser = new DOMParser();
             var doc = parser.parseFromString(node, 'text/html');
             return doc.body.childNodes[0];
@@ -517,16 +522,28 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
                 newRow.style.display = 'block';
 
+                var estateLocation = r['FLG_COOROK'];
+
+                if (estateLocation == 0) {
+                    newRow.getElementsByClassName('column has-text-right')[0].title = '';
+                    newRow.getElementsByClassName('column has-text-right')[0].innerHTML = '<span class="icon has-text-warning"><i class="fas fa-ban"></i></span>';
+                    newRow.getElementsByClassName('container_head_registros_cw')[0].classList.remove('container_head_registros_cw');
+                }
+
+                if (estateLocation != 0) {
+                    newRow.getElementsByClassName('container_head_registros_cw')[0].id = r[self_cw.field_id];
+                }
+
                 // var nodeTitle = dojo.query('.title_registros_cw', newRow)[0]
                 newRow.getElementsByClassName('title_registros_cw')[0].innerText = enumerate_ini + '. ' + r[self_cw.field_minero_informal];
-                newRow.getElementsByClassName('container_head_registros_cw')[0].id = r[self_cw.field_id];
 
                 // Lista campos
 
                 var fieldsList = [];
                 fieldsList.push('<li>' + self_cw.nls.field_dc_ruc + ': ' + r[self_cw.field_m_ruc] + '</li>');
+                fieldsList.push('<li>Estado coordenada: ' + self_cw.stateCoord[estateLocation] + '</li>');
                 fieldsList.push('<li>' + self_cw.nls.field_nombre_dm + ': ' + r[self_cw.field_derecho_minero] + '</li>');
-                fieldsList.push('<li>' + self_cw.nls.field_codigou_dm + ': <span class="tag is-link codigou_cw">' + r[self_cw.field_id_unidad] + '<span></li>');
+                fieldsList.push('<li>' + self_cw.nls.field_codigou_dm + ': <span title="ver derecho minero" class="tag is-link codigou_cw">' + r[self_cw.field_id_unidad] + '<span></li>');
 
                 fieldsListNode = fieldsList.join('');
 
@@ -568,7 +585,8 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
             // evt.currentTarget.parentElement.classList.toggle('active')
 
-            self_cw.feature_dc.getLayerObject().then(function (response) {
+            // self_cw.feature_dc.getLayerObject().then(function(response) {
+            self_cw.feature_dc_table.getLayerObject().then(function (response) {
                 response.queryFeatures(query, function (results) {
                     if (results.features.length) {
                         evt.target.parentElement.classList.toggle('active');
@@ -643,7 +661,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             var id_row = evt.currentTarget.id;
 
             var query = new Query();
-            query.where = self_cw.field_id + ' = ' + id_row;
+            query.where = self_cw.field_id + ' = \'' + id_row + '\'';
 
             self_cw.feature_dc.layerObject.selectFeatures(query, FeatureLayer.SELECTION_NEW).then(function (response) {
                 var center = response[0].geometry;
@@ -762,10 +780,9 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             self_cw.feature_dm.hide();
             self_cw.feature_dm.setFilter('');
             self_cw.feature_dm.getLayerObject().then(function (response) {
-                response.queryIds(query, function (results) {
-                    // console.log(results);
-                    self_cw.numero_registros = results.length;
-                    self_cw.ap_indicador_resultados_cw.innerText = results.length;
+                response.queryCount(query, function (results) {
+                    self_cw.numero_registros = results;
+                    self_cw.ap_indicador_resultados_cw.innerText = results;
                     self_cw.ap_titulo_resultados_cw.innerText = self_cw.titulo_consulta.innerText + ' encontrados';
 
                     self_cw._generatePages();
@@ -794,6 +811,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
             var query = new Query();
             query.returnGeometry = false;
+            query.outFields = ['*'];
             query.where = self_cw.whereDefinition;
             query.num = self_cw.registros_pagina;
             query.start = n == 1 ? 0 : (n - 1) * self_cw.registros_pagina;
@@ -822,8 +840,8 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 var ids = data.map(function (i) {
                     return i[self_cw.field_id];
                 });
-                var ids_join = ids.join(', ');
-                var query_ids = self_cw.field_id + ' IN (' + ids_join + ')';
+                var ids_join = ids.join("', '");
+                var query_ids = self_cw.field_id + (' IN (\' + ' + ids_join + ' + \')');
 
                 self_cw.feature_dc.setFilter(query_ids);
                 self_cw.feature_dc.show();

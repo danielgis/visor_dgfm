@@ -49,7 +49,7 @@
         width: 100%;
         top: 140px;
         // bottom: 14px;
-        bottom: 50px;
+        bottom: 70px;
     }
     .success_resultados_opcion_cw {
         display: none;
@@ -58,6 +58,13 @@
         display: none;
         position: absolute;
         bottom: 2px;
+    }
+    #message_redirect_sic_cw {
+        position: absolute;
+        bottom: 48px;
+        font-size: 11px;
+        width: 100%;
+        text-align: center;
     }
     .codigou_cw,
     .reinfos_cw {
