@@ -29,7 +29,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
         //  Campos DM Minem
         field_codigou_dm: 'ID_UNIDAD',
         field_concesion_dm: 'NOMBRE_DM',
-        field_sustancia_dm: 'ID_CLASE_SUSTANCIA',
+        field_sustancia_dm: 'SUSTANCIA',
 
         // Campos DC
         field_id: 'ID', // Objectid del minero informal
@@ -60,6 +60,8 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
 
         feature_dc: null,
         feature_dm: null,
+
+        queryController: '',
 
         numero_registros: 0,
         numero_paginas: 0,
@@ -771,7 +773,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 });
             }).catch(function (error) {
                 self_cw._showMessage(error.message, type = 'error');
-                self_cw.busyIndicator_lw.hide();
+                self_cw.busyIndicator.hide();
             });
         },
         queryDmGeneral: function queryDmGeneral() {
@@ -780,20 +782,24 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             self_cw.feature_dm.hide();
             self_cw.feature_dm.setFilter('');
             self_cw.feature_dm.getLayerObject().then(function (response) {
-                response.queryCount(query, function (results) {
-                    self_cw.numero_registros = results;
-                    self_cw.ap_indicador_resultados_cw.innerText = results;
+                response.queryIds(query, function (results) {
+                    self_cw.numero_registros = results.length;
+                    self_cw.ap_indicador_resultados_cw.innerText = results.length;
+                    // response.queryCount(query, function(results) {
+                    // self_cw.numero_registros = results;
+                    // self_cw.ap_indicador_resultados_cw.innerText = results;
                     self_cw.ap_titulo_resultados_cw.innerText = self_cw.titulo_consulta.innerText + ' encontrados';
 
                     self_cw._generatePages();
                     self_cw._queryDmByPage();
                     // self_cw.busyIndicator.hide();
                 }, function (error) {
-                    self_cw._showMessage(error.message, type = 'error');
+                    self_cw._showMessage(self_cw.nls.error_query_feature + '\n' + error.message, type = 'error');
+                    self_cw.busyIndicator.hide();
                 });
             }).catch(function (error) {
                 self_cw._showMessage(error.message, type = 'error');
-                self_cw.busyIndicator_lw.hide();
+                self_cw.busyIndicator.hide();
             });
         },
         _queryDcByPage: function _queryDcByPage() {

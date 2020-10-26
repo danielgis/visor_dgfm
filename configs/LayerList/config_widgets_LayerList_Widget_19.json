@@ -14,73 +14,40 @@
     "DescriptionOrShowItemDetailsOrDownload": true
   },
   "layerOptions": {
-    "catastro_minero_7931": {
+    "DGFM_FGIS_REINFO_7357": {
       "display": true
     },
-    "DGFM_DCASUMIDA_UNION_2283": {
+    "DGFM_FGIS_CATASTRO_MINERO_1714": {
       "display": true
     },
-    "DGFM_DCASUMIDA_UNION_2283_3572": {
-      "display": false
-    },
-    "DGFM_DCASUMIDA_UNION_2283_1691": {
+    "DGFM_FGIS_CATASTRO_MINERO_1714_1215": {
       "display": true
     },
-    "DGFM_DCASUMIDA_UNION_2283_4296": {
+    "DGFM_FGIS_CATASTRO_MINERO_1714_1215_8670": {
       "display": true
     },
-    "DGFM_DERECHOMINERO_9921": {
+    "DGFM_FGIS_REINFO_7651_1518": {
       "display": true
     },
-    "DGFM_DERECHOMINERO_9921_4854": {
+    "DGFM_FGIS_REINFO_7651_1518_3434": {
       "display": true
     },
-    "DGFM_DERECHOMINERO_9921_9829": {
+    "DGFM_FGIS_REINFO_7651_1518_3434_1989": {
       "display": true
     },
-    "T_GENS_CCPP_9721": {
+    "DGFM_FGIS_REINFO_7651_1518_1508": {
       "display": true
     },
-    "DGFM_DCASUMIDA_UNION_2283_1081": {
+    "reinfo_sustancia_teselas_gcs_1556": {
       "display": true
     },
-    "DGFM_DCASUMIDA_UNION_2283_6875": {
+    "reinfo_sustancia_teselas_gcs_1556_9521": {
       "display": true
     },
-    "DGFM_DCASUMIDA_UNION_2283_3493": {
+    "T_GENS_CCPP_2470": {
       "display": true
     },
-    "DGFM_DERECHOMINERO_9921_3746": {
-      "display": true
-    },
-    "DGFM_DCASUMIDA_UNION_2283_442": {
-      "display": true
-    },
-    "DGFM_DCASUMIDA_UNION_2283_6934": {
-      "display": true
-    },
-    "SERV_CATASTRO_MINERO_9832": {
-      "display": true
-    },
-    "SERV_CATASTRO_MINERO_9832_0": {
-      "display": true
-    },
-    "SERV_CATASTRO_MINERO_9832_1": {
-      "display": true
-    },
-    "SERV_CATASTRO_MINERO_9832_2": {
-      "display": true
-    },
-    "SERV_CATASTRO_MINERO_9832_3": {
-      "display": true
-    },
-    "SERV_CATASTRO_MINERO_9832_4": {
-      "display": true
-    },
-    "SERV_CATASTRO_MINERO_9832_5": {
-      "display": true
-    },
-    "SERV_CATASTRO_MINERO_9832_6": {
+    "DGFM_FGIS_AREA_RESTRINGIDA_1675": {
       "display": true
     },
     "SERV_AREA_RESERVADA_4184": {
@@ -140,6 +107,30 @@
     "SERV_AREA_RESERVADA_4184_17": {
       "display": true
     },
+    "SERV_PELIGROS_GEOLOGICOS_5540": {
+      "display": true
+    },
+    "SERV_PELIGROS_GEOLOGICOS_5540_0": {
+      "display": true
+    },
+    "SERV_PELIGROS_GEOLOGICOS_5540_1": {
+      "display": true
+    },
+    "SERV_PELIGROS_GEOLOGICOS_5540_2": {
+      "display": true
+    },
+    "SERV_PELIGROS_GEOLOGICOS_5540_3": {
+      "display": true
+    },
+    "SERV_PELIGROS_GEOLOGICOS_5540_4": {
+      "display": true
+    },
+    "SERV_PELIGROS_GEOLOGICOS_5540_5": {
+      "display": true
+    },
+    "SERV_PELIGROS_GEOLOGICOS_5540_6": {
+      "display": true
+    },
     "Topografia_447": {
       "display": true
     },
@@ -187,6 +178,9 @@
     },
     "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_2": {
       "display": true
+    },
+    "DGFM_FGIS_REINFO_1745": {
+      "display": false
     }
   }
 }
