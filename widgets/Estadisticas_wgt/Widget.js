@@ -1,4 +1,4 @@
-define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerInfos/LayerInfos', "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/StatisticDefinition", 'dojo/on', "esri/geometry/Point", '../../libs/chartjs/chartjs-plugin-labels'], function (declare, BaseWidget, lang, LayerInfos, Query, QueryTask, StatisticDefinition, on, Point) {
+define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerInfos/LayerInfos', "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/StatisticDefinition", 'dojo/on', "esri/geometry/Point", 'ChartLabels'], function (declare, BaseWidget, lang, LayerInfos, Query, QueryTask, StatisticDefinition, on, Point) {
     return declare([BaseWidget, Query, QueryTask, StatisticDefinition], {
 
         // Developer: Ing. Geógrafo Daniel Aguado H.

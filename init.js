@@ -172,6 +172,10 @@ var ie = (function() {
                 location: "dynamic-modules"
             }];
 
+            dojoConfig.aliases = [
+                ['ChartLabels', window.path + 'libs/chartjs/chartjs-plugin-labels.js']
+            ]
+
             resources.push(window.apiUrl + '/dojo/dojo.js');
         } else {
             dojoConfig.baseUrl = window.apiUrl + 'dojo';
@@ -194,6 +198,10 @@ var ie = (function() {
                 name: "configs",
                 location: window.path + "configs"
             }];
+
+            dojoConfig.aliases = [
+                ['ChartLabels', window.path + 'libs/chartjs/chartjs-plugin-labels.js']
+            ]
 
             resources.push(window.apiUrl + 'init.js');
         }

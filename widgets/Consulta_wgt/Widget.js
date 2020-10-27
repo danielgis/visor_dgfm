@@ -783,16 +783,13 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             self_cw.feature_dm.setFilter('');
             self_cw.feature_dm.getLayerObject().then(function (response) {
                 response.queryIds(query, function (results) {
-                    self_cw.numero_registros = results.length;
-                    self_cw.ap_indicador_resultados_cw.innerText = results.length;
-                    // response.queryCount(query, function(results) {
-                    // self_cw.numero_registros = results;
-                    // self_cw.ap_indicador_resultados_cw.innerText = results;
+                    var count = results ? results.length : 0;
+                    self_cw.numero_registros = count;
+                    self_cw.ap_indicador_resultados_cw.innerText = count;
                     self_cw.ap_titulo_resultados_cw.innerText = self_cw.titulo_consulta.innerText + ' encontrados';
 
                     self_cw._generatePages();
                     self_cw._queryDmByPage();
-                    // self_cw.busyIndicator.hide();
                 }, function (error) {
                     self_cw._showMessage(self_cw.nls.error_query_feature + '\n' + error.message, type = 'error');
                     self_cw.busyIndicator.hide();
