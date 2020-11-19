@@ -41,6 +41,10 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
         field_tipo_persona: 'M_TIPO_PERSONA', // Tipo de persona (natural, juridica)
         field_id_ubigeo_inei: 'ID_DIST', // Ubigeo
 
+        field_id_reinfo: 'ID_REINFO',
+        field_id_maestra: 'ID_MAESTRA',
+        field_id_autorizacion: 'ID_AUTORIZACION',
+
         // Campos Tabla DC
         field_id_tb: 'ID', // Objectid del minero informal
         field_minero_informal_tb: 'NOMBRE_MIN', // Nombre del minero informal
@@ -533,7 +537,8 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 }
 
                 if (estateLocation != 0) {
-                    newRow.getElementsByClassName('container_head_registros_cw')[0].id = r[self_cw.field_id];
+                    // newRow.getElementsByClassName('container_head_registros_cw')[0].id = r[self_cw.field_id];
+                    newRow.getElementsByClassName('container_head_registros_cw')[0].id = '' + r[self_cw.field_id_reinfo] + r[self_cw.field_id_maestra] + r[self_cw.field_id_autorizacion];
                 }
 
                 // var nodeTitle = dojo.query('.title_registros_cw', newRow)[0]
@@ -597,8 +602,9 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                         var data = results.features.map(function (i) {
                             return i.attributes;
                         });
+
                         var lidata = data.map(function (i, index) {
-                            return '<li class="registro_dc" id="' + i[self_cw.field_id] + '"><a>' + (index + 1) + '. ' + i[self_cw.field_m_ruc] + ' - ' + (i[self_cw.field_tipo_persona].toLowerCase() == 'juridica' ? i[self_cw.field_minero_informal_rep] : i[self_cw.field_minero_informal]) + '</a></li>';
+                            return '<li class="registro_dc" id="' + i[self_cw.field_id_reinfo] + i[self_cw.field_id_maestra] + i[self_cw.field_id_autorizacion] + '"><a>' + (index + 1) + '. ' + i[self_cw.field_m_ruc] + ' - ' + (i[self_cw.field_tipo_persona].toLowerCase() == 'juridica' ? i[self_cw.field_minero_informal_rep] : i[self_cw.field_minero_informal]) + '</a></li>';
                         });
                         var lidataString = lidata.join('');
                         var ulnode = dojo.create('ul');
@@ -663,7 +669,9 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             var id_row = evt.currentTarget.id;
 
             var query = new Query();
-            query.where = self_cw.field_id + ' = \'' + id_row + '\'';
+            // query.where = `${self_cw.field_id} = '${id_row}'`
+
+            query.where = self_cw.field_id_reinfo + '||' + self_cw.field_id_maestra + '||' + self_cw.field_id_autorizacion + ' = \'' + id_row + '\'';
 
             self_cw.feature_dc.layerObject.selectFeatures(query, FeatureLayer.SELECTION_NEW).then(function (response) {
                 var center = response[0].geometry;
@@ -765,7 +773,6 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                     self_cw.numero_registros = results;
                     self_cw.ap_indicador_resultados_cw.innerText = results;
                     self_cw.ap_titulo_resultados_cw.innerText = self_cw.titulo_consulta.innerText + ' encontrados';
-
                     self_cw._generatePages();
                     self_cw._queryDcByPage();
                 }, function (error) {
@@ -841,10 +848,12 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 });
 
                 var ids = data.map(function (i) {
-                    return i[self_cw.field_id];
+                    return '' + i[self_cw.field_id_reinfo] + i[self_cw.field_id_maestra] + i[self_cw.field_id_autorizacion];
                 });
                 var ids_join = ids.join("', '");
-                var query_ids = self_cw.field_id + (' IN (\' + ' + ids_join + ' + \')');
+                var query_ids = self_cw.field_id_reinfo + '||' + self_cw.field_id_maestra + '||' + self_cw.field_id_autorizacion + ' IN (\'' + ids_join + '\')';
+                // let query_ids = self_cw.field_id + ` IN (' + ${ids_join} + ')`
+
 
                 self_cw.feature_dc.setFilter(query_ids);
                 self_cw.feature_dc.show();
