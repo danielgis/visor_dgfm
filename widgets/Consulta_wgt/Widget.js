@@ -464,10 +464,10 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                         self_cw._showMessage(self_cw.nls.none_element + ' ' + id + ', ' + self_cw.nls.none_reference_map);
                     }
                 }, function (error) {
-                    self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + feature.title + ' (' + query.where + ')\n' + error.message);
+                    self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dm.title + ' (' + query.where + ')\n' + error.message);
                 });
             }, function (error) {
-                self_cw._showMessage(self_cw.nls.error_service + ' ' + feature.title + '\n' + error.message, type = 'error');
+                self_cw._showMessage(self_cw.nls.error_service + ' ' + self_cw.feature_dm.title + '\n' + error.message, type = 'error');
             });
         },
         _zoomExtendSelected: function _zoomExtendSelected(feature, whereDefinition) {

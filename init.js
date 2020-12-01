@@ -172,9 +172,9 @@ var ie = (function() {
                 location: "dynamic-modules"
             }];
 
-            dojoConfig.aliases = [
-                ['ChartLabels', window.path + 'libs/chartjs/chartjs-plugin-labels.js']
-            ]
+            // dojoConfig.aliases = [
+            //     ['ChartLabels', window.path + 'libs/chartjs/chartjs-plugin-labels.js']
+            // ]
 
             resources.push(window.apiUrl + '/dojo/dojo.js');
         } else {
