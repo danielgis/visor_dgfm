@@ -99,7 +99,7 @@ var ie = (function() {
             // 'https://cdn.jsdelivr.net/npm/chart.js@2.8.0',
             window.path + 'libs/chartjs/chart.js',
             'https://use.fontawesome.com/releases/v5.3.1/js/all.js',
-            "https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.1/es6-shim.js",
+            // "https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.1/es6-shim.js",
             window.path + 'libs/odometer/themes/odometer-theme-default.css',
             window.path + 'libs/odometer/odometer.min.js',
             // "https://github.hubspot.com/odometer/themes/odometer-theme-default.css",
