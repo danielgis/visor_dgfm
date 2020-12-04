@@ -1,4 +1,4 @@
-define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerInfos/LayerInfos', "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/StatisticDefinition", "esri/layers/FeatureLayer", "jimu/dijit/Message", 'esri/dijit/util/busyIndicator'], function (declare, _WidgetsInTemplateMixin, BaseWidget, lang, LayerInfos, Query, QueryTask, StatisticDefinition, FeatureLayer, Message, BusyIndicator) {
+define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerInfos/LayerInfos', "esri/tasks/query", "esri/tasks/QueryTask", "esri/tasks/StatisticDefinition", "esri/layers/FeatureLayer", "jimu/dijit/Message", 'esri/dijit/util/busyIndicator', "esri/SpatialReference"], function (declare, _WidgetsInTemplateMixin, BaseWidget, lang, LayerInfos, Query, QueryTask, StatisticDefinition, FeatureLayer, Message, BusyIndicator, SpatialReference) {
     return declare([BaseWidget, _WidgetsInTemplateMixin, Query, QueryTask, StatisticDefinition], {
 
         // Developer: Ing. Geógrafo Daniel Aguado H.
@@ -428,7 +428,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             self_cw.map.centerAt(center);
         },
         _zoomDmExtentToMap: function _zoomDmExtentToMap(evt) {
-
+            self_cw.busyIndicator.show();
             // self_cw._applyQueryDM.click()
             var id = evt.currentTarget.innerText;
             var query = new Query();
@@ -463,11 +463,14 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                     } else {
                         self_cw._showMessage(self_cw.nls.none_element + ' ' + id + ', ' + self_cw.nls.none_reference_map);
                     }
+                    self_cw.busyIndicator.hide();
                 }, function (error) {
                     self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dm.title + ' (' + query.where + ')\n' + error.message);
+                    self_cw.busyIndicator.hide();
                 });
             }, function (error) {
                 self_cw._showMessage(self_cw.nls.error_service + ' ' + self_cw.feature_dm.title + '\n' + error.message, type = 'error');
+                self_cw.busyIndicator.hide();
             });
         },
         _zoomExtendSelected: function _zoomExtendSelected(feature, whereDefinition) {
@@ -666,30 +669,41 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             this.busyIndicator.hide();
         },
         _showPopupRowSelectedClick: function _showPopupRowSelectedClick(evt) {
+            self_cw.busyIndicator.show();
             var id_row = evt.currentTarget.id;
 
             var query = new Query();
+            console.log(query);
             // query.where = `${self_cw.field_id} = '${id_row}'`
 
+
             query.where = self_cw.field_id_reinfo + '||' + self_cw.field_id_maestra + '||' + self_cw.field_id_autorizacion + ' = \'' + id_row + '\'';
+
+            self_cw.feature_dc.setFilter(query.where);
 
             self_cw.feature_dc.layerObject.selectFeatures(query, FeatureLayer.SELECTION_NEW).then(function (response) {
                 var center = response[0].geometry;
                 if (!center) {
                     self_cw._showMessage(self_cw.nls.error_none_geometry);
+                    self_cw.busyIndicator.hide();
                     return;
                 }
 
                 self_cw.map.infoWindow.setFeatures(response);
                 self_cw.map.infoWindow.show(center);
-                self_cw.map.centerAt(center);
+                self_cw.map.centerAndZoom(center, 18);
+                self_cw.busyIndicator.hide();
+                // self_cw.map.centerAt(center);
             }, function (error) {
                 self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dc.title + ' (' + query.where + ')\n' + error.message);
+                self_cw.busyIndicator.hide();
             }).catch(function (error) {
                 self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dc.title + '\n' + error.message);
+                self_cw.busyIndicator.hide();
             });
         },
         _showPopupRowSelectedClickDM: function _showPopupRowSelectedClickDM(evt) {
+            self_cw.busyIndicator.show();
             var id = evt.currentTarget.id;
 
             var query = new Query();
@@ -697,24 +711,57 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             query.returnGeometry = true;
             query.outFields = ['*'];
 
-            var queryTask = new QueryTask(self_cw.feature_dm.getUrl());
-            queryTask.execute(query, function (results) {
-                var center = results.features[0].geometry.getCentroid();
-                if (!center) {
-                    self_cw._showMessage(self_cw.nls.error_none_geometry);
-                    return;
-                };
-                var ext = results.features[0].geometry.getExtent();
-                self_cw.feature_dm.layerObject.selectFeatures(query, FeatureLayer.SELECTION_NEW).then(function (response) {
-                    self_cw.map.infoWindow.setFeatures(response);
+            // console.log(query)
+            self_cw.feature_dm.setFilter(query.where);
+
+            // let queryTask = new QueryTask(self_cw.feature_dm.getUrl())
+
+            // queryTask.execute(query,
+
+            self_cw.feature_dm.layerObject.queryFeatures(query, function (response) {
+                try {
+                    var center = response.features[0].geometry.getCentroid();
+                    if (!center) {
+                        self_cw._showMessage(self_cw.nls.error_none_geometry);
+                        self_cw.busyIndicator.hide();
+                        return;
+                    };
+                    self_cw.map.centerAndZoom(center, 13);
+                    self_cw.map.infoWindow.setFeatures(response.features);
                     self_cw.map.infoWindow.show(center);
-                    self_cw.map.setExtent(ext.expand(1.6), true);
-                }, function (error) {
-                    self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dm.title + ' (' + query.where + ')\n' + error.message);
-                });
+                    self_cw.busyIndicator.hide();
+                } catch (error) {
+                    console.log(error.message);
+                    self_cw.busyIndicator.hide();
+                }
             }, function (error) {
                 self_cw._showMessage(self_cw.nls.error_query_feature + ' ' + self_cw.feature_dm.title + ' (' + query.where + ')\n' + error.message);
+                self_cw.busyIndicator.hide();
             });
+            // self_cw.feature_dm.layerObject.selectFeatures(query, FeatureLayer.SELECTION_NEW)
+            //     .then(
+            //         function(response) {
+            //             try {
+            //                 let center = response[0].geometry.getCentroid();
+            //                 if (!center) {
+            //                     self_cw._showMessage(self_cw.nls.error_none_geometry);
+            //                     return;
+            //                 };
+            //                 self_cw.map.centerAndZoom(center, 13)
+            //                 self_cw.map.infoWindow.setFeatures(response);
+            //                 self_cw.map.infoWindow.show(center);
+            //             } catch (error) {
+            //                 console.log(error.message)
+            //             }
+            //         },
+            //         function(error) {
+            //             self_cw._showMessage(`${self_cw.nls.error_query_feature} ${self_cw.feature_dm.title} (${query.where})\n${error.message}`);
+            //         }
+            //     ).catch(
+            //         function(error) {
+            //             self_cw._showMessage(`${self_cw.nls.error_query_feature} ${self_cw.feature_dm.title} (${query.where})\n${error.message}`);
+            //         }
+            //     )
         },
         startup: function startup() {
             this.inherited(arguments);

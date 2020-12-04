@@ -1,8 +1,8 @@
 {
-    "layer_id_dc": "DGFM_FGIS_REINFO_7357",
-    "table_id_dc": "DGFM_FGIS_REINFO_1745",
-    "layer_id_dm": "DGFM_FGIS_CATASTRO_MINERO_5047",
-    "layer_id_dep": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_0",
-    "layer_id_prov": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_1",
-    "layer_id_dist": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_2"
+  "layer_id_dc": "DGFM_FGIS_REINFO_7357",
+  "table_id_dc": "DGFM_FGIS_REINFO_1745",
+  "layer_id_dm": "DGFM_FGIS_CATASTRO_MINERO_5047",
+  "layer_id_dep": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_0",
+  "layer_id_prov": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_1",
+  "layer_id_dist": "SERV_CARTOGRAFIA_DEMARCACION_WGS84_5485_2"
 }
