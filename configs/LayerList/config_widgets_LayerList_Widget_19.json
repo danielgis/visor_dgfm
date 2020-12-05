@@ -11,28 +11,28 @@
     "ControlLabels": true,
     "MoveupOrMovedown": true,
     "OpenAttributeTable": true,
-    "DescriptionOrShowItemDetailsOrDownload": true
+    "DescriptionOrShowItemDetailsOrDownload": false
   },
   "layerOptions": {
     "DGFM_FGIS_REINFO_7357": {
       "display": true
     },
-    "DGFM_FGIS_CATASTRO_MINERO_1714": {
+    "DGFM_FGIS_CATASTRO_MINERO_5047": {
       "display": true
     },
-    "DGFM_FGIS_CATASTRO_MINERO_1714_1215": {
+    "DGFM_FGIS_CATASTRO_MINERO_5047_9421": {
       "display": true
     },
-    "DGFM_FGIS_CATASTRO_MINERO_1714_1215_8670": {
+    "DGFM_FGIS_CATASTRO_MINERO_5047_9713": {
       "display": true
     },
     "DGFM_FGIS_REINFO_7651_1518": {
       "display": true
     },
-    "DGFM_FGIS_REINFO_7651_1518_3434": {
+    "DGFM_FGIS_REINFO_7651_1518_388": {
       "display": true
     },
-    "DGFM_FGIS_REINFO_7651_1518_3434_1989": {
+    "DGFM_FGIS_REINFO_7651_1518_388_3348": {
       "display": true
     },
     "DGFM_FGIS_REINFO_7651_1518_1508": {

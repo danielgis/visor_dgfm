@@ -1,7 +1,7 @@
 {
     "crs": [{
             "epsg": 4326,
-            "name_epsg": "WGS84 GCS"
+            "name_epsg": "WGS84 GCS (Geográficas)"
         },
         {
             "epsg": 32717,

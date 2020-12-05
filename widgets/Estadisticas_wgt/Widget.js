@@ -15,7 +15,9 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
 
         // Elementos del grafico de barras vertical
         // feature_id_vertical_bar: '',
-        field_x_vertical_bar: 'DEPARTAMENTO',
+        field_departamento_bar: 'DEPARTAMENTO',
+
+        field_x_vertical_bar: 'ID_DEPA',
         field_y_vertical_bar: 'COUNT_DEPARTAMENTO',
         label_y_vertical_bar: 'Numero de Reinfos',
 
@@ -37,6 +39,8 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
         chart_tipo_persona: null,
         chart_tipo_origen: null,
         widthPanel: 360,
+
+        initialData: {},
 
         // Almacena el valor de la ultima region seleccionada
         controller_query: null,
@@ -125,8 +129,12 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
                 where_dep = self_ew.iniClause;
                 self_ew.ap_title_indicador_ew.innerHTML = self_ew.nls.title_indicador + '<br/>' + self_ew.nls.title_indicador_nacional;
             } else {
-                where_dc = 'lower(' + self_ew.field_x_vertical_bar + ') = lower(\'' + value + '\')';
+                // self_ew.initialData[value]
+                where_dc = self_ew.field_x_vertical_bar + ' = \'' + self_ew.initialData[value] + '\'';
+                console.log(where_dc);
                 where_dep = 'lower(' + self_ew.field_dep_nm_depa + ') = lower(\'' + value + '\')';
+                // where_dc = `lower(${self_ew.field_x_vertical_bar}) = lower('${value}')`;
+                // where_dep = `lower(${self_ew.field_dep_nm_depa}) = lower('${value}')`;
                 self_ew.controller_query = value;
                 self_ew.ap_title_indicador_ew.innerHTML = self_ew.nls.title_indicador + '<br/>' + value;
             }
@@ -165,20 +173,36 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
             query.groupByFieldsForStatistics = [self_ew.field_x_vertical_bar];
 
             var countStatDef = new StatisticDefinition();
-            countStatDef.statisticType = "count";
-            countStatDef.onStatisticField = self_ew.field_x_vertical_bar;
-            countStatDef.outStatisticFieldName = self_ew.field_y_vertical_bar;
+            countStatDef.statisticType = "min";
+            countStatDef.onStatisticField = self_ew.field_departamento_bar;
+            countStatDef.outStatisticFieldName = self_ew.field_departamento_bar;
+
+            var countStatDef_2 = new StatisticDefinition();
+            countStatDef_2.statisticType = "count";
+            countStatDef_2.onStatisticField = self_ew.field_x_vertical_bar;
+            countStatDef_2.outStatisticFieldName = self_ew.field_y_vertical_bar;
 
             // query.orderByFields = [`COUNT(${self_ew.field_x_vertical_bar}) DESC`]
-            query.outStatistics = [countStatDef];
+            query.outStatistics = [countStatDef, countStatDef_2];
 
             queryTask.execute(query, function (results) {
                 var dataresults = results.features.map(function (i) {
-                    return [i.attributes[self_ew.field_x_vertical_bar], i.attributes[self_ew.field_y_vertical_bar]];
+                    return [i.attributes[self_ew.field_departamento_bar], i.attributes[self_ew.field_y_vertical_bar]];
+                });
+                var initialDataArray = results.features.map(function (i) {
+                    return [i.attributes[self_ew.field_x_vertical_bar], i.attributes[self_ew.field_departamento_bar]];
                 });
                 var dataresults_sort = dataresults.sort(function (a, b) {
                     return b[1] - a[1];
                 });
+
+                initialDataArray.forEach(function (i) {
+                    // console.log(i);
+                    self_ew.initialData[i[1]] = i[0];
+                });
+
+                // self_ew.initialData = JSON.stringify(initialDataArray);
+                // console.log(self_ew.initialData)
                 // x = results.features.map((i) => i.attributes[self_ew.field_x_vertical_bar]);
                 // y = results.features.map((i) => i.attributes[self_ew.field_y_vertical_bar]);
                 x = dataresults_sort.map(function (i) {

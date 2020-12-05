@@ -794,7 +794,7 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             var whereDefinition = '1=1';
             lyr_dc = this.layersMap.getLayerInfoById(this.config.layer_id_dc);
             lyr_dm = this.layersMap.getLayerInfoById(this.config.layer_id_dm);
-            lyr_dc.hide();
+            lyr_dc.show();
             lyr_dm.hide();
             lyr_dc.setFilter(whereDefinition);
             lyr_dm.setFilter(whereDefinition);
@@ -1130,32 +1130,64 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
             var whereDefinitionArray = [];
             self_cw.whereDefinition = '';
 
-            var ruc_dc = '(' + self_cw.field_m_ruc + ' is not null)';
+            // let ruc_dc = `(${self_cw.field_m_ruc} is not null)`;
+
+            // if (self_cw.input_ruc_dc_cw.value != '') {
+            //     ruc_dc = `(${self_cw.field_m_ruc} like '%${self_cw.input_ruc_dc_cw.value}%' and ${ruc_dc})`;
+            // }
 
             if (self_cw.input_ruc_dc_cw.value != '') {
-                ruc_dc = '(' + self_cw.field_m_ruc + ' like \'%' + self_cw.input_ruc_dc_cw.value + '%\' and ' + ruc_dc + ')';
+                var ruc_dc = '(' + self_cw.field_m_ruc + ' like \'%' + self_cw.input_ruc_dc_cw.value + '%\' and (' + self_cw.field_m_ruc + ' is not null))';
+                whereDefinitionArray.push(ruc_dc);
             }
 
-            whereDefinitionArray.push(ruc_dc);
+            // whereDefinitionArray.push(ruc_dc);
 
-            var nombre_dc = '(lower(' + self_cw.field_minero_informal + ') like lower(\'%' + self_cw.input_nombre_dc_cw.value + '%\'))';
-            whereDefinitionArray.push(nombre_dc);
+            if (self_cw.input_nombre_dc_cw.value != '') {
+                var nombre_dc = '(lower(' + self_cw.field_minero_informal + ') like lower(\'%' + self_cw.input_nombre_dc_cw.value + '%\'))';
+                whereDefinitionArray.push(nombre_dc);
+            }
 
+            // let nombre_dc = `(lower(${self_cw.field_minero_informal}) like lower('%${self_cw.input_nombre_dc_cw.value}%'))`;
+            // whereDefinitionArray.push(nombre_dc);
+
+            // original
             if (self_cw.select_tipo_persona_cw.value != '') {
                 var tipo_persona_dc = '(' + self_cw.field_tipo_persona + ' like \'%' + self_cw.select_tipo_persona_cw.value + '%\')';
                 whereDefinitionArray.push(tipo_persona_dc);
             };
 
-            var codigou_dc = '(upper(' + self_cw.field_id_unidad + ') like upper(\'%' + self_cw.input_codigou_dc_cw.value + '%\'))';
-            whereDefinitionArray.push(codigou_dc);
+            if (self_cw.input_codigou_dc_cw.value != '') {
+                var codigou_dc = '(upper(' + self_cw.field_id_unidad + ') like upper(\'%' + self_cw.input_codigou_dc_cw.value + '%\'))';
+                whereDefinitionArray.push(codigou_dc);
+            }
 
-            var nombredm_dc = '(lower(' + self_cw.field_derecho_minero + ') like lower(\'%' + self_cw.input_nombre_dm_dc_cw.value + '%\'))';
-            whereDefinitionArray.push(nombredm_dc);
+            // let codigou_dc = `(upper(${self_cw.field_id_unidad}) like upper('%${self_cw.input_codigou_dc_cw.value}%'))`;
+            // whereDefinitionArray.push(codigou_dc);
 
-            var ubigeo_dc = '(' + self_cw.field_id_ubigeo_inei + ' like \'' + self_cw.controller_ubigeo + '%\')';
-            whereDefinitionArray.push(ubigeo_dc);
+            if (self_cw.input_nombre_dm_dc_cw.value != '') {
+                var nombredm_dc = '(lower(' + self_cw.field_derecho_minero + ') like lower(\'%' + self_cw.input_nombre_dm_dc_cw.value + '%\'))';
+                whereDefinitionArray.push(nombredm_dc);
+            }
 
-            self_cw.whereDefinition = whereDefinitionArray.join(' and ');
+            // let nombredm_dc = `(lower(${self_cw.field_derecho_minero}) like lower('%${self_cw.input_nombre_dm_dc_cw.value}%'))`;
+            // whereDefinitionArray.push(nombredm_dc);
+            if (self_cw.controller_ubigeo != '') {
+                var ubigeo_dc = '(' + self_cw.field_id_ubigeo_inei + ' like \'' + self_cw.controller_ubigeo + '%\')';
+                whereDefinitionArray.push(ubigeo_dc);
+            }
+
+            // let ubigeo_dc = `(${self_cw.field_id_ubigeo_inei} like '${self_cw.controller_ubigeo}%')`;
+            // whereDefinitionArray.push(ubigeo_dc);
+
+            if (whereDefinitionArray.length == 0) {
+                self_cw.whereDefinition = self_cw.iniClause;
+            } else {
+                self_cw.whereDefinition = whereDefinitionArray.join(' and ');
+            }
+
+            // self_cw.whereDefinition = whereDefinitionArray.join(' and ');
+            // self_cw.whereDefinition = "DEPARTAMENTO = 'AREQUIPA'"
             self_cw._queryDcGeneral();
         },
         _applyQueryDM2: function _applyQueryDM2() {
