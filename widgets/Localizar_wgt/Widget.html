@@ -95,8 +95,8 @@
                 <table class="table is-small is-hoverable has-text-centered table_help_lw">
                     <thead>
                         <tr class="is-selected">
-                            <th>Este</th>
-                            <th>Norte</th>
+                            <th>Este / Lng</th>
+                            <th>Norte / Lat</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -118,7 +118,13 @@
                         </tr>
                     </tbody>
                 </table>
-                <p>${nls.msg_descargar_excel} <a href="images/sample.xlsx">${nls.msg_descargar_aqui}</a></p>
+                <p>${nls.msg_descargar_excel}</p>
+                <div class="content">
+                    <ul>
+                        <li>Formato de prueba UTM <a href="images/sample_utm.xlsx">${nls.msg_descargar_aqui}</a></li>
+                        <li>Formato de prueba GCS (Geográficas) <a href="images/sample_gcs.xlsx">${nls.msg_descargar_aqui}</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <button class="button is-small is-fullwidth is-primary btn_aplicar_lw" data-dojo-attach-point="ap_btn_aplicar_lw">${nls.title_btn_aplicar}</button>

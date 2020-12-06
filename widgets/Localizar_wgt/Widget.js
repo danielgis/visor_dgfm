@@ -69,7 +69,11 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
         },
         _validateCoordinateNumber_lw: function _validateCoordinateNumber_lw(evt) {
             var val = evt.currentTarget.value;
-            evt.currentTarget.value = val.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+            // evt.currentTarget.value = val.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+            evt.currentTarget.value = val.replace(/[^-0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(\-.*)\-/g, '$1');
+            // evt.currentTarget.value = val.replace(/^[.|\-.*]/g, '0').replace(/^[^-]?[^0-9.]*/g, '').replace(/(\..*)\./g, '$1');
+            // evt.currentTarget.value = val.replace(/(-)(.*)/g, '').replace(/(\.)(.*)/, '').replace(/[^-\.\d]/g, '')
+            // evt.currentTarget.value = val.replace(/^-?[0-9]+(?:\.[0-9]+)?$/g, '').replace(/(\..*)\./g, '$1');
         },
         _populateSelectSistemReference_lw: function _populateSelectSistemReference_lw() {
             this.config.crs.forEach(function (i) {
@@ -313,7 +317,8 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             });
             geometryService.on("error", function (error) {
                 self_lw.busyIndicator_lw.hide();
-                self_lw._showMessage(error.error.message, type = 'error');
+                var messageErr = self_lw.nls.err_coordenadas_xlsx + '\n\nDetalle:\n' + error.error.message;
+                self_lw._showMessage(messageErr, type = 'error');
             });
         },
         _validateCoordX: function _validateCoordX(x, src) {

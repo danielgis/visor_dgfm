@@ -119,7 +119,8 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
             }
 
             self_ew.feature_dc.hide();
-            self_ew.feature_dc.setFilter(this.iniClause);
+            // self_ew.feature_dc.setFilter(this.iniClause)
+            self_ew.feature_dc.setFilter(self_ew.iniClause);
 
             var value = this.data.labels[i[0]._index];
 
@@ -127,6 +128,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
                 colorSelected = colorAnother;
                 where_dc = self_ew.iniClause;
                 where_dep = self_ew.iniClause;
+                self_ew.controller_query = null;
                 self_ew.ap_title_indicador_ew.innerHTML = self_ew.nls.title_indicador + '<br/>' + self_ew.nls.title_indicador_nacional;
             } else {
                 // self_ew.initialData[value]
