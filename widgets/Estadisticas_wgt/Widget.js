@@ -374,13 +374,15 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
                 var x = results.features.map(function (i) {
                     return i.attributes[self_ew.field_x_horizontal_bar];
                 });
-                for (var index = 0; index < x.length; index++) {
-                    if (x[index] == 'SUNAT2') {
-                        x[index] = 'SUNAT 2020';
-                    } else if (x[index] == 'SUNAT') {
-                        x[index] = 'SUNAT 2017';
-                    } else {}
-                }
+                // for (let index = 0; index < x.length; index++) {
+                //     if (x[index] == 'SUNAT 2') {
+                //         x[index] = 'SUNAT 2020';
+                //     } else if (x[index] == 'SUNAT') {
+                //         x[index] = 'SUNAT 2017';
+                //     } else {
+
+                //     }
+                // }
                 var y = results.features.map(function (i) {
                     return i.attributes[self_ew.field_y_horizontal_bar];
                 });
