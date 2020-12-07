@@ -69,11 +69,14 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
         },
         _validateCoordinateNumber_lw: function _validateCoordinateNumber_lw(evt) {
             var val = evt.currentTarget.value;
-            // evt.currentTarget.value = val.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-            evt.currentTarget.value = val.replace(/[^-0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(\-.*)\-/g, '$1');
-            // evt.currentTarget.value = val.replace(/^[.|\-.*]/g, '0').replace(/^[^-]?[^0-9.]*/g, '').replace(/(\..*)\./g, '$1');
-            // evt.currentTarget.value = val.replace(/(-)(.*)/g, '').replace(/(\.)(.*)/, '').replace(/[^-\.\d]/g, '')
-            // evt.currentTarget.value = val.replace(/^-?[0-9]+(?:\.[0-9]+)?$/g, '').replace(/(\..*)\./g, '$1');
+            var srid = self_lw.select_punto_opcion_lw.value;
+            if (srid == self_lw.config.crs[0].epsg) {
+                // Solo aplica para coordenadas geograficas
+                evt.currentTarget.value = val.replace(/[^-0-9.]/g, '').replace(/(\..*)\./g, '$1').replace(/(\-.*)\-/g, '$1');
+            } else {
+                // Aplica para coordenadas UTM
+                evt.currentTarget.value = val.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+            }
         },
         _populateSelectSistemReference_lw: function _populateSelectSistemReference_lw() {
             this.config.crs.forEach(function (i) {
@@ -387,12 +390,8 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
         },
         _editaNameResult: function _editaNameResult(evt) {
             var id = evt.currentTarget.id.replace('_name', '');
-            // let idx = self_lw.obj_resultados[id].idx_label;
-            // console.log(self_lw.map.graphics.graphics[idx].symbol.text);
-            // let lyr = self_lw.map.getLayer(id);
             self_lw.map.getLayer(id).graphics[1].symbol.text = evt.currentTarget.innerText;
             self_lw.map.getLayer(id).refresh();
-            // console.log(evt.currentTarget.innerText);
         },
         _deleteResult: function _deleteResult(evt) {
             var id = evt.currentTarget.id.replace('_del', '');
@@ -437,6 +436,24 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
                 self_lw.busyIndicator_lw.hide();
             });
         },
+        _onChangeSelectSRC: function _onChangeSelectSRC(evt) {
+            var srid = evt.target.value;
+            if (srid == self_lw.config.crs[0].epsg) {
+                self_lw.ap_input_x_lw.placeholder = "Longitud";
+                self_lw.ap_input_y_lw.placeholder = "Latitud";
+                self_lw.ap_input_label_x_lw.innerText = self_lw.nls.title_longitud;
+                self_lw.ap_input_label_y_lw.innerText = self_lw.nls.title_latitud;
+            } else {
+                self_lw.ap_input_x_lw.placeholder = "Este";
+                self_lw.ap_input_y_lw.placeholder = "Norte";
+                self_lw.ap_input_label_x_lw.innerText = self_lw.nls.title_este;
+                self_lw.ap_input_label_y_lw.innerText = self_lw.nls.title_norte;
+                var val_x = self_lw.ap_input_x_lw.value;
+                var val_y = self_lw.ap_input_y_lw.value;
+                self_lw.ap_input_x_lw.value = val_x.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+                self_lw.ap_input_y_lw.value = val_y.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+            }
+        },
         startup: function startup() {
             this.inherited(arguments);
             console.log('Localizar_wgt::startup');
@@ -447,6 +464,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             dojo.query('.opcion_lw').on('click', this._tabToggleForm);
             dojo.query('.btn_aplicar_lw').on('click', this._applyGraphic);
             dojo.query('.upload_file_lw').on('change', this._uploadFile);
+            dojo.query('.select_punto_opcion_cls').on('change', this._onChangeSelectSRC);
             this._populateSelectSistemReference_lw();
         }
     }

@@ -11,7 +11,7 @@
             <label class="label is-small">${nls.title_sistema_referencial}</label>
             <div class="control has-icons-left">
                 <div class="select is-small is-fullwidth" data-dojo-attach-point="ap_select_punto_lw">
-                    <select data-dojo-attach-point="select_punto_opcion_lw">
+                    <select class="select_punto_opcion_cls" data-dojo-attach-point="select_punto_opcion_lw">
                       <!-- Las opciones se agregan desde el Widget.js utilizando la clave crs de config.json -->
                       <option value="" disabled="disabled" selected>${nls.opt_sistema_referencial_default}</option>
                 </select>
@@ -23,9 +23,9 @@
         </div>
         <div class="container_option_point_lw">
             <div class="field">
-                <label class="label is-small">${nls.title_este}</label>
+                <label class="label is-small" data-dojo-attach-point="ap_input_label_x_lw">${nls.title_este}</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input is-small" value=172000 placeholder="Este/Longitud" data-dojo-attach-point="ap_input_x_lw" data-dojo-attach-event="oninput:_validateCoordinateNumber_lw">
+                    <input class="input is-small" maxlength="11" value=172000 placeholder="Este/Longitud" data-dojo-attach-point="ap_input_x_lw" data-dojo-attach-event="oninput:_validateCoordinateNumber_lw">
                     <span class="icon is-small is-left">
                   <i class="fas fa-map-marker-alt"></i>
                 </span>
@@ -36,9 +36,9 @@
                 <p class="help has-text-danger help_x_lw" data-dojo-attach-point="ap_help_x_lw"></p>
             </div>
             <div class="field">
-                <label class="label is-small">${nls.title_norte}</label>
+                <label class="label is-small" data-dojo-attach-point="ap_input_label_y_lw">${nls.title_norte}</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input is-small" value=9492000 placeholder="Norte/Latitud" data-dojo-attach-point="ap_input_y_lw" data-dojo-attach-event="oninput:_validateCoordinateNumber_lw">
+                    <input class="input is-small" maxlength="12" value=9492000 placeholder="Norte/Latitud" data-dojo-attach-point="ap_input_y_lw" data-dojo-attach-event="oninput:_validateCoordinateNumber_lw">
                     <span class="icon is-small is-left">
                   <i class="fas fa-map-marker-alt"></i>
                 </span>
@@ -118,7 +118,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <p>${nls.msg_descargar_excel}</p>
+                <p>${nls.msg_descargar_excel}:</p>
                 <div class="content">
                     <ul>
                         <li>Formato de prueba UTM <a href="images/sample_utm.xlsx">${nls.msg_descargar_aqui}</a></li>
