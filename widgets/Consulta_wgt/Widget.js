@@ -552,8 +552,13 @@ define(['dojo/_base/declare', 'dijit/_WidgetsInTemplateMixin', 'jimu/BaseWidget'
                 var fieldsList = [];
                 fieldsList.push('<li>' + self_cw.nls.field_dc_ruc + ': ' + r[self_cw.field_m_ruc] + '</li>');
                 fieldsList.push('<li>Estado coordenada: ' + self_cw.stateCoord[estateLocation] + '</li>');
-                fieldsList.push('<li>' + self_cw.nls.field_nombre_dm + ': ' + r[self_cw.field_derecho_minero] + '</li>');
-                fieldsList.push('<li>' + self_cw.nls.field_codigou_dm + ': <span title="ver derecho minero" class="tag is-link codigou_cw">' + r[self_cw.field_id_unidad] + '<span></li>');
+
+                if (r[self_cw.field_derecho_minero]) {
+                    fieldsList.push('<li>' + self_cw.nls.field_nombre_dm + ': ' + r[self_cw.field_derecho_minero] + '</li>');
+                    fieldsList.push('<li>' + self_cw.nls.field_codigou_dm + ': <span title="ver derecho minero" class="tag is-link codigou_cw">' + r[self_cw.field_id_unidad] + '<span></li>');
+                } else {
+                    fieldsList.push('<li>Planta de Beneficio</li>');
+                }
 
                 fieldsListNode = fieldsList.join('');
 

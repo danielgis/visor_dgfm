@@ -107,22 +107,29 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
             return extent;
         },
         _zoomToRegion: function _zoomToRegion(evt) {
+            console.log(evt);
+            console.log(this.data);
             var backColor = [];
             var where_dep = void 0;
             var where_dc = void 0;
             var colorSelected = '#00feca';
             var colorAnother = '#36a2eb';
 
-            var i = this.getElementAtEvent(evt);
-            if (i.length == 0) {
-                return;
-            }
+            // let i = this.getElementAtEvent(evt);
+            // if (i.length == 0) {
+            //     return;
+            // }
 
             self_ew.feature_dc.hide();
             // self_ew.feature_dc.setFilter(this.iniClause)
             self_ew.feature_dc.setFilter(self_ew.iniClause);
 
-            var value = this.data.labels[i[0]._index];
+            // let value = this.data.labels[i[0]._index];
+
+            var pix = Chart.helpers.getRelativePosition(evt, this.chart.chart);
+            var idx_ini = this.chart.scales['y-axis-0'].getValueForPixel(pix.y);
+            // this.data.labels[c]
+            var value = this.data.labels[idx_ini];
 
             if (value == self_ew.controller_query) {
                 colorSelected = colorAnother;
@@ -141,11 +148,19 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', 'dojo/_base/lang', 'jimu/LayerI
                 self_ew.ap_title_indicador_ew.innerHTML = self_ew.nls.title_indicador + '<br/>' + value;
             }
 
-            i[0]._yScale.ticks.forEach(function (elm, idx) {
-                idx == i[0]._index ? backColor.push(colorSelected) : backColor.push(colorAnother);
+            var chartThis = this;
+
+            // if (value != 'CALLAO') {
+            this.chart.scales['y-axis-0'].ticks.forEach(function (elm, idx) {
+                // i[0]._yScale.ticks.forEach(function(elm, idx) {
+                idx_ini;
+                idx == idx_ini ? backColor.push(colorSelected) : backColor.push(colorAnother);
+                // idx == i[0]._index ? backColor.push(colorSelected) : backColor.push(colorAnother);
             });
-            this.active[0]._chart.config.data.datasets[0].backgroundColor = backColor;
-            this.update();
+            chartThis.chart.config.data.datasets[0].backgroundColor = backColor;
+            // chartThis.active[0]._chart.config.data.datasets[0].backgroundColor = backColor;
+            chartThis.update();
+            // }
 
             var query = new Query();
             query.where = where_dep;

@@ -34,7 +34,7 @@ define({
         err_formato_invalido: 'Debe cargar un archivo en formato *.xlsx"',
         err_cargar_archivo: 'Ocurrio un error al cargar el archivo',
 
-        err_coordenadas_xlsx: 'Verifique si las coordenadas cargadas en el formato *.xlsx pertenecen al sistema de referencia seleccionado.'
+        err_coordenadas_xlsx: 'Ocurrio un inconveniente al intentar graficar. Verifique si los parámetros ingresados o las coordenadas cargadas en el formato *.xlsx pertenecen al sistema de referencia seleccionado.'
 
     }
     // add supported locales below:

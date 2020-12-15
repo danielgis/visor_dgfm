@@ -320,7 +320,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
             });
             geometryService.on("error", function (error) {
                 self_lw.busyIndicator_lw.hide();
-                var messageErr = self_lw.nls.err_coordenadas_xlsx + '\n\nDetalle:\n' + error.error.message;
+                var messageErr = self_lw.nls.err_coordenadas_xlsx;
                 self_lw._showMessage(messageErr, type = 'error');
             });
         },
@@ -332,7 +332,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
                     response = x > -180 & x < 180 ? true : false;
                     return response;
                 case 'utm':
-                    response = x >= 0 & x <= 1000000 ? true : false;
+                    response = x >= 0 & x < 1000000 ? true : false;
                     return response;
                 default:
                     break;
@@ -346,7 +346,7 @@ define(['dojo/_base/declare', 'jimu/BaseWidget', "esri/SpatialReference", "esri/
                     response = y > -90 & y < 90 ? true : false;
                     return response;
                 case 'utm':
-                    response = y >= 0 & y <= 10000000 ? true : false;
+                    response = y >= 0 & y < 10000000 ? true : false;
                     return response;
                 default:
                     break;
